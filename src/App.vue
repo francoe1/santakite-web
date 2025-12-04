@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, watch } from 'vue'
 import { useSiteStore } from './stores/site'
 import TopBar from './components/layout/TopBar.vue'
 import HeroSection from './components/sections/HeroSection.vue'
@@ -9,6 +10,38 @@ import SecuritySection from './components/sections/SecuritySection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 
 const site = useSiteStore()
+
+const applySpotFromUrl = () => {
+  if (typeof window === 'undefined') return
+  const params = new URLSearchParams(window.location.search)
+  const spotId = params.get('spot')
+  if (spotId) {
+    site.setCurrentSpotId(spotId)
+  }
+}
+
+const persistSpotInUrl = (spotId) => {
+  if (typeof window === 'undefined') return
+  const url = new URL(window.location.href)
+  if (spotId) {
+    url.searchParams.set('spot', spotId)
+  } else {
+    url.searchParams.delete('spot')
+  }
+  const newUrl = `${url.pathname}${url.search}${url.hash}`
+  window.history.replaceState({}, '', newUrl)
+}
+
+onMounted(() => {
+  applySpotFromUrl()
+  watch(
+    () => site.currentSpotId,
+    (spotId) => {
+      persistSpotInUrl(spotId)
+    },
+    { immediate: true }
+  )
+})
 </script>
 
 <template>

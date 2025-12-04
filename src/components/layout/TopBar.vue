@@ -135,6 +135,10 @@ const onSelectChange = (event) => {
   font-weight: 600;
   cursor: pointer;
   min-width: 190px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
 }
 
 .topbar-nav {
