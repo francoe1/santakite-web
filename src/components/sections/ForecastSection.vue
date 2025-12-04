@@ -63,26 +63,85 @@
           <button type="button" class="close" @click="closeDetails">✕</button>
         </div>
 
-        <div class="hourly-strip">
-          <div
-            v-for="hour in selectedDay.hours"
-            :key="hour.time"
-            class="hour-card"
-            :style="hourBorderStyle(hour)"
-          >
-            <div class="hour-top">
-              <p class="hour-label">{{ hour.label }}</p>
-              <span v-if="hour.tempC < 20" class="suit" title="Traje de neoprene sugerido">🧥</span>
+        <div class="hourly-table" role="table">
+          <div class="hour-row header" role="row">
+            <div class="label-cell" role="columnheader">Hora</div>
+            <div
+              v-for="hour in selectedDay.hours"
+              :key="`h-${hour.time}`"
+              class="hour-cell time"
+              :style="hourCellStyle(hour)"
+              role="columnheader"
+            >
+              {{ hour.label }}
             </div>
-            <div class="wind-block">
-              <div class="kts">{{ hour.speedKts.toFixed(0) }} kts</div>
-              <div class="dir-block">
-                <span class="arrow" :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
-                <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
-              </div>
+          </div>
+
+          <div class="hour-row" role="row">
+            <div class="label-cell" role="rowheader">Viento (kts)</div>
+            <div
+              v-for="hour in selectedDay.hours"
+              :key="`w-${hour.time}`"
+              class="hour-cell value"
+              :style="hourCellStyle(hour)"
+              role="cell"
+            >
+              {{ hour.speedKts.toFixed(0) }}
             </div>
-            <div class="gust">Ráfagas: {{ hour.gustKts.toFixed(0) }} kts</div>
-            <div class="rain">Lluvia: {{ hour.precipMm.toFixed(1) }} mm</div>
+          </div>
+
+          <div class="hour-row" role="row">
+            <div class="label-cell" role="rowheader">Ráfagas (kts)</div>
+            <div
+              v-for="hour in selectedDay.hours"
+              :key="`g-${hour.time}`"
+              class="hour-cell value"
+              :style="hourCellStyle(hour)"
+              role="cell"
+            >
+              {{ hour.gustKts.toFixed(0) }}
+            </div>
+          </div>
+
+          <div class="hour-row" role="row">
+            <div class="label-cell" role="rowheader">Dirección</div>
+            <div
+              v-for="hour in selectedDay.hours"
+              :key="`d-${hour.time}`"
+              class="hour-cell direction"
+              :style="hourCellStyle(hour)"
+              role="cell"
+            >
+              <span class="arrow" :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
+              <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
+            </div>
+          </div>
+
+          <div class="hour-row" role="row">
+            <div class="label-cell" role="rowheader">Temperatura (°C)</div>
+            <div
+              v-for="hour in selectedDay.hours"
+              :key="`t-${hour.time}`"
+              class="hour-cell value"
+              :style="hourCellStyle(hour)"
+              role="cell"
+            >
+              <span>{{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}</span>
+              <span v-if="hour.tempC !== null && hour.tempC < 20" class="suit" title="Traje de neoprene sugerido">🧥</span>
+            </div>
+          </div>
+
+          <div class="hour-row" role="row">
+            <div class="label-cell" role="rowheader">Lluvia (mm)</div>
+            <div
+              v-for="hour in selectedDay.hours"
+              :key="`r-${hour.time}`"
+              class="hour-cell value"
+              :style="hourCellStyle(hour)"
+              role="cell"
+            >
+              {{ hour.precipMm.toFixed(1) }}
+            </div>
           </div>
         </div>
       </div>
@@ -176,15 +235,15 @@ const playabilityScore = (hour) => {
   return Math.min(Math.max(raw, 0), 1)
 }
 
-const hourBorderStyle = (hour) => {
+const hourCellStyle = (hour) => {
   const score = playabilityScore(hour)
   const hue = 8 + (128 - 8) * score
   const tone = `hsl(${hue}, 58%, 62%)`
-  const faded = `hsla(${hue}, 58%, 62%, 0.22)`
+  const wash = `hsla(${hue}, 58%, 62%, 0.16)`
   return {
     borderColor: tone,
-    boxShadow: `0 10px 22px ${faded}`,
-    background: 'rgba(15, 23, 42, 0.8)',
+    background: `linear-gradient(180deg, ${wash}, rgba(15, 23, 42, 0.85))`,
+    boxShadow: `0 10px 22px ${wash}`,
   }
 }
 
@@ -447,7 +506,7 @@ h2 {
   border: 1px solid rgba(148, 163, 184, 0.25);
   border-radius: 1rem;
   padding: 1.25rem;
-  width: min(900px, 100%);
+  width: min(1040px, 100%);
   max-height: 90vh;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -474,68 +533,67 @@ h2 {
   cursor: pointer;
 }
 
-.hourly-strip {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(80px, 1fr);
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding-bottom: 0.35rem;
-}
-
-.hour-card {
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.85rem;
-  padding: 0.75rem;
-  min-width: 80px;
-  max-width: 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-
-.hour-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.hour-label {
-  font-weight: 700;
-  color: #e2e8f0;
-}
-
-.suit {
-  font-size: 1rem;
-}
-
-.wind-block {
+.hourly-table {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
 }
 
-.kts {
-  font-size: 1.1rem;
+.hour-row {
+  display: flex;
+  gap: 0.4rem;
+  min-width: fit-content;
+}
+
+.label-cell {
+  width: 150px;
+  min-width: 150px;
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.85);
+  color: #e2e8f0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.hour-cell {
+  min-width: 80px;
+  max-width: 80px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.35rem;
+  text-align: center;
+  color: #e2e8f0;
+  display: grid;
+  gap: 0.35rem;
+  justify-items: center;
+}
+
+.hour-row.header .hour-cell {
+  font-weight: 700;
+}
+
+.hour-cell.value {
+  font-size: 1rem;
   font-weight: 800;
 }
 
-.dir-block {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: #cbd5e1;
-  flex-direction: column;
+.hour-cell.direction {
+  font-size: 0.85rem;
+  line-height: 1.2;
 }
 
-.arrow {
+.hour-cell .arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
   background: rgba(148, 163, 184, 0.12);
   border: 1px solid rgba(148, 163, 184, 0.25);
   font-weight: 900;
@@ -543,17 +601,9 @@ h2 {
 
 .dir-label {
   font-size: 0.78rem;
-  text-align: center;
-  line-height: 1.15;
 }
 
-.rain {
-  color: #cbd5e1;
-  font-size: 0.95rem;
-}
-
-.gust {
-  color: #cbd5e1;
+.suit {
   font-size: 0.9rem;
 }
 
