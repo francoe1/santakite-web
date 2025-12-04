@@ -25,14 +25,22 @@
           <div class="muted small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> kts</div>
           <div class="muted small">Dirección principal: <strong>{{ degToCompass(day.mainDirDeg) }}</strong> ({{ day.mainDirDeg }}°)</div>
           <div class="muted small">Ventana jugable: <strong>{{ day.playableCount }}</strong> hs</div>
+          <div class="muted small">Ráfaga máxima: <strong>{{ day.maxGustKts.toFixed(0) }}</strong> kts</div>
           <div class="muted small">Lluvia estimada: <strong>{{ day.totalRain.toFixed(1) }}</strong> mm</div>
+          <div class="muted small">
+            <span v-if="day.stars > 0" class="stars" :aria-label="`Mejor ventana ${day.stars} estrellas`" role="img">
+              {{ '★'.repeat(day.stars) }}
+            </span>
+            <span v-else>Sin ventana marcada</span>
+          </div>
           <div class="badge" :class="classifyDay(day).className">{{ classifyDay(day).label }}</div>
+          <div v-if="day.needsSuit" class="muted tiny suit-flag">🧥 Menos de 20°C en alguna franja: llevá neoprene</div>
           <div class="muted tiny">
             Mejor hora:
             <template v-if="day.bestHour">
               <strong>{{ day.bestHour.label }}</strong>
               · {{ day.bestHour.speedKts.toFixed(0) }} kts · {{ degToCompass(day.bestHour.dirDeg) }} ({{ day.bestHour.dirDeg }}°)
-              · lluvia {{ day.bestHour.precipMm.toFixed(1) }} mm
+              · ráfaga {{ day.bestHour.gustKts.toFixed(0) }} kts · lluvia {{ day.bestHour.precipMm.toFixed(1) }} mm
             </template>
             <template v-else>Sin datos</template>
           </div>
@@ -48,7 +56,8 @@
             <p class="eyebrow">Detalle por hora</p>
             <h3>{{ formatDate(selectedDay.date) }}</h3>
             <p class="muted small">
-              Viento > 12 nudos y dirección S/SE/E son jugables. La lluvia reduce seguridad y visibilidad.
+              Viento > 12 nudos y dirección S/SE/E son jugables. Ventana: verano 7-20 h · invierno 9-17:30 h. La lluvia reduce
+              seguridad y visibilidad.
             </p>
           </div>
           <button type="button" class="close" @click="closeDetails">✕</button>
@@ -59,14 +68,11 @@
             v-for="hour in selectedDay.hours"
             :key="hour.time"
             class="hour-card"
-            :class="{ playable: isPlayable(hour) }"
             :style="hourBorderStyle(hour)"
           >
             <div class="hour-top">
               <p class="hour-label">{{ hour.label }}</p>
-              <span class="chip" :class="isPlayable(hour) ? 'chip-ok' : 'chip-muted'">
-                {{ isPlayable(hour) ? 'Jugable' : 'No jugable' }}
-              </span>
+              <span v-if="hour.tempC < 20" class="suit" title="Traje de neoprene sugerido">🧥</span>
             </div>
             <div class="wind-block">
               <div class="kts">{{ hour.speedKts.toFixed(0) }} kts</div>
@@ -75,6 +81,7 @@
                 <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
               </div>
             </div>
+            <div class="gust">Ráfagas: {{ hour.gustKts.toFixed(0) }} kts</div>
             <div class="rain">Lluvia: {{ hour.precipMm.toFixed(1) }} mm</div>
           </div>
         </div>
@@ -113,8 +120,15 @@ const classifyDay = (day) => {
   const soaked = day.totalRain >= 5
   if (!hasPlayable) return { label: 'No apto', className: 'badge-bad' }
   if (soaked) return { label: 'Dudoso por lluvia', className: 'badge-warn' }
-  if (day.playableCount >= 3) return { label: 'Óptimo', className: 'badge-ok' }
+  if (day.playableCount >= 6) return { label: 'Óptimo', className: 'badge-ok' }
   return { label: 'A revisar', className: 'badge-warn' }
+}
+
+const bestStarRating = (playableHours) => {
+  if (playableHours >= 6) return 3
+  if (playableHours >= 4) return 2
+  if (playableHours >= 2) return 1
+  return 0
 }
 
 const formatDate = (dateStr) => {
@@ -128,7 +142,26 @@ const isPreferredDirection = (deg) => {
   return compass === 'S' || compass === 'SE' || compass === 'E'
 }
 
-const isPlayable = (hour) => hour.speedKts >= 12 && isPreferredDirection(hour.dirDeg)
+const isSummerDate = (dateStr) => {
+  const month = new Date(dateStr).getMonth()
+  return month >= 10 || month <= 2
+}
+
+const isWithinWindow = (dateTime) => {
+  const date = new Date(dateTime)
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  if (isSummerDate(dateTime)) {
+    return hour >= 7 && hour <= 20
+  }
+  if (hour < 9) return false
+  if (hour < 17) return true
+  if (hour === 17) return minute <= 30
+  return false
+}
+
+const isPlayable = (hour) =>
+  hour.speedKts >= 12 && isPreferredDirection(hour.dirDeg) && hour.precipMm < 3 && isWithinWindow(hour.time)
 
 const openDetails = (day) => {
   selectedDay.value = day
@@ -138,7 +171,8 @@ const playabilityScore = (hour) => {
   const speedScore = Math.min(Math.max((hour.speedKts - 8) / 14, 0), 1)
   const directionBoost = isPreferredDirection(hour.dirDeg) ? 0.3 : -0.25
   const rainPenalty = Math.min(hour.precipMm / 5, 0.35)
-  const raw = speedScore + directionBoost - rainPenalty
+  const windowPenalty = isWithinWindow(hour.time) ? 0 : 0.4
+  const raw = speedScore + directionBoost - rainPenalty - windowPenalty
   return Math.min(Math.max(raw, 0), 1)
 }
 
@@ -173,13 +207,13 @@ onBeforeUnmount(() => {
 onMounted(async () => {
   try {
     const url =
-      'https://api.open-meteo.com/v1/gfs?latitude=-30.9085&longitude=-57.915&hourly=winddirection_10m,windspeed_10m,precipitation&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn'
+      'https://api.open-meteo.com/v1/gfs?latitude=-30.9085&longitude=-57.915&hourly=winddirection_10m,windspeed_10m,windgusts_10m,precipitation,temperature_2m&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn'
 
     const response = await fetch(url)
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
     const data = await response.json()
-    const { time, windspeed_10m, winddirection_10m, precipitation } = data.hourly
+    const { time, windspeed_10m, winddirection_10m, windgusts_10m, precipitation, temperature_2m } = data.hourly
     const map = {}
 
     for (let i = 0; i < time.length; i += 1) {
@@ -188,6 +222,8 @@ onMounted(async () => {
       const speedKts = windspeed_10m[i]
       const dirDeg = winddirection_10m[i]
       const rainMm = precipitation[i] ?? 0
+      const gustKts = windgusts_10m[i] ?? windspeed_10m[i]
+      const tempC = temperature_2m[i] ?? null
 
       map[date].speeds.push(speedKts)
       map[date].dirs.push(dirDeg)
@@ -198,6 +234,8 @@ onMounted(async () => {
         speedKts: speedKts,
         dirDeg: Math.round(dirDeg),
         precipMm: rainMm,
+        gustKts: gustKts,
+        tempC: tempC,
       })
     }
 
@@ -210,8 +248,11 @@ onMounted(async () => {
       const avgWind = speeds.reduce((a, b) => a + b, 0) / speeds.length
       const avgDir = dirs.reduce((a, b) => a + b, 0) / dirs.length
       const totalRain = rains.reduce((a, b) => a + b, 0)
-      const playableHours = hours.filter((h) => h.speedKts >= 12 && isPreferredDirection(h.dirDeg))
+      const playableHours = hours.filter((h) => isPlayable(h))
       const bestHourEntry = playableHours.sort((a, b) => b.speedKts - a.speedKts)[0]
+      const maxGust = Math.max(...hours.map((h) => h.gustKts))
+      const stars = bestStarRating(playableHours.length)
+      const needsSuit = hours.some((h) => h.tempC !== null && h.tempC < 20)
 
       return {
         date,
@@ -219,12 +260,16 @@ onMounted(async () => {
         mainDirDeg: Math.round(avgDir),
         totalRain,
         playableCount: playableHours.length,
+        maxGustKts: Math.round(maxGust),
+        stars,
+        needsSuit,
         bestHour: bestHourEntry
           ? {
               label: bestHourEntry.label,
               speedKts: bestHourEntry.speedKts,
               dirDeg: bestHourEntry.dirDeg,
               precipMm: bestHourEntry.precipMm,
+              gustKts: bestHourEntry.gustKts,
             }
           : null,
         hours,
@@ -449,11 +494,6 @@ h2 {
   gap: 0.55rem;
 }
 
-.hour-card.playable {
-  border-color: rgba(34, 197, 94, 0.45);
-  box-shadow: 0 12px 28px rgba(34, 197, 94, 0.15);
-}
-
 .hour-top {
   display: flex;
   justify-content: space-between;
@@ -466,24 +506,8 @@ h2 {
   color: #e2e8f0;
 }
 
-.chip {
-  border-radius: 999px;
-  padding: 0.2rem 0.65rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  border: 1px solid transparent;
-}
-
-.chip-ok {
-  background: rgba(34, 197, 94, 0.18);
-  color: #22c55e;
-  border-color: rgba(34, 197, 94, 0.35);
-}
-
-.chip-muted {
-  background: rgba(148, 163, 184, 0.14);
-  color: #cbd5e1;
-  border-color: rgba(148, 163, 184, 0.3);
+.suit {
+  font-size: 1rem;
 }
 
 .wind-block {
@@ -526,5 +550,21 @@ h2 {
 .rain {
   color: #cbd5e1;
   font-size: 0.95rem;
+}
+
+.gust {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.stars {
+  color: #fbbf24;
+  letter-spacing: 3px;
+}
+
+.suit-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 </style>

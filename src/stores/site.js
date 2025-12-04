@@ -53,9 +53,24 @@ export const useSiteStore = defineStore('site', {
       ],
     },
     contacts: [
-      { label: 'WhatsApp', value: '+54 3456 479677' },
-      { label: 'Instagram', value: 'instagram.com/santakitechajari' },
-      { label: 'Ubicación', value: 'Playa 52 – Santa Ana, Entre Ríos' },
+      {
+        label: 'WhatsApp',
+        value: '+54 3456 479677',
+        href: 'https://wa.me/543456479677',
+        icon: 'whatsapp',
+      },
+      {
+        label: 'Instagram',
+        value: '@santakitechajari',
+        href: 'https://www.instagram.com/santakitechajari/',
+        icon: 'instagram',
+      },
+      {
+        label: 'Ubicación',
+        value: 'Playa 52 – Santa Ana, Entre Ríos',
+        detail: 'Coordenadas: -30.9085, -57.9150',
+        icon: 'location',
+      },
     ],
   }),
 })
