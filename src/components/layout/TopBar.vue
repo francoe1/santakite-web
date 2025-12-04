@@ -25,9 +25,6 @@
           >
             {{ item.label }}
           </button>
-          <a class="cta" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">
-            Reservar
-          </a>
         </nav>
       </div>
     </div>
@@ -166,22 +163,6 @@ const onSelectChange = (event) => {
   color: #0f2f3f;
 }
 
-.cta {
-  padding: 0.65rem 1.25rem;
-
-  background: #0f4c5c;
-  color: #f6fbfd;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  border: 1px solid #0f4c5c;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.cta:hover {
-  background: #093544;
-  color: #e9f4f8;
-}
-
 @media (max-width: 720px) {
   .topbar-inner {
     flex-direction: column;
@@ -202,8 +183,7 @@ const onSelectChange = (event) => {
     gap: 0.6rem;
   }
 
-  .nav-button,
-  .cta {
+  .nav-button {
     flex: 1;
     text-align: center;
   }
