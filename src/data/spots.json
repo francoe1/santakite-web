@@ -243,12 +243,6 @@
     },
     "contacts": [
       {
-        "label": "Emergencias Prefectura",
-        "value": "Llamar 106",
-        "href": "tel:106",
-        "icon": "phone"
-      },
-      {
         "label": "Ubicación",
         "value": "Playa Grande – Federación",
         "detail": "Coordenadas: -30.983513, -57.914698",
@@ -257,23 +251,23 @@
     ]
   },
   {
-    "id": "prefectura-santa-ana",
-    "name": "Prefectura Santa Ana",
-    "location": "Base Prefectura Naval, Santa Ana (Entre Ríos)",
+    "id": "santa-ana-oeste",
+    "name": "Santa Ana Oeste",
+    "location": "Rampa oeste, Santa Ana (Entre Ríos)",
     "coordinates": {
       "lat": -30.913645,
       "lon": -57.930449
     },
     "references": {
       "coordinatesLabel": "-30.913645, -57.930449",
-      "description": "Zona de Prefectura, Santa Ana – acceso por camino costero."
+      "description": "Rampa oeste de Santa Ana – acceso por camino costero."
     },
     "hero": {
       "badge": "Santa Ana · Río Uruguay",
       "title": "Ventana oeste",
-      "accent": "para navegar frente a Prefectura",
+      "accent": "para navegar en la rampa oeste",
       "lead": "Spot lateral al oeste con espacio de arena firme y acceso directo al río.",
-      "tags": ["Viento W", "Rampa de arena", "Apoyo de Prefectura"]
+      "tags": ["Viento W", "Rampa de arena", "Zonas separadas"]
     },
     "highlights": [
       {
@@ -282,7 +276,7 @@
       },
       {
         "title": "Acceso y armado",
-        "description": "Entrada cercana a la base de Prefectura con franja de arena para armar y lanzar con asistencia."
+        "description": "Entrada por la rampa oeste con franja de arena para armar y lanzar con asistencia entre riders."
       },
       {
         "title": "Separación de zonas",
@@ -304,7 +298,7 @@
         {
           "lat": -30.913645,
           "lon": -57.930449,
-          "label": "Prefectura Santa Ana – zona de armado"
+          "label": "Rampa oeste Santa Ana – zona de armado"
         },
         {
           "lat": -30.9144,
@@ -337,7 +331,7 @@
       "speedScoreCap": 14
     },
     "security": {
-      "intro": "Coordinar con Prefectura, respetar la rampa de embarque y mantener la navegación al sur para no interferir con tráfico fluvial.",
+      "intro": "Respetar la rampa de embarque y mantener la navegación al sur para no interferir con tráfico fluvial.",
       "steps": [
         {
           "title": "Antes de armar",
@@ -352,14 +346,14 @@
           "items": [
             "Mantenerse dentro del polígono de navegación y evitar maniobras frente a la rampa.",
             "Usar body drag de entrada y salida para alejar el kite de la orilla.",
-            "Avisar lanzamientos/aterrizajes para coordinar con otros riders y Prefectura."
+            "Avisar lanzamientos/aterrizajes para coordinar con otros riders."
           ]
         },
         {
           "title": "Al cerrar",
           "items": [
             "Bajar cometa en la zona verde, enrollar líneas y despejar la rampa.",
-            "Reportar cambios de corriente o peligros flotantes a Prefectura y al grupo.",
+            "Reportar cambios de corriente o peligros flotantes al grupo.",
             "Retirar basura y revisar que no queden anclajes en la arena."
           ]
         }
@@ -367,14 +361,8 @@
     },
     "contacts": [
       {
-        "label": "Emergencias Prefectura",
-        "value": "Llamar 106",
-        "href": "tel:106",
-        "icon": "phone"
-      },
-      {
         "label": "Ubicación",
-        "value": "Base Prefectura – Santa Ana",
+        "value": "Rampa oeste – Santa Ana",
         "detail": "Coordenadas: -30.913645, -57.930449",
         "icon": "location"
       }
