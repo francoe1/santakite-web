@@ -1,45 +1,44 @@
 <template>
   <section id="hero" class="hero">
     <div class="hero-copy">
-      <p class="badge">Kitesurf en Punta Lara</p>
+      <p class="badge">Santa Ana · Entre Ríos</p>
       <h1>
-        Kitesurf moderno y seguro
+        Spot de kitesurf accesible y ordenado
         <span class="accent">en Playa 52</span>
       </h1>
       <p class="lead">
-        Escuela boutique en Santa Ana con coaches certificados, radios BBTalkin y spot amplio para aprender, progresar o
-        entrenar downwinds sin perder tiempo.
+        Información clara del spot, zonas sugeridas y pronóstico GFS para decidir rápido si se puede navegar.
       </p>
       <div class="hero-actions">
-        <a class="primary" href="https://wa.me/5491137787151" target="_blank" rel="noreferrer">Agendar sesión</a>
-        <button class="ghost" type="button" @click="scrollTo('servicios')">Ver servicios</button>
+        <a class="primary" href="https://wa.me/5491137787151" target="_blank" rel="noreferrer">Escribir al WhatsApp</a>
+        <button class="ghost" type="button" @click="scrollTo('mapa')">Ver mapa</button>
       </div>
       <div class="hero-tags" aria-label="Destacados">
-        <span>Clases 1:1</span>
-        <span>Downwinds guiados</span>
-        <span>Equipo listo</span>
+        <span>Vientos S · SE · E</span>
+        <span>Zonas separadas</span>
+        <span>Pronóstico GFS</span>
       </div>
     </div>
     <div class="hero-card" role="presentation">
       <div class="card-inner">
-        <p class="eyebrow">Session-ready</p>
-        <h2>Viento limpio, checklist rápido y radios conectadas.</h2>
-        <p class="muted">Armamos tu quiver, hacemos briefing y salís a navegar con asistencia.</p>
+        <p class="eyebrow">Referencia rápida</p>
+        <h2>Río tranquilo, espacio de arena y accesos directos.</h2>
+        <p class="muted">Usá la info del mapa, respetá las zonas y revisá el pronóstico antes de armar.</p>
         <div class="stat-grid">
           <div>
-            <p class="stat">+10</p>
-            <p class="muted">Años enseñando</p>
+            <p class="stat">-30.9085</p>
+            <p class="muted">Latitud</p>
           </div>
           <div>
-            <p class="stat">250</p>
-            <p class="muted">Días de viento</p>
+            <p class="stat">-57.9150</p>
+            <p class="muted">Longitud</p>
           </div>
           <div>
-            <p class="stat">+400</p>
-            <p class="muted">Alumnos</p>
+            <p class="stat">7 días</p>
+            <p class="muted">Pronóstico GFS</p>
           </div>
         </div>
-        <div class="mini-chip">Playa 52 · Punta Lara</div>
+        <div class="mini-chip">Playa 52 · Santa Ana</div>
       </div>
     </div>
   </section>

@@ -3,8 +3,8 @@
     <div class="section-head">
       <p class="eyebrow">Seguridad y protocolo</p>
       <div>
-        <h2>Checklist claro para navegar tranquilo</h2>
-        <p class="muted">Comunicación constante, equipos revisados y apoyo para que cada sesión sea prolija.</p>
+        <h2>Checklist claro para usar el spot</h2>
+        <p class="muted">Indicaciones básicas para convivir con bañistas y mantener la zona de kites ordenada.</p>
       </div>
     </div>
     <div class="steps">

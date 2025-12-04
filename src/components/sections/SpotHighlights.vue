@@ -3,8 +3,8 @@
     <div class="section-head">
       <p class="eyebrow">El spot</p>
       <div>
-        <h2>Playa 52: amplio, seguro y cerca</h2>
-        <p class="muted">Setup rápido, viento limpio y mucha zona de práctica con guardavidas y accesos directos.</p>
+        <h2>Playa 52 en Santa Ana</h2>
+        <p class="muted">Zona abierta de río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
       </div>
     </div>
     <div class="cards">
@@ -14,8 +14,8 @@
       </article>
     </div>
     <div class="info-banner">
-      <p>Coordenadas: <strong>-34.7470, -58.0014</strong></p>
-      <p>Referencia: entrada a Playa 52, Punta Lara. Dejás el auto al lado de la bajada.</p>
+      <p>Coordenadas: <strong>-30.9085, -57.9150</strong></p>
+      <p>Referencia: Playa 52, Santa Ana, Entre Ríos.</p>
     </div>
   </section>
 </template>

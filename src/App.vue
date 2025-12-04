@@ -2,12 +2,10 @@
 import { useSiteStore } from './stores/site'
 import TopBar from './components/layout/TopBar.vue'
 import HeroSection from './components/sections/HeroSection.vue'
-import MetricsGrid from './components/sections/MetricsGrid.vue'
-import ServicesSection from './components/sections/ServicesSection.vue'
 import SpotHighlights from './components/sections/SpotHighlights.vue'
+import MapSection from './components/sections/MapSection.vue'
+import ForecastSection from './components/sections/ForecastSection.vue'
 import SecuritySection from './components/sections/SecuritySection.vue'
-import AgendaSection from './components/sections/AgendaSection.vue'
-import EquipmentSection from './components/sections/EquipmentSection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 
 const site = useSiteStore()
@@ -17,12 +15,10 @@ const site = useSiteStore()
   <TopBar :nav-items="site.navItems" />
   <main class="page">
     <HeroSection />
-    <MetricsGrid :metrics="site.metrics" />
-    <ServicesSection :services="site.services" />
     <SpotHighlights :highlights="site.spotHighlights" />
+    <MapSection />
+    <ForecastSection />
     <SecuritySection :security="site.security" />
-    <AgendaSection :agenda="site.agenda" />
-    <EquipmentSection :equipment="site.equipment" />
     <ContactSection :contacts="site.contacts" />
   </main>
 </template>

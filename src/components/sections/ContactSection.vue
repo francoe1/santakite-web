@@ -3,8 +3,8 @@
     <div class="contact-card">
       <div>
         <p class="eyebrow">Contacto</p>
-        <h2>Coordinar sesión o demo</h2>
-        <p class="muted">Enviá un WhatsApp con día, nivel y si querés clase, downwind o alquiler asistido.</p>
+        <h2>Coordinar visita</h2>
+        <p class="muted">Compartí día y horario para avisar presencia en el spot y respetar las zonas marcadas.</p>
       </div>
       <div class="contact-grid">
         <div v-for="contact in contacts" :key="contact.label" class="contact-item">
@@ -23,10 +23,9 @@
       <div class="map-copy">
         <p class="eyebrow">Cómo llegar</p>
         <p class="muted">
-          Playa 52, Punta Lara. Estacionás junto a la bajada y caminás 1 minuto hasta el spot. Zona con guardavidas y
-          espacio para armar tranquilo.
+          Playa 52, Santa Ana, Entre Ríos. Acceso público sobre el río; mantener libre el paso de bañistas.
         </p>
-        <p class="mini-chip">Coordenadas: -34.7470, -58.0014</p>
+        <p class="mini-chip">Coordenadas: -30.9085, -57.9150</p>
       </div>
     </div>
   </section>
