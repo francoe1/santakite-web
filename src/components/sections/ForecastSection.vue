@@ -107,9 +107,59 @@ const statusClass = computed(() => ({
 }))
 
 const isPlayable = (hour) => {
+  if (!hour || hour.speedKts == null || hour.dirDeg == null) return false
   if (hour.speedKts < forecastConfig.value.minPlayableKts) return false
   if (hour.precipMm >= forecastConfig.value.maxPrecipMm) return false
   return preferredDirectionSet.value.has(degToCompass(hour.dirDeg))
+}
+
+const summarizeDay = (day) => {
+  const hours = Array.isArray(day.hours) ? day.hours : []
+
+  const validSpeeds = hours.map((h) => h?.speedKts).filter((n) => Number.isFinite(n))
+  const validGusts = hours.map((h) => h?.gustKts).filter((n) => Number.isFinite(n))
+  const validPrecip = hours.map((h) => h?.precipMm).filter((n) => Number.isFinite(n))
+  const validDirs = hours.map((h) => h?.dirDeg).filter((n) => Number.isFinite(n))
+
+  const avgWindKts =
+    validSpeeds.reduce((sum, n) => sum + n, 0) / (validSpeeds.length || 1)
+
+  const maxGustKts = validGusts.length ? Math.max(...validGusts) : 0
+  const totalRain = validPrecip.reduce((sum, n) => sum + n, 0)
+
+  const directionCounts = validDirs.reduce((acc, dir) => {
+    const key = Math.round(dir)
+    acc[key] = (acc[key] || 0) + 1
+    return acc
+  }, {})
+  const mainDirDeg = Number(
+    Object.entries(directionCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 0
+  )
+
+  const playableHours = hours.filter((hour) => isPlayable(hour))
+  const playableShare = hours.length ? playableHours.length / hours.length : 0
+
+  const stars = playableShare > 0.65 ? 3 : playableShare > 0.4 ? 2 : playableShare > 0.2 ? 1 : 0
+
+  const sortableHours = hours.filter((h) => Number.isFinite(h?.speedKts))
+  const bestPlayable = [...playableHours].sort(
+    (a, b) => (b.speedKts ?? 0) - (a.speedKts ?? 0)
+  )[0]
+  const bestAny = [...sortableHours].sort(
+    (a, b) => (b?.speedKts ?? 0) - (a?.speedKts ?? 0)
+  )[0]
+  const bestHour = bestPlayable || (sortableHours.length ? bestAny : null)
+
+  return {
+    ...day,
+    avgWindKts,
+    maxGustKts,
+    totalRain,
+    mainDirDeg,
+    playableCount: playableHours.length,
+    stars,
+    bestHour: bestHour || null,
+  }
 }
 
 const classifyDay = (day) => {
@@ -166,7 +216,7 @@ const refreshForecast = async () => {
       maxPrecipMm: forecastConfig.value.maxPrecipMm,
     })
 
-    forecast.value = data
+    forecast.value = data.map((day) => summarizeDay(day))
 
     const anyGood = data.some((day) => classifyDay(day) === 'good')
     const anyPlayable = data.some((day) => classifyDay(day) !== 'bad')
