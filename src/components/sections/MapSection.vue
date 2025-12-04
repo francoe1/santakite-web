@@ -82,12 +82,12 @@ onMounted(async () => {
         <h2 class="section-title">Ubicación y áreas seguras</h2>
         <p class="section-description">Delimitamos sectores para lanzar y para bañistas. Revisá antes de entrar al agua.</p>
       </div>
-      <div class="tag bg-[var(--accent-2)]/15 text-[var(--accent-2)]">Modo offline seguro</div>
+      <div class="tag bg-accent2-15 text-[var(--accent-2)]">Modo offline seguro</div>
     </div>
 
     <div class="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
       <div class="space-y-3">
-        <div ref="mapEl" class="h-[360px] w-full overflow-hidden rounded-2xl border border-[var(--outline)]/60 bg-[var(--surface-card)]"></div>
+        <div ref="mapEl" class="h-[360px] w-full overflow-hidden rounded-2xl border border-outline-60 bg-[var(--surface-card)]"></div>
         <div class="grid gap-2 sm:grid-cols-2 text-sm text-muted">
           <div class="flex items-center gap-2">
             <span class="h-4 w-4 rounded bg-emerald-400 shadow-sm"></span>
@@ -107,10 +107,10 @@ onMounted(async () => {
             <p class="section-eyebrow">Viento en vivo</p>
             <h3 class="text-xl font-bold">Overlay GFS</h3>
           </div>
-          <span class="tag bg-[var(--accent)]/10 text-[var(--accent)]">Windy</span>
+          <span class="tag bg-accent-10 text-[var(--accent)]">Windy</span>
         </div>
         <p class="text-muted text-sm">Visor centrado en Playa 52 con capa de viento del modelo GFS.</p>
-        <div class="relative overflow-hidden rounded-2xl border border-[var(--outline)]/60">
+        <div class="relative overflow-hidden rounded-2xl border border-outline-60">
           <iframe
             width="100%"
             height="320"

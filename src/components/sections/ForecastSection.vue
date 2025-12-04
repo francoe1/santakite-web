@@ -199,7 +199,7 @@ onMounted(async () => {
         <h2 class="section-title">¿Es navegable los próximos días?</h2>
         <p class="section-description">Usamos datos horarios del modelo GFS (Open-Meteo) sobre Playa 52 para resumir 7 días.</p>
       </div>
-      <span class="tag bg-[var(--accent)]/10 text-[var(--accent)]">Automático</span>
+      <span class="tag bg-accent-10 text-[var(--accent)]">Automático</span>
     </div>
 
     <div class="glass-card p-4 md:p-5 space-y-4 shadow-android">
@@ -212,7 +212,7 @@ onMounted(async () => {
           v-for="day in forecast"
           :key="day.date"
           type="button"
-          class="glass-card text-left p-4 md:p-5 space-y-2 border border-[var(--outline)]/50 hover:-translate-y-0.5 transition"
+          class="glass-card text-left p-4 md:p-5 space-y-2 border border-outline-50 hover:-translate-y-0.5 transition"
           @click="openDetails(day)"
         >
           <div class="flex items-center justify-between">
@@ -249,50 +249,50 @@ onMounted(async () => {
           <button type="button" class="pill-button" @click="closeDetails">Cerrar</button>
         </div>
 
-        <div class="overflow-x-auto rounded-2xl border border-[var(--outline)]/60">
+        <div class="overflow-x-auto rounded-2xl border border-outline-60">
           <div class="flex flex-col">
-            <div class="flex border-b border-[var(--outline)]/50 bg-[var(--surface-card)]/80 backdrop-blur">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-bold border-r border-[var(--outline)]/50">Hora</div>
+            <div class="flex border-b border-outline-50 bg-surface-card-80 backdrop-blur">
+              <div class="w-[150px] min-w-[150px] px-3 py-2 font-bold border-r border-outline-50">Hora</div>
               <div
                 v-for="hour in selectedDay.hours"
                 :key="`h-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-[var(--on-surface)] border-l border-[var(--outline)]/40"
+                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-[var(--on-surface)] border-l border-outline-40"
                 :style="hourCellStyle(hour)"
               >
                 {{ hour.label }}
               </div>
             </div>
 
-            <div class="flex border-b border-[var(--outline)]/50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-[var(--outline)]/50">Viento (kts)</div>
+            <div class="flex border-b border-outline-50">
+              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Viento (kts)</div>
               <div
                 v-for="hour in selectedDay.hours"
                 :key="`w-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-extrabold text-white border-l border-[var(--outline)]/40"
+                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-extrabold text-white border-l border-outline-40"
                 :style="hourCellStyle(hour)"
               >
                 {{ hour.speedKts.toFixed(0) }}
               </div>
             </div>
 
-            <div class="flex border-b border-[var(--outline)]/50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-[var(--outline)]/50">Ráfagas (kts)</div>
+            <div class="flex border-b border-outline-50">
+              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Ráfagas (kts)</div>
               <div
                 v-for="hour in selectedDay.hours"
                 :key="`g-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-[var(--outline)]/40"
+                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
                 :style="hourCellStyle(hour)"
               >
                 {{ hour.gustKts.toFixed(0) }}
               </div>
             </div>
 
-            <div class="flex border-b border-[var(--outline)]/50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-[var(--outline)]/50">Dirección</div>
+            <div class="flex border-b border-outline-50">
+              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Dirección</div>
               <div
                 v-for="hour in selectedDay.hours"
                 :key="`d-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center text-white border-l border-[var(--outline)]/40 space-y-1"
+                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center text-white border-l border-outline-40 space-y-1"
                 :style="hourCellStyle(hour)"
               >
                 <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/20">
@@ -302,12 +302,12 @@ onMounted(async () => {
               </div>
             </div>
 
-            <div class="flex border-b border-[var(--outline)]/50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-[var(--outline)]/50">Temperatura (°C)</div>
+            <div class="flex border-b border-outline-50">
+              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Temperatura (°C)</div>
               <div
                 v-for="hour in selectedDay.hours"
                 :key="`t-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-[var(--outline)]/40"
+                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
                 :style="hourCellStyle(hour)"
               >
                 {{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}
@@ -315,11 +315,11 @@ onMounted(async () => {
             </div>
 
             <div class="flex">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-[var(--outline)]/50">Lluvia (mm)</div>
+              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Lluvia (mm)</div>
               <div
                 v-for="hour in selectedDay.hours"
                 :key="`r-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-[var(--outline)]/40"
+                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
                 :style="hourCellStyle(hour)"
               >
                 {{ hour.precipMm.toFixed(1) }}

@@ -12,7 +12,7 @@ defineProps({
         <h2 class="section-title">Playa 52 en Santa Ana</h2>
         <p class="section-description">Zona abierta del río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
       </div>
-      <div class="tag bg-[var(--accent)]/10 text-[var(--accent)]">-30.9085, -57.9150</div>
+      <div class="tag bg-accent-10 text-[var(--accent)]">-30.9085, -57.9150</div>
     </div>
 
     <div class="grid gap-3 md:gap-4 md:grid-cols-3">

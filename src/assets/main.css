@@ -49,15 +49,19 @@
   }
 
   .glass-card {
-    @apply bg-[var(--surface-card)]/90 backdrop-blur-md border border-[var(--outline)]/50 rounded-xl3 shadow-androidSoft;
+    background-color: color-mix(in srgb, var(--surface-card) 90%, transparent);
+    border-color: color-mix(in srgb, var(--outline) 50%, transparent);
+    @apply backdrop-blur-md border rounded-xl3 shadow-androidSoft;
   }
 
   .pill-button {
-    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 font-semibold text-[var(--on-surface)] bg-[var(--surface-strong)] border border-[var(--outline)]/60 shadow-sm transition-all duration-150 hover:-translate-y-[1px];
+    border-color: color-mix(in srgb, var(--outline) 60%, transparent);
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 font-semibold text-[var(--on-surface)] bg-[var(--surface-strong)] border shadow-sm transition-all duration-150 hover:-translate-y-[1px];
   }
 
   .tag {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--outline)]/60 text-sm font-semibold text-[var(--on-surface)] bg-[var(--surface-card)];
+    border-color: color-mix(in srgb, var(--outline) 60%, transparent);
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm font-semibold text-[var(--on-surface)] bg-[var(--surface-card)];
   }
 
   .section-block {
@@ -86,10 +90,38 @@
     color: var(--muted);
   }
 
+  .bg-surface-card-80 {
+    background-color: color-mix(in srgb, var(--surface-card) 80%, transparent);
+  }
+
+  .bg-surface-card-90 {
+    background-color: color-mix(in srgb, var(--surface-card) 90%, transparent);
+  }
+
   .bg-android {
     background: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.22), transparent 40%),
       radial-gradient(circle at 80% 10%, rgba(16, 185, 129, 0.28), transparent 40%),
       var(--surface);
+  }
+
+  .bg-accent-10 {
+    background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .bg-accent2-15 {
+    background-color: color-mix(in srgb, var(--accent-2) 15%, transparent);
+  }
+
+  .border-outline-40 {
+    border-color: color-mix(in srgb, var(--outline) 40%, transparent);
+  }
+
+  .border-outline-50 {
+    border-color: color-mix(in srgb, var(--outline) 50%, transparent);
+  }
+
+  .border-outline-60 {
+    border-color: color-mix(in srgb, var(--outline) 60%, transparent);
   }
 
   .gradient-card {

@@ -41,7 +41,7 @@ onMounted(async () => {
   <section id="hero" class="section-block gradient-card overflow-hidden">
     <div class="grid gap-6 lg:grid-cols-2 lg:items-center">
       <div class="space-y-4">
-        <div class="inline-flex items-center gap-2 rounded-full bg-[var(--surface-strong)] px-3 py-1 text-xs font-bold text-[var(--muted)] border border-[var(--outline)]/60">
+        <div class="inline-flex items-center gap-2 rounded-full bg-[var(--surface-strong)] px-3 py-1 text-xs font-bold text-[var(--muted)] border border-outline-60">
           <span class="material-symbols-rounded text-base text-[var(--accent)]">surfing</span>
           Spot de río · Santa Ana
         </div>
@@ -88,7 +88,7 @@ onMounted(async () => {
               <p class="text-lg font-extrabold">Playa 52</p>
             </div>
           </div>
-          <span class="tag bg-[var(--accent)]/10 text-[var(--accent)]">Actualizado</span>
+          <span class="tag bg-accent-10 text-[var(--accent)]">Actualizado</span>
         </div>
         <div class="flex items-center gap-4">
           <div

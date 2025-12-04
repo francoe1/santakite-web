@@ -15,14 +15,14 @@ defineProps({
         <h2 class="section-title">Checklist claro para usar el spot</h2>
         <p class="section-description">Indicaciones básicas para convivir con bañistas y mantener la zona de kites ordenada.</p>
       </div>
-      <span class="tag bg-[var(--accent-2)]/15 text-[var(--accent-2)]">Revisar antes de navegar</span>
+      <span class="tag bg-accent2-15 text-[var(--accent-2)]">Revisar antes de navegar</span>
     </div>
 
     <div class="grid gap-3 md:grid-cols-3">
       <article
         v-for="step in security.steps"
         :key="step.title"
-        class="glass-card p-4 md:p-5 space-y-3 border border-[var(--outline)]/60 hover:-translate-y-0.5 transition"
+        class="glass-card p-4 md:p-5 space-y-3 border border-outline-60 hover:-translate-y-0.5 transition"
       >
         <h3 class="text-lg font-bold flex items-center gap-2">
           <span class="material-symbols-rounded text-[var(--accent)]">task_alt</span>

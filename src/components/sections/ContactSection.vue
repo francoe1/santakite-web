@@ -24,7 +24,7 @@ const icons = {
         <h2 class="section-title">Coordinar visita</h2>
         <p class="section-description">Avisá día y hora para evitar cruces y respetar las zonas del spot.</p>
       </div>
-      <span class="tag bg-[var(--accent)]/10 text-[var(--accent)]">Respuesta rápida</span>
+      <span class="tag bg-accent-10 text-[var(--accent)]">Respuesta rápida</span>
     </div>
 
     <div class="flex flex-wrap gap-3">
@@ -32,7 +32,7 @@ const icons = {
         :is="contact.href ? 'a' : 'div'"
         v-for="contact in contacts"
         :key="contact.label"
-        class="glass-card flex flex-1 min-w-[260px] items-center gap-3 p-4 border border-[var(--outline)]/60 hover:-translate-y-0.5 transition"
+        class="glass-card flex flex-1 min-w-[260px] items-center gap-3 p-4 border border-outline-60 hover:-translate-y-0.5 transition"
         :href="contact.href"
         :target="contact.href ? '_blank' : null"
         :rel="contact.href ? 'noreferrer' : null"
