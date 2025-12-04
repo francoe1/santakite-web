@@ -4,17 +4,21 @@
     <div class="hero-copy">
       <p class="badge">Santa Ana · Río Uruguay</p>
       <h1>
-        Kitesurf relajado, viento limpio
-        <span class="accent">y vibra playera</span>
+        Kitesurf libre con vibra surfer
+        <span class="accent">en Playa 52</span>
       </h1>
       <p class="lead">
-        Base segura para armar, navegar y compartir. Zonas claras, pronóstico en vivo y ambiente chill para surfear cometas al
-        atardecer.
+        Amanecé con brisa limpia, armá tu cometa sobre arena suave y navegá con vista abierta al río. Zona chill con música
+        baja, mates, y comunidad que respeta el mar y el viento.
       </p>
       <div class="hero-tags" aria-label="Destacados">
         <span>Vientos S · SE · E</span>
         <span>Zonas separadas</span>
         <span>Pronóstico GFS</span>
+      </div>
+      <div class="hero-actions">
+        <button type="button" class="primary" @click="scrollTo('mapa')">Ver mapa &amp; viento</button>
+        <a class="ghost" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">Coordinar sesión</a>
       </div>
     </div>
     <div class="hero-card" role="presentation">
@@ -88,11 +92,16 @@ onMounted(async () => {
 <style scoped>
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 2.25rem;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 2.4rem;
   align-items: center;
-  padding-top: 1.5rem;
+  padding-top: 2rem;
   position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(226, 245, 246, 0.6));
+  border-radius: 28px;
+  padding: 2.4rem;
+  overflow: hidden;
+  box-shadow: 0 28px 60px rgba(11, 65, 92, 0.14);
 }
 
 .hero > * {
@@ -103,13 +112,13 @@ onMounted(async () => {
 .hero-splash {
   position: absolute;
   inset: -12% -10% auto -8%;
-  height: 380px;
+  height: 420px;
   background:
-    radial-gradient(circle at 20% 60%, rgba(94, 234, 212, 0.35), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(56, 189, 248, 0.32), transparent 36%),
-    linear-gradient(135deg, rgba(4, 51, 73, 0.6), rgba(4, 30, 56, 0.8));
-  filter: blur(18px) saturate(1.15);
-  opacity: 0.9;
+    radial-gradient(circle at 20% 60%, rgba(0, 186, 199, 0.16), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(241, 91, 181, 0.16), transparent 32%),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') center/cover;
+  filter: blur(10px) saturate(1.1);
+  opacity: 0.8;
   border-radius: 50%;
   z-index: 0;
   animation: drift 14s ease-in-out infinite;
@@ -118,6 +127,7 @@ onMounted(async () => {
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
+    padding: 1.6rem;
   }
 }
 
@@ -125,62 +135,107 @@ onMounted(async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  color: #94a3b8;
-  font-weight: 600;
+  background: rgba(15, 76, 92, 0.1);
+  border: 1px solid rgba(15, 76, 92, 0.2);
+  color: #0f4c5c;
+  font-weight: 700;
   letter-spacing: 0.2px;
   margin-bottom: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 h1 {
-  font-size: clamp(2.2rem, 3vw, 3rem);
-  line-height: 1.1;
+  font-size: clamp(2.3rem, 3.2vw, 3.2rem);
+  line-height: 1.05;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  text-shadow: 0 12px 28px rgba(3, 10, 24, 0.6);
+  color: #0b1f2a;
 }
 
 .accent {
-  color: #5eead4;
+  color: #fb8500;
 }
 
 .lead {
-  color: #e2f3ff;
+  color: #0f4c5c;
   max-width: 640px;
-  margin-bottom: 1.5rem;
-  font-size: 1.05rem;
+  margin-bottom: 1.4rem;
+  font-size: 1.08rem;
 }
 
 .hero-tags {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .hero-tags span {
   border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  background: rgba(94, 234, 212, 0.12);
-  color: #7df2dd;
-  font-weight: 700;
-  border: 1px solid rgba(94, 234, 212, 0.35);
-  box-shadow: 0 8px 20px rgba(3, 21, 37, 0.4);
+  padding: 0.42rem 0.95rem;
+  background: rgba(0, 186, 199, 0.12);
+  color: #0b2f3f;
+  font-weight: 800;
+  border: 1px solid rgba(0, 186, 199, 0.4);
+  box-shadow: 0 10px 24px rgba(11, 76, 92, 0.1);
   backdrop-filter: blur(6px);
 }
 
+.hero-actions {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+}
+
+.primary,
+.ghost {
+  border: none;
+  border-radius: 14px;
+  padding: 0.75rem 1.3rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.98rem;
+}
+
+.primary {
+  background: linear-gradient(120deg, #009fb7, #00c2cb);
+  color: #fdfefc;
+  box-shadow: 0 14px 32px rgba(0, 155, 183, 0.28);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0, 155, 183, 0.32);
+}
+
+.ghost {
+  background: rgba(15, 76, 92, 0.08);
+  color: #0b2f3f;
+  border: 1px solid rgba(11, 65, 92, 0.14);
+  box-shadow: 0 10px 24px rgba(15, 76, 92, 0.12);
+}
+
+.ghost:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(11, 65, 92, 0.18);
+}
+
 .hero-card {
-  background: linear-gradient(160deg, rgba(7, 26, 46, 0.8), rgba(4, 14, 32, 0.9)),
-    radial-gradient(circle at 20% 10%, rgba(34, 211, 238, 0.18), transparent 50%);
-  border: 1px solid rgba(125, 242, 221, 0.25);
-  border-radius: 1.5rem;
-  box-shadow: 0 18px 60px rgba(2, 10, 24, 0.9);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86)),
+    url('https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&w=900&q=80') center/cover;
+  border: 1px solid rgba(11, 65, 92, 0.18);
+  border-radius: 20px;
+  box-shadow: 0 22px 50px rgba(11, 65, 92, 0.18);
   overflow: hidden;
   position: relative;
   isolation: isolate;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
 }
 
 .card-inner {
@@ -194,22 +249,22 @@ h1 {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(94, 234, 212, 0.3);
-  background: linear-gradient(145deg, rgba(11, 36, 51, 0.65), rgba(8, 25, 43, 0.9));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 0.85rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 186, 199, 0.22);
+  background: linear-gradient(145deg, rgba(0, 186, 199, 0.08), rgba(11, 65, 92, 0.05));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .arrow-circle {
-  width: 52px;
-  height: 52px;
-  border-radius: 999px;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 30% 20%, rgba(125, 242, 221, 0.25), rgba(14, 165, 233, 0.12));
-  border: 1px solid rgba(125, 242, 221, 0.4);
-  color: #7df2dd;
+  background: radial-gradient(circle at 30% 20%, rgba(0, 186, 199, 0.22), rgba(0, 155, 183, 0.18));
+  border: 1px solid rgba(0, 155, 183, 0.45);
+  color: #0b2f3f;
   font-weight: 900;
   font-size: 1.2rem;
   transition: transform 0.4s ease;
@@ -223,20 +278,20 @@ h1 {
 }
 
 .wind-value {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: #0b1f2a;
 }
 
 .eyebrow {
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   font-size: 0.95rem;
 }
 
@@ -250,17 +305,17 @@ h1 {
 .stat {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: #0f2f3f;
 }
 
 .mini-chip {
   align-self: flex-start;
-  padding: 0.35rem 0.75rem;
+  padding: 0.38rem 0.78rem;
   border-radius: 999px;
-  background: rgba(94, 234, 212, 0.12);
-  color: #5eead4;
-  font-weight: 700;
-  border: 1px solid rgba(94, 234, 212, 0.35);
+  background: rgba(251, 133, 0, 0.12);
+  color: #c05621;
+  font-weight: 800;
+  border: 1px solid rgba(251, 133, 0, 0.35);
   margin-top: 0.5rem;
 }
 
@@ -279,10 +334,10 @@ h1 {
 @keyframes pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(125, 242, 221, 0.3);
+    box-shadow: 0 0 0 0 rgba(0, 155, 183, 0.18);
   }
   50% {
-    box-shadow: 0 0 0 12px rgba(125, 242, 221, 0.04);
+    box-shadow: 0 0 0 14px rgba(0, 155, 183, 0.06);
   }
 }
 </style>

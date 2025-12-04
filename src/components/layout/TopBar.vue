@@ -5,7 +5,7 @@
         <div class="brand-logo" aria-hidden="true"></div>
         <div class="brand-text">
           <span class="brand-title">SantaKite</span>
-          <span class="brand-sub">Playa 52</span>
+          <span class="brand-sub">Río &amp; viento libre</span>
         </div>
       </div>
       <nav class="topbar-nav" aria-label="Secciones principales">
@@ -47,13 +47,10 @@ const scrollTo = (id) => {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(14px);
-  background:
-    linear-gradient(135deg, rgba(5, 32, 48, 0.94), rgba(3, 21, 38, 0.9)),
-    radial-gradient(circle at 10% 50%, rgba(34, 211, 238, 0.16), transparent 40%),
-    radial-gradient(circle at 90% 50%, rgba(14, 165, 233, 0.18), transparent 42%);
-  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 10px 34px rgba(4, 24, 44, 0.55);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(11, 65, 92, 0.12);
+  box-shadow: 0 12px 28px rgba(12, 44, 60, 0.08);
 }
 
 .topbar-inner {
@@ -77,22 +74,27 @@ const scrollTo = (id) => {
 }
 
 .brand-logo {
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 0, #38bdf8, #0ea5e9 40%, #0f172a 85%);
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background:
+    linear-gradient(140deg, rgba(10, 173, 191, 0.95), rgba(8, 115, 183, 0.95)),
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=300&q=80') center/cover;
+  box-shadow: 0 8px 20px rgba(11, 76, 113, 0.25);
   position: relative;
   overflow: hidden;
-  animation: float 4s ease-in-out infinite;
+  isolation: isolate;
 }
 
 .brand-logo::after {
   content: '';
   position: absolute;
-  inset: 25% 35%;
-  border-radius: 999px 999px 20px 20px;
-  background: rgba(15, 23, 42, 0.9);
+  inset: 8% 10%;
+  border-radius: 12px;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  opacity: 0.75;
+  transform: translateY(-6px);
+  animation: glide 5s ease-in-out infinite;
 }
 
 .brand-text {
@@ -102,60 +104,66 @@ const scrollTo = (id) => {
 }
 
 .brand-title {
-  color: #e2e8f0;
+  color: #0b2f3f;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.2rem;
+  letter-spacing: 0.01em;
 }
 
 .brand-sub {
-  color: #94a3b8;
-  font-size: 0.8rem;
+  color: #0f5672;
+  font-size: 0.82rem;
+  font-weight: 600;
 }
 
+
 .brand-mark:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .topbar-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  font-size: 0.84rem;
-  color: #9ca3af;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #0f4c5c;
   align-items: center;
 }
 
 .nav-button {
-  background: transparent;
-  border: none;
+  background: rgba(15, 77, 92, 0.06);
+  border: 1px solid rgba(15, 77, 92, 0.14);
   color: inherit;
   cursor: pointer;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 14px;
   transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
   letter-spacing: 0.01em;
+  box-shadow: 0 10px 20px rgba(15, 76, 92, 0.12);
 }
 
 .nav-button:hover {
-  background: rgba(14, 165, 233, 0.14);
-  color: #5eead4;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(14, 165, 233, 0.18);
+  background: linear-gradient(120deg, rgba(14, 165, 233, 0.12), rgba(45, 212, 191, 0.12));
+  color: #0f2f3f;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(15, 76, 92, 0.2);
 }
 
 .cta {
-  padding: 0.45rem 1rem;
-  border-radius: 999px;
-  background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #03131f;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.45);
+  padding: 0.65rem 1.25rem;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #ffb703, #fb8500, #f15bb5);
+  color: #0b1f2a;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 16px 36px rgba(241, 91, 181, 0.26);
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 44px rgba(14, 165, 233, 0.6);
-  filter: saturate(1.1);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px rgba(251, 133, 0, 0.35);
+  filter: saturate(1.05);
 }
 
 @media (max-width: 720px) {
@@ -177,13 +185,13 @@ const scrollTo = (id) => {
   }
 }
 
-@keyframes float {
+@keyframes glide {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(-6px) translateX(0);
   }
   50% {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateX(6px);
   }
 }
 </style>

@@ -124,11 +124,13 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: linear-gradient(120deg, rgba(3, 23, 39, 0.7), rgba(4, 29, 49, 0.82));
-  border-radius: 1.5rem;
-  padding: 1.2rem;
-  border: 1px solid rgba(125, 242, 221, 0.12);
-  box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(226, 245, 246, 0.88)),
+    url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80') center/cover;
+  border-radius: 22px;
+  padding: 1.4rem;
+  border: 1px solid rgba(11, 65, 92, 0.12);
+  box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
 }
 
 .section-head {
@@ -143,16 +145,18 @@ onMounted(async () => {
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
+  font-weight: 800;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
   margin-bottom: 0.35rem;
+  color: #0b1f2a;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   max-width: 640px;
 }
 
@@ -173,8 +177,8 @@ h2 {
   height: 360px;
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(125, 242, 221, 0.35);
-  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
+  border: 1px solid rgba(0, 186, 199, 0.28);
+  box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
   position: relative;
   z-index: 0;
 }
@@ -182,24 +186,25 @@ h2 {
 .card {
   padding: 1.2rem;
   border-radius: 1rem;
-  background: radial-gradient(circle at 80% 10%, rgba(94, 234, 212, 0.1), transparent 40%),
-    linear-gradient(145deg, rgba(5, 26, 46, 0.76), rgba(6, 20, 38, 0.92));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 249, 250, 0.9));
+  border: 1px solid rgba(0, 186, 199, 0.18);
+  box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
 .card h3 {
-  font-size: 1.1rem;
+  font-size: 1.12rem;
+  color: #0b2f3f;
 }
 
 .windy-wrapper {
   border-radius: 0.9rem;
   overflow: hidden;
-  border: 1px solid rgba(125, 242, 221, 0.28);
+  border: 1px solid rgba(0, 186, 199, 0.28);
   position: relative;
+  box-shadow: 0 12px 32px rgba(11, 65, 92, 0.18);
 }
 
 .windy-guard {
@@ -216,7 +221,7 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0.5rem;
   margin-top: 0.75rem;
-  color: #cbd5e1;
+  color: #0f4c5c;
   font-size: 0.9rem;
 }
 

@@ -35,11 +35,13 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: linear-gradient(120deg, rgba(3, 22, 38, 0.65), rgba(5, 30, 48, 0.85));
-  border-radius: 1.5rem;
-  padding: 1.2rem;
-  border: 1px solid rgba(125, 242, 221, 0.15);
-  box-shadow: 0 22px 46px rgba(3, 15, 32, 0.45);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(226, 245, 246, 0.8)),
+    url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80') center/cover;
+  border-radius: 22px;
+  padding: 1.4rem;
+  border: 1px solid rgba(11, 65, 92, 0.12);
+  box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
 }
 
 .section-head {
@@ -54,16 +56,18 @@ const props = defineProps({
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
+  font-weight: 800;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
   margin-bottom: 0.35rem;
+  color: #0b1f2a;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   max-width: 640px;
 }
 
@@ -76,10 +80,9 @@ h2 {
 .card {
   padding: 1.2rem;
   border-radius: 1rem;
-  background: radial-gradient(circle at 20% 20%, rgba(94, 234, 212, 0.1), transparent 40%),
-    linear-gradient(145deg, rgba(5, 22, 43, 0.7), rgba(7, 30, 53, 0.85));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.65);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(238, 249, 250, 0.92));
+  border: 1px solid rgba(0, 186, 199, 0.18);
+  box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -87,13 +90,14 @@ h2 {
 }
 
 .card h3 {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
+  color: #0b2f3f;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(125, 242, 221, 0.5);
-  box-shadow: 0 16px 42px rgba(3, 15, 32, 0.55);
+  border-color: rgba(0, 186, 199, 0.4);
+  box-shadow: 0 16px 42px rgba(11, 65, 92, 0.24);
 }
 
 .info-banner {
@@ -102,9 +106,9 @@ h2 {
   gap: 0.6rem;
   padding: 1rem 1.2rem;
   border-radius: 1rem;
-  background: linear-gradient(110deg, rgba(94, 234, 212, 0.14), rgba(14, 165, 233, 0.12));
-  border: 1px solid rgba(125, 242, 221, 0.3);
-  color: #e0fff7;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(110deg, rgba(0, 186, 199, 0.12), rgba(251, 133, 0, 0.12));
+  border: 1px solid rgba(11, 65, 92, 0.14);
+  color: #0b2f3f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 </style>

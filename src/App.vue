@@ -24,7 +24,7 @@ const site = useSiteStore()
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Pacifico&display=swap');
 
 * {
   box-sizing: border-box;
@@ -33,16 +33,14 @@ const site = useSiteStore()
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(45, 212, 191, 0.08) 0, transparent 30%),
-    radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.1) 0, transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.08) 0, transparent 32%),
-    linear-gradient(135deg, #031226, #041527 35%, #041826 60%, #05222d 100%);
-  color: #f8fafc;
+  font-family: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #0b1f2a;
   line-height: 1.6;
   min-height: 100vh;
-  background-attachment: fixed;
+  background:
+    linear-gradient(180deg, rgba(250, 250, 249, 0.9) 0%, rgba(226, 245, 246, 0.85) 35%, rgba(15, 77, 92, 0.92) 100%),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+  overflow-x: hidden;
 }
 
 a {
@@ -51,9 +49,9 @@ a {
 }
 
 main {
-  max-width: 1240px;
+  max-width: 1260px;
   margin: 0 auto;
-  padding: 1.5rem 1.1rem 3.5rem;
+  padding: 1.2rem 1.1rem 3.8rem;
 }
 
 .page {
@@ -71,17 +69,18 @@ main {
 }
 
 .page::before {
-  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80')
-      center/cover no-repeat;
-  opacity: 0.25;
-  filter: saturate(1.1) blur(1px);
+  background:
+    url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  opacity: 0.15;
+  filter: saturate(1.15) blur(2px);
 }
 
 .page::after {
   background:
-    radial-gradient(circle at 15% 25%, rgba(14, 165, 233, 0.16), transparent 30%),
-    radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.18), transparent 28%),
-    linear-gradient(135deg, rgba(4, 23, 47, 0.7), rgba(6, 31, 53, 0.8));
-  opacity: 0.9;
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.62), transparent 32%),
+    radial-gradient(circle at 78% 30%, rgba(7, 89, 133, 0.28), transparent 35%),
+    radial-gradient(circle at 25% 80%, rgba(248, 180, 76, 0.24), transparent 30%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.45), rgba(7, 89, 133, 0.55));
+  opacity: 0.85;
 }
 </style>
