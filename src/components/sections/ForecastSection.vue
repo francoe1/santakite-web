@@ -60,6 +60,7 @@
             :key="hour.time"
             class="hour-card"
             :class="{ playable: isPlayable(hour) }"
+            :style="hourBorderStyle(hour)"
           >
             <div class="hour-top">
               <p class="hour-label">{{ hour.label }}</p>
@@ -70,7 +71,7 @@
             <div class="wind-block">
               <div class="kts">{{ hour.speedKts.toFixed(0) }} kts</div>
               <div class="dir-block">
-                <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg}deg)` }">↑</span>
+                <span class="arrow" :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
                 <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
               </div>
             </div>
@@ -131,6 +132,26 @@ const isPlayable = (hour) => hour.speedKts >= 12 && isPreferredDirection(hour.di
 
 const openDetails = (day) => {
   selectedDay.value = day
+}
+
+const playabilityScore = (hour) => {
+  const speedScore = Math.min(Math.max((hour.speedKts - 8) / 14, 0), 1)
+  const directionBoost = isPreferredDirection(hour.dirDeg) ? 0.3 : -0.25
+  const rainPenalty = Math.min(hour.precipMm / 5, 0.35)
+  const raw = speedScore + directionBoost - rainPenalty
+  return Math.min(Math.max(raw, 0), 1)
+}
+
+const hourBorderStyle = (hour) => {
+  const score = playabilityScore(hour)
+  const hue = 8 + (128 - 8) * score
+  const tone = `hsl(${hue}, 58%, 62%)`
+  const faded = `hsla(${hue}, 58%, 62%, 0.22)`
+  return {
+    borderColor: tone,
+    boxShadow: `0 10px 22px ${faded}`,
+    background: 'rgba(15, 23, 42, 0.8)',
+  }
 }
 
 const closeDetails = () => {
@@ -411,17 +432,18 @@ h2 {
 .hourly-strip {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(160px, 1fr);
-  gap: 0.8rem;
+  grid-auto-columns: minmax(80px, 1fr);
+  gap: 0.75rem;
   overflow-x: auto;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.35rem;
 }
 
 .hour-card {
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.8rem;
+  border-radius: 0.85rem;
   padding: 0.75rem;
-  background: rgba(15, 23, 42, 0.75);
+  min-width: 80px;
+  max-width: 80px;
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
@@ -471,7 +493,7 @@ h2 {
 }
 
 .kts {
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   font-weight: 800;
 }
 
@@ -480,6 +502,7 @@ h2 {
   align-items: center;
   gap: 0.35rem;
   color: #cbd5e1;
+  flex-direction: column;
 }
 
 .arrow {
@@ -495,7 +518,9 @@ h2 {
 }
 
 .dir-label {
-  font-size: 0.95rem;
+  font-size: 0.78rem;
+  text-align: center;
+  line-height: 1.15;
 }
 
 .rain {

@@ -18,7 +18,12 @@
     <div class="hero-card" role="presentation">
       <div class="card-inner">
         <div class="wind-widget">
-          <div class="arrow-circle" :style="currentWind.dirDeg !== null ? { transform: `rotate(${currentWind.dirDeg}deg)` } : {}">↑</div>
+          <div
+            class="arrow-circle"
+            :style="currentWind.dirDeg !== null ? { transform: `rotate(${(currentWind.dirDeg + 180) % 360}deg)` } : {}"
+          >
+            ↑
+          </div>
           <div class="wind-data">
             <p class="wind-value">
               {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando viento…' }}
