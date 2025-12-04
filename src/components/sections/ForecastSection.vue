@@ -4,7 +4,6 @@
       <p class="eyebrow">Pronóstico GFS</p>
       <div>
         <h2>¿Es navegable los próximos días?</h2>
-        <p class="muted">Usamos datos horarios del modelo GFS (Open-Meteo) sobre Playa 52 para resumir 7 días.</p>
       </div>
     </div>
 

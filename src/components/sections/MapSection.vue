@@ -20,20 +20,16 @@
         <p v-if="mapError" class="muted" style="margin-top: 0.5rem;">{{ mapError }}</p>
       </div>
       <div>
-        <div class="card">
-          <h3>Viento en vivo (GFS)</h3>
-          <p class="muted">Visor centrado en Playa 52 con overlay de viento usando modelo GFS.</p>
-          <div class="windy-wrapper">
-            <iframe
-              width="100%"
-              height="320"
-              src="https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs"
-              frameborder="0"
-              scrolling="no"
-              loading="lazy"
-            ></iframe>
-            <div class="windy-guard" aria-hidden="true"></div>
-          </div>
+        <div class="windy-wrapper">
+          <iframe
+            width="100%"
+            height="320"
+            src="https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs"
+            frameborder="0"
+            scrolling="no"
+            loading="lazy"
+          ></iframe>
+          <div class="windy-guard" aria-hidden="true"></div>
         </div>
       </div>
     </div>

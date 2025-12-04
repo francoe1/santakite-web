@@ -3,8 +3,6 @@
     <div class="contact-card">
       <div>
         <p class="eyebrow">Contacto</p>
-        <h2>Coordinar visita</h2>
-        <p class="muted">Avisá día y hora para evitar cruces y respetar las zonas del spot.</p>
       </div>
       <div class="contact-grid">
         <component
@@ -23,16 +21,6 @@
             <p v-if="contact.detail" class="detail">{{ contact.detail }}</p>
           </div>
         </component>
-      </div>
-      <div class="cta-row">
-        <a class="primary" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">
-          <span class="icon" v-html="icons.whatsapp"></span>
-          WhatsApp
-        </a>
-        <a class="ghost" href="https://www.instagram.com/santakitechajari/" target="_blank" rel="noreferrer">
-          <span class="icon" v-html="icons.instagram"></span>
-          Instagram
-        </a>
       </div>
     </div>
   </section>
