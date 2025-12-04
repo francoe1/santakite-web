@@ -7,8 +7,8 @@
         <span class="accent">en Playa 52</span>
       </h1>
       <p class="lead">
-        Amanecé con brisa limpia, armá tu cometa sobre arena suave y navegá con vista abierta al río. Zona chill con música
-        baja, mates, y comunidad que respeta el mar y el viento.
+        Amanecé con brisa limpia, armá tu cometa sobre arena suave y navegá con vista abierta al río. Nada de parlantes ni
+        ruido: solo arena, agua y viento compartido con una comunidad que cuida el spot.
       </p>
       <div class="hero-tags" aria-label="Destacados">
         <span>Vientos S · SE · E</span>
