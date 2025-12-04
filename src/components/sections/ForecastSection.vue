@@ -22,7 +22,7 @@
         >
           <div class="forecast-date">{{ formatDate(day.date) }}</div>
           <div class="muted small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> kts</div>
-          <div class="muted small">Dirección principal: <strong>{{ degToCompass(day.mainDirDeg, true) }}</strong> ({{ day.mainDirDeg }}°)</div>
+          <div class="muted small">Dirección principal: <strong>{{ degToCompass(day.mainDirDeg) }}</strong> ({{ day.mainDirDeg }}°)</div>
           <div class="muted small">Ventana jugable: <strong>{{ day.playableCount }}</strong> hs</div>
           <div class="muted small">Ráfaga máxima: <strong>{{ day.maxGustKts.toFixed(0) }}</strong> kts</div>
           <div class="muted small">Lluvia estimada: <strong>{{ day.totalRain.toFixed(1) }}</strong> mm</div>
@@ -37,7 +37,7 @@
             Mejor hora:
             <template v-if="day.bestHour">
               <strong>{{ day.bestHour.label }}</strong>
-              · {{ day.bestHour.speedKts.toFixed(0) }} kts · {{ degToCompass(day.bestHour.dirDeg, true) }} ({{ day.bestHour.dirDeg }}°)
+              · {{ day.bestHour.speedKts.toFixed(0) }} kts · {{ degToCompass(day.bestHour.dirDeg) }} ({{ day.bestHour.dirDeg }}°)
               · ráfaga {{ day.bestHour.gustKts.toFixed(0) }} kts · lluvia {{ day.bestHour.precipMm.toFixed(1) }} mm
             </template>
             <template v-else>Sin datos</template>
@@ -110,7 +110,7 @@
               role="cell"
             >
               <span class="arrow" :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
-              <span class="dir-label">{{ degToCompass(hour.dirDeg, true) }} ({{ hour.dirDeg }}°)</span>
+              <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
             </div>
           </div>
 
@@ -168,7 +168,7 @@
                 <dt>Dirección</dt>
                 <dd>
                   <span class="arrow" :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
-                  <span class="dir-label">{{ degToCompass(hour.dirDeg, true) }} ({{ hour.dirDeg }}°)</span>
+                  <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
                 </dd>
               </div>
               <div>
@@ -189,6 +189,13 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+
+import {
+  buildPreferredDirectionSet,
+  degToCompass,
+  getDirectionOffset,
+  normalizeDegrees,
+} from '../../utils/wind'
 
 const props = defineProps({
   spot: {
@@ -238,21 +245,17 @@ const forecastConfig = computed(() => {
   }
 })
 
-const directionOffsetDeg = computed(() => {
-  const base = {
-    N: 0,
-    NE: 45,
-    E: 90,
-    SE: 135,
-    S: 180,
-    SO: 225,
-    O: 270,
-    NO: 315,
+const preferredDirectionSet = computed(() => {
+  const normalized = buildPreferredDirectionSet(forecastConfig.value.preferredDirections)
+  if (normalized.size === 0) {
+    return buildPreferredDirectionSet(['N', 'E', 'S', 'O'])
   }
-  return base[forecastConfig.value.directionReference] ?? 0
+  return normalized
 })
 
-const normalizeDirection = (deg) => (deg - directionOffsetDeg.value + 360) % 360
+const directionOffsetDeg = computed(() => getDirectionOffset(forecastConfig.value.directionReference))
+
+const normalizeDirection = (deg) => normalizeDegrees(deg - directionOffsetDeg.value)
 
 const statusText = computed(() => {
   if (status.value === 'ok') return 'Datos GFS cargados'
@@ -272,12 +275,6 @@ const forecastUrl = computed(() => {
 
   return `https://api.open-meteo.com/v1/gfs?latitude=${latitude}&longitude=${longitude}&hourly=winddirection_10m,windspeed_10m,windgusts_10m,precipitation,temperature_2m&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn`
 })
-
-const degToCompass = (deg, alreadyNormalized = false) => {
-  const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO']
-  const value = alreadyNormalized ? deg : normalizeDirection(deg)
-  return dirs[Math.round(value / 45) % 8]
-}
 
 const classifyDay = (day) => {
   const hasPlayable = day.playableCount > 0
@@ -301,10 +298,9 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric', month: 'short' })
 }
 
-const isPreferredDirection = (deg) => {
-  const compass = degToCompass(deg, true)
-  return forecastConfig.value.preferredDirections.includes(compass)
-}
+const isPreferredDirection = (deg) =>
+  preferredDirectionSet.value.size > 0 &&
+  preferredDirectionSet.value.has(degToCompass(deg))
 
 const evaluateLayout = () => {
   isCompactLayout.value = window.innerWidth <= 480

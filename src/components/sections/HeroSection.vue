@@ -20,7 +20,7 @@
         <div class="wind-widget">
           <div
             class="arrow-circle"
-            :style="currentWind.dirDeg !== null ? { transform: `rotate(${(currentWind.dirDeg + 180) % 360}deg)` } : {}"
+            :style="normalizedDirDeg !== null ? { transform: `rotate(${(normalizedDirDeg + 180) % 360}deg)` } : {}"
           >
             ↑
           </div>
@@ -29,8 +29,16 @@
               {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando viento…' }}
             </p>
             <p class="muted">
-              {{ currentWind.dirDeg !== null ? `Dirección ${currentDirLabel} (${Math.round(currentWind.dirDeg)}°)` : windFallback }}
+              {{
+                normalizedDirDeg !== null
+                  ? `Dirección ${currentDirLabel} (${Math.round(normalizedDirDeg)}°)`
+                  : windFallback
+              }}
             </p>
+            <div class="mood-chip" :class="`tone-${currentMood.tone}`" role="status">
+              <span class="emoji" aria-hidden="true">{{ currentMood.emoji }}</span>
+              <span class="label">{{ currentMood.label }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -40,6 +48,13 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
+
+import {
+  buildPreferredDirectionSet,
+  degToCompass,
+  getDirectionOffset,
+  normalizeDegrees,
+} from '../../utils/wind'
 
 const props = defineProps({
   spot: {
@@ -57,22 +72,78 @@ const scrollTo = (id) => {
 
 const currentWind = ref({ speedKts: null, dirDeg: null })
 const windFallback = computed(() => `Midiendo dirección en ${props.spot.name}`)
+
+const baseWindConfig = {
+  preferredDirections: ['S', 'SE', 'E'],
+  minPlayableKts: 12,
+  directionReference: 'N',
+}
+
+const windConfig = computed(() => {
+  const configFromSpot = props.spot.forecast || {}
+
+  return {
+    ...baseWindConfig,
+    ...configFromSpot,
+    preferredDirections:
+      configFromSpot.preferredDirections?.length > 0
+        ? configFromSpot.preferredDirections
+        : baseWindConfig.preferredDirections,
+    directionReference: configFromSpot.directionReference || baseWindConfig.directionReference,
+  }
+})
+
+const preferredDirectionSet = computed(() => {
+  const set = buildPreferredDirectionSet(windConfig.value.preferredDirections)
+  if (set.size === 0) return buildPreferredDirectionSet(baseWindConfig.preferredDirections)
+  return set
+})
+const directionOffsetDeg = computed(() => getDirectionOffset(windConfig.value.directionReference))
+
 const windApiUrl = computed(() => {
   const { latitude, longitude } = props.spot.wind || {}
   if (latitude == null || longitude == null) return null
 
+  // Open-Meteo winddirection_10m usa convención meteorológica: 0° = viento desde el norte.
   return `https://api.open-meteo.com/v1/gfs?latitude=${latitude}&longitude=${longitude}&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn`
 })
 
+const normalizedDirDeg = computed(() =>
+  currentWind.value.dirDeg === null
+    ? null
+    : normalizeDegrees(currentWind.value.dirDeg - directionOffsetDeg.value)
+)
+
 const currentDirLabel = computed(() => {
-  if (currentWind.value.dirDeg === null) return ''
-  return degToCompass(currentWind.value.dirDeg)
+  if (normalizedDirDeg.value === null) return ''
+  return degToCompass(normalizedDirDeg.value)
 })
 
-const degToCompass = (deg) => {
-  const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO']
-  return dirs[Math.round(deg / 45) % 8]
-}
+const currentMood = computed(() => {
+  if (currentWind.value.speedKts === null || normalizedDirDeg.value === null) {
+    return { emoji: '🛰️', label: 'Midiendo viento local…', tone: 'muted' }
+  }
+
+  const matchesDirection = preferredDirectionSet.value.has(degToCompass(normalizedDirDeg.value))
+  const speed = currentWind.value.speedKts
+  const delta = speed - windConfig.value.minPlayableKts
+  const speedScore = Math.max(Math.min(delta / 6, 1), -0.5)
+  const weightedScore = Math.min(Math.max(speedScore + (matchesDirection ? 0.5 : -0.5), -0.5), 1)
+
+  if (matchesDirection && speed >= windConfig.value.minPlayableKts) {
+    return { emoji: '🏄‍♂️', label: 'Navegable ahora', tone: 'ok', score: weightedScore }
+  }
+
+  if (matchesDirection && speed >= windConfig.value.minPlayableKts - 2) {
+    return { emoji: '🤞', label: 'Casi jugable', tone: 'warn', score: weightedScore }
+  }
+
+  if (speed >= windConfig.value.minPlayableKts) {
+    return { emoji: '🌬️', label: 'Viento cruzado', tone: 'warn', score: weightedScore }
+  }
+
+  return { emoji: '😴', label: 'Esperando viento útil', tone: 'muted', score: weightedScore }
+})
 
 const fetchWind = async () => {
   if (!windApiUrl.value) return
@@ -239,6 +310,39 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.mood-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #c7d6dc;
+  background: #fff;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.mood-chip .emoji {
+  font-size: 1.05rem;
+}
+
+.tone-ok {
+  border-color: #22c55e;
+  color: #0f5132;
+  background: #ecfdf3;
+}
+
+.tone-warn {
+  border-color: #f59e0b;
+  color: #7c2d12;
+  background: #fffbeb;
+}
+
+.tone-muted {
+  border-color: #cbd5e1;
+  color: #0b2f3f;
+  background: #f8fafc;
 }
 
 .wind-value {
