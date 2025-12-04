@@ -39,6 +39,7 @@ const props = defineProps({
   padding: 1.2rem;
   border: 1px solid rgba(125, 242, 221, 0.12);
   box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
+  color: #e6f4ff;
 }
 
 .section-head {
@@ -59,6 +60,7 @@ const props = defineProps({
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
+  color: #f1f5f9;
 }
 
 .muted {
@@ -80,6 +82,7 @@ h2 {
   border: 1px solid rgba(56, 189, 248, 0.25);
   box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
   transition: transform 0.2s ease, border-color 0.2s ease;
+  color: #e9f5ff;
 }
 
 .step-card h3 {

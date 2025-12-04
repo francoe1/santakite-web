@@ -71,6 +71,7 @@ const icons = {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #e6f6ff;
 }
 
 .eyebrow {
@@ -83,6 +84,7 @@ const icons = {
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
+  color: #f1f5f9;
 }
 
 .muted {
@@ -153,7 +155,7 @@ h2 {
 
 .primary {
   background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #0b1727;
+  color: #f8fafc;
   box-shadow: 0 18px 45px rgba(3, 15, 32, 0.85);
 }
 

@@ -346,6 +346,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  color: #e8f6ff;
   background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
   border-radius: 1.5rem;
   padding: 1.2rem;
@@ -371,6 +372,7 @@ onMounted(async () => {
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
+  color: #f1f5f9;
 }
 
 .muted {
@@ -387,6 +389,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #e5f3ff;
 }
 
 .card-header {
@@ -513,6 +516,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #e5f3ff;
 }
 
 .overlay-head {
@@ -542,6 +546,7 @@ h2 {
   overflow-x: auto;
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 0.85rem;
+  position: relative;
 }
 
 .hour-row {
@@ -565,6 +570,10 @@ h2 {
   display: flex;
   align-items: center;
   border-right: 1px solid rgba(148, 163, 184, 0.2);
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  box-shadow: 8px 0 18px rgba(4, 7, 16, 0.6);
 }
 
 .hour-cell {
