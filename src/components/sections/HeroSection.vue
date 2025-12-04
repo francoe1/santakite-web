@@ -52,9 +52,8 @@ import { computed, onMounted, ref, watch } from 'vue'
 import {
   buildPreferredDirectionSet,
   degToCompass,
-  getDirectionOffset,
-  normalizeDegrees,
 } from '../../utils/wind'
+import { weatherService } from '../../services/weatherService'
 
 const props = defineProps({
   spot: {
@@ -98,20 +97,10 @@ const preferredDirectionSet = computed(() => {
   if (set.size === 0) return buildPreferredDirectionSet(baseWindConfig.preferredDirections)
   return set
 })
-const directionOffsetDeg = computed(() => getDirectionOffset(windConfig.value.directionReference))
-
-const windApiUrl = computed(() => {
-  const { latitude, longitude } = props.spot.wind || {}
-  if (latitude == null || longitude == null) return null
-
-  // Open-Meteo winddirection_10m usa convención meteorológica: 0° = viento desde el norte.
-  return `https://api.open-meteo.com/v1/gfs?latitude=${latitude}&longitude=${longitude}&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn`
-})
-
 const normalizedDirDeg = computed(() =>
   currentWind.value.dirDeg === null
     ? null
-    : normalizeDegrees(currentWind.value.dirDeg - directionOffsetDeg.value)
+    : currentWind.value.dirDeg
 )
 
 const currentDirLabel = computed(() => {
@@ -146,26 +135,33 @@ const currentMood = computed(() => {
 })
 
 const fetchWind = async () => {
-  if (!windApiUrl.value) return
-  try {
-    const response = await fetch(windApiUrl.value)
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    const data = await response.json()
+  const { latitude, longitude } = props.spot.wind || {}
+  if (latitude == null || longitude == null) return
 
-    currentWind.value = {
-      speedKts: data.current?.windspeed_10m ?? null,
-      dirDeg: data.current?.winddirection_10m ?? null,
-    }
+  try {
+    currentWind.value = await weatherService.getCurrentWind({
+      latitude,
+      longitude,
+      directionReference: windConfig.value.directionReference,
+    })
   } catch (err) {
     console.error(err)
+    currentWind.value = { speedKts: null, dirDeg: null }
   }
 }
 
 onMounted(fetchWind)
 
-watch(windApiUrl, () => {
-  fetchWind()
-})
+watch(
+  () => ({
+    coords: props.spot.wind,
+    directionReference: windConfig.value.directionReference,
+  }),
+  () => {
+    fetchWind()
+  },
+  { deep: true }
+)
 </script>
 
 <style scoped>

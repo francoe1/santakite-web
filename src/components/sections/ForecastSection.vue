@@ -193,9 +193,8 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   buildPreferredDirectionSet,
   degToCompass,
-  getDirectionOffset,
-  normalizeDegrees,
 } from '../../utils/wind'
+import { weatherService } from '../../services/weatherService'
 
 const props = defineProps({
   spot: {
@@ -253,10 +252,6 @@ const preferredDirectionSet = computed(() => {
   return normalized
 })
 
-const directionOffsetDeg = computed(() => getDirectionOffset(forecastConfig.value.directionReference))
-
-const normalizeDirection = (deg) => normalizeDegrees(deg - directionOffsetDeg.value)
-
 const statusText = computed(() => {
   if (status.value === 'ok') return 'Datos GFS cargados'
   if (status.value === 'error') return 'Error al cargar pronóstico'
@@ -267,13 +262,6 @@ const statusClass = computed(() => {
   if (status.value === 'ok') return 'status-ok'
   if (status.value === 'error') return 'status-error'
   return 'status-loading'
-})
-
-const forecastUrl = computed(() => {
-  const { latitude, longitude } = forecastConfig.value.coordinates
-  if (latitude == null || longitude == null) return ''
-
-  return `https://api.open-meteo.com/v1/gfs?latitude=${latitude}&longitude=${longitude}&hourly=winddirection_10m,windspeed_10m,windgusts_10m,precipitation,temperature_2m&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn`
 })
 
 const classifyDay = (day) => {
@@ -299,6 +287,7 @@ const formatDate = (dateStr) => {
 }
 
 const isPreferredDirection = (deg) =>
+  deg != null &&
   preferredDirectionSet.value.size > 0 &&
   preferredDirectionSet.value.has(degToCompass(deg))
 
@@ -312,7 +301,9 @@ const isSummerDate = (dateStr) => {
 }
 
 const isWithinWindow = (dateTime) => {
+  if (!dateTime) return false
   const date = new Date(dateTime)
+  if (Number.isNaN(date.getTime())) return false
   const hour = date.getHours()
   const minute = date.getMinutes()
   if (isSummerDate(dateTime)) {
@@ -326,9 +317,9 @@ const isWithinWindow = (dateTime) => {
 }
 
 const isPlayable = (hour) =>
-  hour.speedKts >= forecastConfig.value.minPlayableKts &&
+  (hour.speedKts ?? 0) >= forecastConfig.value.minPlayableKts &&
   isPreferredDirection(hour.dirDeg) &&
-  hour.precipMm < forecastConfig.value.maxPrecipMm &&
+  (hour.precipMm ?? 0) < forecastConfig.value.maxPrecipMm &&
   isWithinWindow(hour.time)
 
 const openDetails = (day) => {
@@ -336,72 +327,66 @@ const openDetails = (day) => {
 }
 
 const playabilityScore = (hour) => {
+  const speed = hour.speedKts ?? 0
+  const rain = hour.precipMm ?? 0
   const speedScore = Math.min(
-    Math.max((hour.speedKts - forecastConfig.value.speedScoreBase) / forecastConfig.value.speedScoreCap, 0),
+    Math.max((speed - forecastConfig.value.speedScoreBase) / forecastConfig.value.speedScoreCap, 0),
     1
   )
   const directionBoost = isPreferredDirection(hour.dirDeg) ? 0.3 : -0.25
-  const rainPenalty = Math.min(hour.precipMm / 5, 0.35)
+  const rainPenalty = Math.min(rain / 5, 0.35)
   const windowPenalty = isWithinWindow(hour.time) ? 0 : 0.4
   const raw = speedScore + directionBoost - rainPenalty - windowPenalty
   return Math.min(Math.max(raw, 0), 1)
 }
 
 const fetchForecast = async () => {
-  if (!forecastUrl.value) return
+  const { latitude, longitude } = forecastConfig.value.coordinates
+  if (latitude == null || longitude == null) {
+    statusError.value = 'No hay coordenadas para cargar el pronóstico.'
+    status.value = 'error'
+    return
+  }
+
   status.value = 'loading'
   statusError.value = ''
   forecast.value = []
 
   try {
-    const response = await fetch(forecastUrl.value)
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const weekDays = await weatherService.getWeekWind({
+      latitude,
+      longitude,
+      directionReference: forecastConfig.value.directionReference,
+    })
 
-    const data = await response.json()
-    const { time, windspeed_10m, winddirection_10m, windgusts_10m, precipitation, temperature_2m } = data.hourly
-    const map = {}
-
-    for (let i = 0; i < time.length; i += 1) {
-      const date = time[i].split('T')[0]
-      if (!map[date]) map[date] = { speeds: [], dirs: [], rains: [], hours: [] }
-      const speedKts = windspeed_10m[i]
-      const dirDeg = normalizeDirection(winddirection_10m[i])
-      const rainMm = precipitation[i] ?? 0
-      const gustKts = windgusts_10m[i] ?? windspeed_10m[i]
-      const tempC = temperature_2m[i] ?? null
-
-      map[date].speeds.push(speedKts)
-      map[date].dirs.push(dirDeg)
-      map[date].rains.push(rainMm)
-      map[date].hours.push({
-        time: time[i],
-        label: new Date(time[i]).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
-        speedKts: speedKts,
-        dirDeg: Math.round(dirDeg),
-        precipMm: rainMm,
-        gustKts: gustKts,
-        tempC: tempC,
-      })
-    }
-
-    const days = Object.keys(map).map((date) => {
-      const speeds = map[date].speeds
-      const dirs = map[date].dirs
-      const rains = map[date].rains
-      const hours = map[date].hours
+    const days = weekDays.map((day) => {
+      const hours = day.hours || []
+      const validSpeeds = hours.map((h) => h.speedKts).filter((speed) => speed != null)
+      const validDirs = hours.map((h) => h.dirDeg).filter((dir) => dir != null)
+      const validRains = hours.map((h) => h.precipMm ?? 0)
+      const gusts = hours.map((h) => h.gustKts).filter((gust) => gust != null)
 
       const playableHours = hours.filter((hour) => isPlayable(hour))
-      const bestHour = hours.find((hour) => isPlayable(hour) && hour.gustKts === Math.max(...hours.map((h) => h.gustKts)))
-      const mainDirDeg = Math.round(dirs.reduce((a, b) => a + b, 0) / dirs.length)
+      const bestHour = playableHours.reduce((best, hour) => {
+        if (!best) return hour
+        return (hour.gustKts ?? 0) > (best.gustKts ?? 0) ? hour : best
+      }, null)
+
+      const avgWindKts =
+        validSpeeds.length > 0 ? validSpeeds.reduce((a, b) => a + b, 0) / validSpeeds.length : 0
+      const mainDirDeg =
+        validDirs.length > 0 ? Math.round(validDirs.reduce((a, b) => a + b, 0) / validDirs.length) : 0
+      const maxGustKts = gusts.length > 0 ? Math.max(...gusts) : 0
+      const totalRain = validRains.reduce((a, b) => a + b, 0)
 
       return {
-        date,
-        avgWindKts: speeds.reduce((a, b) => a + b, 0) / speeds.length,
+        date: day.date,
+        avgWindKts,
         mainDirDeg,
         playableCount: playableHours.length,
-        maxGustKts: Math.max(...hours.map((h) => h.gustKts)),
-        totalRain: rains.reduce((a, b) => a + b, 0),
-        hours: hours,
+        maxGustKts,
+        totalRain,
+        hours,
         bestHour: bestHour || null,
         stars: bestStarRating(playableHours.length),
       }
@@ -452,9 +437,16 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', evaluateLayout)
 })
 
-watch(forecastUrl, () => {
-  fetchForecast()
-})
+watch(
+  () => ({
+    coordinates: forecastConfig.value.coordinates,
+    directionReference: forecastConfig.value.directionReference,
+  }),
+  () => {
+    fetchForecast()
+  },
+  { deep: true }
+)
 
 onMounted(() => {
   evaluateLayout()
