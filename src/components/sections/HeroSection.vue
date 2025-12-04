@@ -15,42 +15,77 @@
         <span>Pronóstico GFS</span>
       </div>
     </div>
-    <div class="hero-card" role="presentation">
-      <div class="card-inner">
+    <div class="hero-viz">
+      <div class="wind-widget-container">
         <div class="wind-widget">
           <div
             class="arrow-circle"
             :style="currentWind.dirDeg !== null ? { transform: `rotate(${(currentWind.dirDeg + 180) % 360}deg)` } : {}"
           >
-            ↑
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-send"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
           </div>
           <div class="wind-data">
             <p class="wind-value">
-              {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando viento…' }}
+              {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando…' }}
             </p>
             <p class="muted">
               {{
                 currentWind.dirDeg !== null
                   ? `Dirección ${currentDirLabel} (${Math.round(currentWind.dirDeg)}°)`
-                  : 'Midiendo dirección en Playa 52'
+                  : 'Midiendo…'
               }}
             </p>
           </div>
         </div>
       </div>
+      <svg class="viz-svg" viewBox="0 0 514 266" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 266V0H514V266H0Z" fill="url(#paint0_linear_1_2)" />
+        <path d="M0 266V152.5H514V266H0Z" fill="url(#paint1_linear_1_2)" />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1_2"
+            x1="257"
+            y1="0"
+            x2="257"
+            y2="266"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#38BDF8" />
+            <stop offset="1" stop-color="#0EA5E9" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_1_2"
+            x1="257"
+            y1="152.5"
+            x2="257"
+            y2="266"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#F5F9FF" />
+            <stop offset="1" stop-color="#E0F2FE" />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   </section>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-
-const scrollTo = (id) => {
-  const target = document.getElementById(id)
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-}
 
 const currentWind = ref({ speedKts: null, dirDeg: null })
 
@@ -86,15 +121,21 @@ onMounted(async () => {
 <style scoped>
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 2.25rem;
   align-items: center;
-  padding-top: 1.5rem;
+  padding-top: 2.5rem;
+  min-height: 500px;
 }
 
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 1rem;
+  }
+  .hero-viz {
+    margin-top: 1rem;
   }
 }
 
@@ -104,29 +145,31 @@ onMounted(async () => {
   gap: 0.5rem;
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  color: #94a3b8;
+  background-color: var(--sky-100);
+  border: 1px solid var(--sky-200);
+  color: var(--sky-700);
   font-weight: 600;
   letter-spacing: 0.2px;
   margin-bottom: 1rem;
 }
 
 h1 {
-  font-size: clamp(2.2rem, 3vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   letter-spacing: -0.02em;
 }
 
 .accent {
-  color: #38bdf8;
+  color: var(--sky-600);
 }
 
 .lead {
-  color: #e2e8f0;
-  max-width: 620px;
-  margin-bottom: 1.5rem;
+  color: var(--slate-600);
+  max-width: 580px;
+  margin-bottom: 1.75rem;
+  font-size: 1.1rem;
 }
 
 .hero-tags {
@@ -138,27 +181,34 @@ h1 {
 .hero-tags span {
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
-  background: rgba(14, 165, 233, 0.1);
-  color: #7dd3fc;
+  background-color: var(--sky-100);
+  color: var(--sky-800);
   font-weight: 600;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  border: 1px solid var(--sky-200);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.hero-card {
-  background: radial-gradient(circle at 30% 0, rgba(56, 189, 248, 0.2), rgba(37, 99, 235, 0.1)),
-    linear-gradient(160deg, #0b1224, #0b1729);
-  border: 1px solid rgba(148, 163, 184, 0.15);
-  border-radius: 1.4rem;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
-  overflow: hidden;
+.hero-viz {
   position: relative;
+  min-height: 266px;
 }
 
-.card-inner {
-  padding: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+.viz-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(12, 74, 110, 0.2);
+}
+
+.wind-widget-container {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .wind-widget {
@@ -167,8 +217,10 @@ h1 {
   gap: 0.75rem;
   padding: 0.75rem;
   border-radius: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .arrow-circle {
@@ -177,59 +229,29 @@ h1 {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #7dd3fc;
+  background: white;
+  border: 1px solid var(--slate-200);
+  color: var(--sky-600);
   font-weight: 900;
   font-size: 1.2rem;
   transition: transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 .wind-data {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.1rem;
 }
 
 .wind-value {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #e2e8f0;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: var(--slate-800);
 }
 
 .muted {
-  color: #cbd5e1;
+  color: var(--slate-600);
   font-size: 0.95rem;
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.stat {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #e2e8f0;
-}
-
-.mini-chip {
-  align-self: flex-start;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(14, 165, 233, 0.1);
-  color: #38bdf8;
-  font-weight: 600;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  margin-top: 0.5rem;
 }
 </style>

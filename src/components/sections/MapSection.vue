@@ -1,11 +1,17 @@
 <template>
   <section id="mapa" class="section">
     <div class="section-head">
-      <p class="eyebrow">Mapa y zonas</p>
+      <div>
+        <h2>Mapa y Zonas</h2>
+        <p>
+          Ubicación del spot y distribución de zonas para kitesurf y bañistas.
+          <strong>Respetar las áreas para una convivencia segura.</strong>
+        </p>
+      </div>
     </div>
 
     <div class="grid">
-      <div>
+      <div class="map-container">
         <div ref="mapEl" class="map"></div>
         <div class="zones-legend">
           <div class="legend-item">
@@ -17,23 +23,21 @@
             Prohibido bañistas cuando hay cometas
           </div>
         </div>
-        <p v-if="mapError" class="muted" style="margin-top: 0.5rem;">{{ mapError }}</p>
+        <p v-if="mapError" style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--slate-500)">{{ mapError }}</p>
       </div>
-      <div>
-        <div class="card">
-          <h3>Viento en vivo (GFS)</h3>
-          <p class="muted">Visor centrado en Playa 52 con overlay de viento usando modelo GFS.</p>
-          <div class="windy-wrapper">
-            <iframe
-              width="100%"
-              height="320"
-              src="https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs"
-              frameborder="0"
-              scrolling="no"
-              loading="lazy"
-            ></iframe>
-            <div class="windy-guard" aria-hidden="true"></div>
-          </div>
+      <div class="card">
+        <h3>Viento en vivo (GFS)</h3>
+        <p>Visor centrado en Playa 52 con overlay de viento usando modelo GFS.</p>
+        <div class="windy-wrapper">
+          <iframe
+            width="100%"
+            height="320"
+            src="https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs"
+            frameborder="0"
+            scrolling="no"
+            loading="lazy"
+          ></iframe>
+          <div class="windy-guard" aria-hidden="true"></div>
         </div>
       </div>
     </div>
@@ -120,80 +124,84 @@ onMounted(async () => {
 @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
 
 .section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--slate-200);
 }
 
 .section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
-.muted {
-  color: #cbd5e1;
-  max-width: 640px;
+p {
+  color: var(--slate-600);
+  font-size: 1.1rem;
 }
 
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .grid {
     grid-template-columns: 1fr;
   }
 }
 
+.map-container {
+  background: white;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
 .map {
   width: 100%;
-  height: 360px;
+  height: 380px;
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
   position: relative;
   z-index: 0;
 }
 
 .card {
-  padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: white;
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.75rem;
 }
 
-.card h3 {
-  font-size: 1.1rem;
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card p {
+  font-size: 1rem;
+  color: var(--slate-500);
 }
 
 .windy-wrapper {
-  border-radius: 0.9rem;
+  border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--slate-200);
   position: relative;
+  margin-top: 0.5rem;
 }
 
 .windy-guard {
@@ -207,22 +215,22 @@ h2 {
 
 .zones-legend {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 0.5rem;
-  margin-top: 0.75rem;
-  color: #cbd5e1;
+  margin-top: 1rem;
   font-size: 0.9rem;
+  color: var(--slate-600);
 }
 
 .legend-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .legend-color {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 6px;
   display: inline-block;
 }

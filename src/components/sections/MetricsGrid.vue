@@ -18,28 +18,30 @@ const props = defineProps({
 
 <style scoped>
 .metrics {
-  margin: 2.4rem 0 0;
+  margin: 3rem 0 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
 }
 
 .metric-card {
-  padding: 1rem 1.2rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 1rem;
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  padding: 1.25rem 1.5rem;
+  background: white;
+  border: 1px solid var(--slate-200);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 .metric-value {
-  font-size: 1.45rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: var(--sky-600);
 }
 
 .metric-label {
-  color: #94a3b8;
-  margin-top: 0.3rem;
+  color: var(--slate-500);
+  margin-top: 0.25rem;
+  font-size: 1rem;
 }
 </style>

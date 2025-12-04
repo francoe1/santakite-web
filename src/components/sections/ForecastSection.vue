@@ -1,16 +1,15 @@
 <template>
   <section id="pronostico" class="section">
     <div class="section-head">
-      <p class="eyebrow">Pronóstico GFS</p>
       <div>
         <h2>¿Es navegable los próximos días?</h2>
-        <p class="muted">Usamos datos horarios del modelo GFS (Open-Meteo) sobre Playa 52 para resumir 7 días.</p>
+        <p>Usamos datos horarios del modelo GFS (Open-Meteo) sobre Playa 52 para resumir 7 días.</p>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <p class="muted">Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.</p>
+        <p>Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.</p>
         <span class="status" :class="statusClass">{{ statusText }}</span>
       </div>
       <div class="forecast-grid">
@@ -22,41 +21,38 @@
           @click="openDetails(day)"
         >
           <div class="forecast-date">{{ formatDate(day.date) }}</div>
-          <div class="muted small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> kts</div>
-          <div class="muted small">Dirección principal: <strong>{{ degToCompass(day.mainDirDeg) }}</strong> ({{ day.mainDirDeg }}°)</div>
-          <div class="muted small">Ventana jugable: <strong>{{ day.playableCount }}</strong> hs</div>
-          <div class="muted small">Ráfaga máxima: <strong>{{ day.maxGustKts.toFixed(0) }}</strong> kts</div>
-          <div class="muted small">Lluvia estimada: <strong>{{ day.totalRain.toFixed(1) }}</strong> mm</div>
-          <div class="muted small">
+          <div class="small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> kts</div>
+          <div class="small">Dirección: <strong>{{ degToCompass(day.mainDirDeg) }}</strong> ({{ day.mainDirDeg }}°)</div>
+          <div class="small">Ventana jugable: <strong>{{ day.playableCount }}</strong> hs</div>
+          <div class="small">Ráfaga máxima: <strong>{{ day.maxGustKts.toFixed(0) }}</strong> kts</div>
+          <div class="small">Lluvia estimada: <strong>{{ day.totalRain.toFixed(1) }}</strong> mm</div>
+          <div class="small">
             <span v-if="day.stars > 0" class="stars" :aria-label="`Mejor ventana ${day.stars} estrellas`" role="img">
               {{ '★'.repeat(day.stars) }}
             </span>
             <span v-else>Sin ventana marcada</span>
           </div>
           <div class="badge" :class="classifyDay(day).className">{{ classifyDay(day).label }}</div>
-          <div class="muted tiny">
+          <div class="tiny">
             Mejor hora:
             <template v-if="day.bestHour">
               <strong>{{ day.bestHour.label }}</strong>
               · {{ day.bestHour.speedKts.toFixed(0) }} kts · {{ degToCompass(day.bestHour.dirDeg) }} ({{ day.bestHour.dirDeg }}°)
-              · ráfaga {{ day.bestHour.gustKts.toFixed(0) }} kts · lluvia {{ day.bestHour.precipMm.toFixed(1) }} mm
             </template>
             <template v-else>Sin datos</template>
           </div>
         </button>
       </div>
-      <p v-if="!forecast.length && !statusError" class="muted small">Cargando datos…</p>
-      <p v-if="statusError" class="muted small">{{ statusError }}</p>
+      <p v-if="!forecast.length && !statusError" class="small">Cargando datos…</p>
+      <p v-if="statusError" class="small">{{ statusError }}</p>
     </div>
     <div v-if="selectedDay" class="overlay" @click.self="closeDetails">
       <div class="overlay-card">
         <div class="overlay-head">
           <div>
-            <p class="eyebrow">Detalle por hora</p>
-            <h3>{{ formatDate(selectedDay.date) }}</h3>
-            <p class="muted small">
-              Viento > 12 nudos y dirección S/SE/E son jugables. Ventana: verano 7-20 h · invierno 9-17:30 h. La lluvia reduce
-              seguridad y visibilidad.
+            <h3>Detalle por hora: {{ formatDate(selectedDay.date) }}</h3>
+            <p class="small">
+              Viento > 12 nudos y dirección S/SE/E son jugables. Ventana: verano 7-20 h · invierno 9-17:30 h.
             </p>
           </div>
           <button type="button" class="close" @click="closeDetails">✕</button>
@@ -65,13 +61,7 @@
         <div class="hourly-table" role="table">
           <div class="hour-row header" role="row">
             <div class="label-cell" role="columnheader">Hora</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`h-${hour.time}`"
-              class="hour-cell time"
-              :style="hourCellStyle(hour)"
-              role="columnheader"
-            >
+            <div v-for="hour in selectedDay.hours" :key="`h-${hour.time}`" class="hour-cell time" role="columnheader">
               {{ hour.label }}
             </div>
           </div>
@@ -112,20 +102,7 @@
               role="cell"
             >
               <span class="arrow" :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
-              <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
-            </div>
-          </div>
-
-          <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Temperatura (°C)</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`t-${hour.time}`"
-              class="hour-cell value"
-              :style="hourCellStyle(hour)"
-              role="cell"
-            >
-              <span>{{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}</span>
+              <span class="dir-label">{{ degToCompass(hour.dirDeg) }}</span>
             </div>
           </div>
 
@@ -235,12 +212,17 @@ const playabilityScore = (hour) => {
 
 const hourCellStyle = (hour) => {
   const score = playabilityScore(hour)
-  const hue = 8 + (128 - 8) * score
-  const tone = `hsl(${hue}, 58%, 62%)`
-  const wash = `hsla(${hue}, 58%, 62%, 0.14)`
+  const isGood = isPlayable(hour)
+  if (!isGood) return {}
+
+  const hue = 120 + 80 * score
+  const saturation = 40 + 30 * score
+  const lightness = 65 - 15 * score
+  const tone = `hsl(${hue}, ${saturation}%, ${lightness}%)`
+  const wash = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.15)`
   return {
     borderColor: tone,
-    background: `linear-gradient(180deg, ${wash}, rgba(15, 23, 42, 0.9))`,
+    background: `linear-gradient(180deg, ${wash}, transparent)`,
   }
 }
 
@@ -342,152 +324,154 @@ onMounted(async () => {
 
 <style scoped>
 .section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--slate-200);
 }
 
 .section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
-.muted {
-  color: #cbd5e1;
+p {
+  color: var(--slate-600);
+  font-size: 1.1rem;
 }
 
 .card {
-  padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: white;
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
+}
+
+.card-header p {
+  font-size: 0.9rem;
+  color: var(--slate-500);
 }
 
 .status {
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid;
 }
 
 .status-loading {
-  background: rgba(234, 179, 8, 0.18);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.35);
+  background-color: var(--yellow-100);
+  color: var(--yellow-700);
+  border-color: var(--yellow-200);
 }
-
 .status-ok {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+  background-color: var(--green-100);
+  color: var(--green-700);
+  border-color: var(--green-200);
 }
-
 .status-error {
-  background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
-  border: 1px solid rgba(248, 113, 113, 0.35);
+  background-color: var(--red-100);
+  color: var(--red-700);
+  border-color: var(--red-200);
 }
 
 .forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
 }
 
 .forecast-card {
   border: none;
   text-align: left;
-  padding: 0.9rem;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(15, 23, 42, 0.6);
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--slate-200);
+  background: var(--slate-50);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   cursor: pointer;
-  color: #e2e8f0;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--slate-700);
+  transition: all 0.2s ease;
 }
 
 .forecast-card:hover,
 .forecast-card:focus-visible {
-  border-color: rgba(34, 197, 94, 0.55);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.55);
+  border-color: var(--sky-400);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
   outline: none;
 }
 
 .forecast-date {
   font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
 }
 
 .badge {
   align-self: flex-start;
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  border: 1px solid;
 }
 
 .badge-ok {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+  background-color: var(--green-100);
+  color: var(--green-700);
+  border-color: var(--green-200);
 }
-
 .badge-warn {
-  background: rgba(234, 179, 8, 0.2);
-  color: #eab308;
-  border: 1px solid rgba(234, 179, 8, 0.35);
+  background-color: var(--yellow-100);
+  color: var(--yellow-700);
+  border-color: var(--yellow-200);
 }
-
 .badge-bad {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  background-color: var(--red-100);
+  color: var(--red-700);
+  border-color: var(--red-200);
 }
 
-.small {
+.small,
+p.small {
   font-size: 0.9rem;
+  color: var(--slate-500);
 }
 
 .tiny {
   font-size: 0.8rem;
+  color: var(--slate-500);
+  margin-top: 0.25rem;
 }
 
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -497,116 +481,114 @@ h2 {
 }
 
 .overlay-card {
-  background: #0b1222;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 1rem;
-  padding: 1.25rem;
-  width: min(1040px, 100%);
+  background: white;
+  border: 1px solid var(--slate-200);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  width: min(1100px, 100%);
   max-height: 90vh;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .overlay-head {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  align-items: start;
+  align-items: flex-start;
+}
+
+.overlay-head h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .close {
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: rgba(15, 23, 42, 0.8);
-  color: #e2e8f0;
+  border: 1px solid var(--slate-300);
+  background: white;
+  color: var(--slate-600);
   border-radius: 999px;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: grid;
   place-items: center;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
-
+.close:hover {
+  background: var(--slate-100);
+  transform: scale(1.05);
+}
 
 .hourly-table {
   display: flex;
   flex-direction: column;
-  gap: 0;
   overflow-x: auto;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.85rem;
+  border: 1px solid var(--slate-200);
+  border-radius: 1rem;
+  background: var(--slate-50);
 }
 
 .hour-row {
   display: flex;
-  gap: 0;
   min-width: fit-content;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  border-bottom: 1px solid var(--slate-200);
 }
-
 .hour-row:last-child {
   border-bottom: none;
 }
 
 .label-cell {
-  width: 150px;
-  min-width: 150px;
-  padding: 0.55rem 0.75rem;
-  background: rgba(15, 23, 42, 0.9);
-  color: #e2e8f0;
-  font-weight: 700;
+  width: 140px;
+  min-width: 140px;
+  padding: 0.6rem 0.85rem;
+  background: white;
+  color: var(--slate-700);
+  font-weight: 600;
   display: flex;
   align-items: center;
-  border-right: 1px solid rgba(148, 163, 184, 0.2);
+  border-right: 1px solid var(--slate-200);
 }
 
 .hour-cell {
-  min-width: 80px;
-  max-width: 80px;
-  border-left: 1px solid rgba(148, 163, 184, 0.12);
-  padding: 0.55rem 0.35rem;
+  min-width: 70px;
+  max-width: 70px;
+  border-left: 1px solid var(--slate-200);
+  padding: 0.6rem 0.35rem;
   text-align: center;
-  color: #e2e8f0;
+  color: var(--slate-700);
   display: grid;
-  gap: 0.35rem;
+  gap: 0.3rem;
   justify-items: center;
-  background: rgba(15, 23, 42, 0.82);
+  font-size: 0.9rem;
 }
 
 .hour-row.header .hour-cell {
-  font-weight: 700;
-  background: rgba(15, 23, 42, 0.95);
+  font-weight: 600;
+  background: white;
 }
 
 .hour-cell.value {
-  font-size: 1rem;
-  font-weight: 800;
+  font-weight: 700;
 }
-
 .hour-cell.direction {
-  font-size: 0.85rem;
   line-height: 1.2;
 }
 
 .hour-cell .arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  background: rgba(148, 163, 184, 0.12);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  display: inline-block;
   font-weight: 900;
 }
-
 .dir-label {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
+  color: var(--slate-500);
 }
 
 .stars {
-  color: #fbbf24;
-  letter-spacing: 3px;
+  color: #f59e0b;
+  letter-spacing: 2px;
 }
 </style>

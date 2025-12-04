@@ -1,93 +1,62 @@
 <template>
-  <section id="servicios" class="section">
+  <section id="services" class="section">
     <div class="section-head">
-      <p class="eyebrow">Servicios</p>
       <div>
-        <h2>Coaching, downwinds y gear listo</h2>
-        <p class="muted">Todo optimizado para que navegues más y mejores en cada sesión.</p>
+        <h2>Servicios</h2>
+        <p>
+          Ofrecemos servicios para que tu experiencia de kitesurf sea la mejor.
+        </p>
       </div>
     </div>
-    <div class="cards">
-      <article v-for="service in services" :key="service.title" class="card">
-        <span class="chip">{{ service.tag }}</span>
-        <h3>{{ service.title }}</h3>
-        <p class="muted">{{ service.description }}</p>
-      </article>
+    <div class="card">
+      <h3>Clases de kitesurf</h3>
+      <p>Clases para todos los niveles, con instructores certificados. ¡Animate a probar!</p>
     </div>
   </section>
 </template>
 
-<script setup>
-const props = defineProps({
-  services: {
-    type: Array,
-    default: () => [],
-  },
-})
-</script>
-
 <style scoped>
 .section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--slate-200);
 }
 
 .section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
-.muted {
-  color: #cbd5e1;
-  max-width: 640px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+p {
+  color: var(--slate-600);
+  font-size: 1.1rem;
 }
 
 .card {
-  padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: white;
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.75rem;
 }
 
-.card h3 {
-  font-size: 1.05rem;
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
-.chip {
-  align-self: flex-start;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(14, 165, 233, 0.12);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  font-weight: 700;
-  font-size: 0.85rem;
+.card p {
+  font-size: 1rem;
+  color: var(--slate-500);
 }
 </style>

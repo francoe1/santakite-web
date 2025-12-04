@@ -1,16 +1,31 @@
 <template>
   <section id="spot" class="section">
     <div class="section-head">
-      <p class="eyebrow">El spot</p>
       <div>
         <h2>Playa 52 en Santa Ana</h2>
-        <p class="muted">Zona abierta de río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
+        <p>Zona abierta de río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
       </div>
     </div>
     <div class="cards">
       <article v-for="item in highlights" :key="item.title" class="card">
+        <div class="card-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </div>
         <h3>{{ item.title }}</h3>
-        <p class="muted">{{ item.description }}</p>
+        <p>{{ item.description }}</p>
       </article>
     </div>
     <div class="info-banner">
@@ -31,66 +46,89 @@ const props = defineProps({
 
 <style scoped>
 .section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--slate-200);
 }
 
 .section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
-.muted {
-  color: #cbd5e1;
-  max-width: 640px;
+p {
+  color: var(--slate-600);
+  font-size: 1.1rem;
 }
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 .card {
-  padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: white;
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.75rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.card h3 {
-  font-size: 1.05rem;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background-color: var(--sky-100);
+  color: var(--sky-600);
+  border: 1px solid var(--sky-200);
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card p {
+  font-size: 1rem;
+  color: var(--slate-500);
 }
 
 .info-banner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 0.6rem;
-  padding: 1rem 1.2rem;
-  border-radius: 1rem;
-  background: linear-gradient(110deg, rgba(14, 165, 233, 0.12), rgba(34, 211, 238, 0.06));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #e0f2fe;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1.25rem;
+  background-color: var(--sky-500);
+  color: white;
+  margin-top: 2.5rem;
+}
+
+.info-banner p {
+  color: white;
+  font-size: 1rem;
 }
 </style>
