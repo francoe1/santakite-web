@@ -24,6 +24,21 @@
         <p class="eyebrow">Referencia rápida</p>
         <h2>Río tranquilo, espacio de arena y accesos directos.</h2>
         <p class="muted">Usá la info del mapa, respetá las zonas y revisá el pronóstico antes de armar.</p>
+        <div class="wind-widget">
+          <div class="arrow-circle" :style="currentWind.dirDeg !== null ? { transform: `rotate(${currentWind.dirDeg}deg)` } : {}">↑</div>
+          <div class="wind-data">
+            <p class="wind-value">
+              {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando viento…' }}
+            </p>
+            <p class="muted">
+              {{
+                currentWind.dirDeg !== null
+                  ? `Dirección ${currentDirLabel} (${Math.round(currentWind.dirDeg)}°)`
+                  : 'Midiendo dirección en Playa 52'
+              }}
+            </p>
+          </div>
+        </div>
         <div class="stat-grid">
           <div>
             <p class="stat">-30.9085</p>
@@ -45,12 +60,44 @@
 </template>
 
 <script setup>
+import { computed, onMounted, ref } from 'vue'
+
 const scrollTo = (id) => {
   const target = document.getElementById(id)
   if (target) {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 }
+
+const currentWind = ref({ speedKts: null, dirDeg: null })
+
+const currentDirLabel = computed(() => {
+  if (currentWind.value.dirDeg === null) return ''
+  return degToCompass(currentWind.value.dirDeg)
+})
+
+const degToCompass = (deg) => {
+  const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO']
+  return dirs[Math.round(deg / 45) % 8]
+}
+
+onMounted(async () => {
+  try {
+    const url =
+      'https://api.open-meteo.com/v1/gfs?latitude=-30.9085&longitude=-57.915&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn'
+
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const data = await response.json()
+
+    currentWind.value = {
+      speedKts: data.current?.windspeed_10m ?? null,
+      dirDeg: data.current?.winddirection_10m ?? null,
+    }
+  } catch (err) {
+    console.error(err)
+  }
+})
 </script>
 
 <style scoped>
@@ -168,6 +215,42 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
+}
+
+.wind-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.arrow-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #7dd3fc;
+  font-weight: 900;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.wind-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.wind-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #e2e8f0;
 }
 
 .eyebrow {

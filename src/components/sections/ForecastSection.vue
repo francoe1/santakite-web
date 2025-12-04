@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const forecast = ref([])
 const statusError = ref('')
@@ -137,10 +137,22 @@ const closeDetails = () => {
   selectedDay.value = null
 }
 
+watch(
+  selectedDay,
+  (val) => {
+    document.body.style.overflow = val ? 'hidden' : ''
+  },
+  { immediate: false }
+)
+
+onBeforeUnmount(() => {
+  document.body.style.overflow = ''
+})
+
 onMounted(async () => {
   try {
     const url =
-      'https://api.open-meteo.com/v1/gfs?latitude=-30.90&longitude=-57.93&hourly=winddirection_10m,windspeed_10m,precipitation&timezone=auto'
+      'https://api.open-meteo.com/v1/gfs?latitude=-30.9085&longitude=-57.915&hourly=winddirection_10m,windspeed_10m,precipitation&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn'
 
     const response = await fetch(url)
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -152,17 +164,17 @@ onMounted(async () => {
     for (let i = 0; i < time.length; i += 1) {
       const date = time[i].split('T')[0]
       if (!map[date]) map[date] = { speeds: [], dirs: [], rains: [], hours: [] }
-      const speedMs = windspeed_10m[i]
+      const speedKts = windspeed_10m[i]
       const dirDeg = winddirection_10m[i]
       const rainMm = precipitation[i] ?? 0
 
-      map[date].speeds.push(speedMs)
+      map[date].speeds.push(speedKts)
       map[date].dirs.push(dirDeg)
       map[date].rains.push(rainMm)
       map[date].hours.push({
         time: time[i],
         label: new Date(time[i]).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
-        speedKts: speedMs * 1.94384,
+        speedKts: speedKts,
         dirDeg: Math.round(dirDeg),
         precipMm: rainMm,
       })
@@ -182,7 +194,7 @@ onMounted(async () => {
 
       return {
         date,
-        avgWindKts: Math.round(avgWind * 1.94384),
+        avgWindKts: Math.round(avgWind),
         mainDirDeg: Math.round(avgDir),
         totalRain,
         playableCount: playableHours.length,
@@ -356,10 +368,12 @@ h2 {
   inset: 0;
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(4px);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   z-index: 1200;
+  overflow-y: auto;
 }
 
 .overlay-card {
@@ -368,6 +382,7 @@ h2 {
   border-radius: 1rem;
   padding: 1.25rem;
   width: min(900px, 100%);
+  max-height: 90vh;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
