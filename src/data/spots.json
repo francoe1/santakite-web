@@ -253,21 +253,21 @@
   {
     "id": "santa-ana-oeste",
     "name": "Santa Ana Oeste",
-    "location": "Rampa oeste, Santa Ana (Entre Ríos)",
+    "location": "Playa oeste, Santa Ana (Entre Ríos)",
     "coordinates": {
       "lat": -30.913645,
       "lon": -57.930449
     },
     "references": {
       "coordinatesLabel": "-30.913645, -57.930449",
-      "description": "Rampa oeste de Santa Ana – acceso por camino costero."
+      "description": "Playa oeste de Santa Ana – acceso por camino costero."
     },
     "hero": {
       "badge": "Santa Ana · Río Uruguay",
       "title": "Ventana oeste",
-      "accent": "para navegar en la rampa oeste",
-      "lead": "Spot lateral al oeste con espacio de arena firme y acceso directo al río.",
-      "tags": ["Viento W", "Rampa de arena", "Zonas separadas"]
+      "accent": "para navegar en la playa oeste",
+      "lead": "Spot lateral al oeste con playa de arena y piedra y entrada directa al río.",
+      "tags": ["Viento W", "Arena + piedra", "Cuidado acantilado"]
     },
     "highlights": [
       {
@@ -276,11 +276,11 @@
       },
       {
         "title": "Acceso y armado",
-        "description": "Entrada por la rampa oeste con franja de arena para armar y lanzar con asistencia entre riders."
+        "description": "Ingreso por la playa: franja de arena y piedra para armar y lanzar con asistencia entre riders."
       },
       {
-        "title": "Separación de zonas",
-        "description": "Delimitar zona de kites al sur de la rampa para evitar interferir con embarcaciones o bañistas."
+        "title": "Cuidado con el acantilado",
+        "description": "El viento se arracha cerca del acantilado; delimitar zona de kites al sur para mantener distancia de bañistas."
       }
     ],
     "wind": {
@@ -298,7 +298,7 @@
         {
           "lat": -30.913645,
           "lon": -57.930449,
-          "label": "Rampa oeste Santa Ana – zona de armado"
+          "label": "Playa oeste Santa Ana – zona de armado"
         },
         {
           "lat": -30.9144,
@@ -331,20 +331,20 @@
       "speedScoreCap": 14
     },
     "security": {
-      "intro": "Respetar la rampa de embarque y mantener la navegación al sur para no interferir con tráfico fluvial.",
+      "intro": "Playa de arena y piedra sin rampa: armar lejos del acantilado donde el viento se arracha y mantener la navegación al sur para no interferir con tráfico fluvial.",
       "steps": [
         {
           "title": "Antes de armar",
           "items": [
             "Confirmar viento Oeste estable y libre de tormenta.",
-            "Armar en la franja verde dejando despejada la rampa de embarque.",
+            "Armar en la franja verde, buscando suelo plano y lejos del borde del acantilado.",
             "Planificar retorno y punto de escape a sotavento en caso de caída de viento."
           ]
         },
         {
           "title": "Durante la sesión",
           "items": [
-            "Mantenerse dentro del polígono de navegación y evitar maniobras frente a la rampa.",
+            "Mantenerse dentro del polígono de navegación y evitar maniobras cerca del acantilado o donde el viento se arracha.",
             "Usar body drag de entrada y salida para alejar el kite de la orilla.",
             "Avisar lanzamientos/aterrizajes para coordinar con otros riders."
           ]
@@ -352,7 +352,7 @@
         {
           "title": "Al cerrar",
           "items": [
-            "Bajar cometa en la zona verde, enrollar líneas y despejar la rampa.",
+            "Bajar cometa en la zona verde, enrollar líneas y dejar despejada la playa.",
             "Reportar cambios de corriente o peligros flotantes al grupo.",
             "Retirar basura y revisar que no queden anclajes en la arena."
           ]
