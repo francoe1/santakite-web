@@ -20,7 +20,7 @@
           <div class="wind-widget">
             <div
               class="arrow-circle"
-              :style="normalizedDirDeg !== null ? { transform: `rotate(${normalizedDirDeg}deg)` } : {}"
+              :style="normalizedDirDeg !== null ? { transform: `rotate(${normalizedDirDeg + 180}deg)` } : {}"
             >
               ↑
             </div>

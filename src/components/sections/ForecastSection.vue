@@ -109,7 +109,7 @@
               :style="hourCellStyle(hour)"
               role="cell"
             >
-              <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg}deg)` }">↑</span>
+              <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg + 180}deg)` }">↑</span>
               <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
             </div>
           </div>
@@ -167,7 +167,7 @@
               <div class="direction">
                 <dt>Dirección</dt>
                 <dd>
-                  <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg}deg)` }">↑</span>
+                  <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg + 180}deg)` }">↑</span>
                   <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
                 </dd>
               </div>
