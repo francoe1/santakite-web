@@ -1,5 +1,7 @@
 <script setup>
+import { onMounted } from 'vue'
 import { useSiteStore } from './stores/site'
+import { useUiStore } from './stores/ui'
 import TopBar from './components/layout/TopBar.vue'
 import HeroSection from './components/sections/HeroSection.vue'
 import SpotHighlights from './components/sections/SpotHighlights.vue'
@@ -9,52 +11,25 @@ import SecuritySection from './components/sections/SecuritySection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 
 const site = useSiteStore()
+const ui = useUiStore()
+
+onMounted(() => {
+  ui.initTheme()
+})
 </script>
 
 <template>
-  <TopBar :nav-items="site.navItems" />
-  <main class="page">
-    <HeroSection />
-    <SpotHighlights :highlights="site.spotHighlights" />
-    <MapSection />
-    <ForecastSection />
-    <SecuritySection :security="site.security" />
-    <ContactSection :contacts="site.contacts" />
-  </main>
+  <div class="app-shell bg-android">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-6 space-y-5 md:space-y-7">
+      <TopBar :nav-items="site.navItems" :theme="ui.theme" @toggle-theme="ui.toggleTheme" />
+      <main class="space-y-5 md:space-y-6">
+        <HeroSection />
+        <SpotHighlights :highlights="site.spotHighlights" />
+        <MapSection />
+        <ForecastSection />
+        <SecuritySection :security="site.security" />
+        <ContactSection :contacts="site.contacts" />
+      </main>
+    </div>
+  </div>
 </template>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Pacifico&display=swap');
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-}
-
-body {
-  font-family: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #0b1f2a;
-  line-height: 1.6;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #f7fbff 0%, #eaf3f7 100%);
-  overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-main {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 1.2rem 1.1rem 3.8rem;
-}
-
-.page {
-  position: relative;
-}
-</style>

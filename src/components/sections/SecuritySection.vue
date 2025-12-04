@@ -1,26 +1,5 @@
-<template>
-  <section id="seguridad" class="section">
-    <div class="section-head">
-      <p class="eyebrow">Seguridad y protocolo</p>
-      <div>
-        <h2>Checklist claro para usar el spot</h2>
-        <p class="muted">Indicaciones básicas para convivir con bañistas y mantener la zona de kites ordenada.</p>
-      </div>
-    </div>
-    <div class="steps">
-      <article v-for="step in security.steps" :key="step.title" class="step-card">
-        <h3>{{ step.title }}</h3>
-        <ul>
-          <li v-for="item in step.items" :key="item">{{ item }}</li>
-        </ul>
-      </article>
-    </div>
-    <div class="note">{{ security.intro }}</div>
-  </section>
-</template>
-
 <script setup>
-const props = defineProps({
+defineProps({
   security: {
     type: Object,
     default: () => ({ steps: [], intro: '' }),
@@ -28,76 +7,36 @@ const props = defineProps({
 })
 </script>
 
-<style scoped>
-.section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  background: #ffffff;
-  padding: 1.2rem;
-  border: 1px solid #dfe7ec;
-  color: #0b1f2a;
-}
+<template>
+  <section id="seguridad" class="section-block">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Seguridad y protocolo</p>
+        <h2 class="section-title">Checklist claro para usar el spot</h2>
+        <p class="section-description">Indicaciones básicas para convivir con bañistas y mantener la zona de kites ordenada.</p>
+      </div>
+      <span class="tag bg-[var(--accent-2)]/15 text-[var(--accent-2)]">Revisar antes de navegar</span>
+    </div>
 
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
+    <div class="grid gap-3 md:grid-cols-3">
+      <article
+        v-for="step in security.steps"
+        :key="step.title"
+        class="glass-card p-4 md:p-5 space-y-3 border border-[var(--outline)]/60 hover:-translate-y-0.5 transition"
+      >
+        <h3 class="text-lg font-bold flex items-center gap-2">
+          <span class="material-symbols-rounded text-[var(--accent)]">task_alt</span>
+          {{ step.title }}
+        </h3>
+        <ul class="grid gap-2 text-sm text-muted list-disc pl-5">
+          <li v-for="item in step.items" :key="item">{{ item }}</li>
+        </ul>
+      </article>
+    </div>
 
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #0f4c5c;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
-}
-
-.muted {
-  color: #0f4c5c;
-  max-width: 640px;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-.step-card {
-  padding: 1.2rem;
-  background: #f9fcfd;
-  border: 1px solid #dfe7ec;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.step-card h3 {
-  margin-bottom: 0.65rem;
-  font-size: 1.05rem;
-}
-
-.step-card ul {
-  display: grid;
-  gap: 0.5rem;
-  color: #0f4c5c;
-  padding-left: 1rem;
-}
-
-.step-card:hover {
-  border-color: #c7d6dc;
-  background: #f4f7f9;
-}
-
-.note {
-  padding: 1rem 1.2rem;
-  background: #eef4f6;
-  border: 1px solid #dfe7ec;
-}
-</style>
+    <div class="glass-card p-4 md:p-5 text-sm text-[var(--on-surface)] flex items-center gap-3">
+      <span class="material-symbols-rounded text-[var(--accent)]">shield</span>
+      {{ security.intro }}
+    </div>
+  </section>
+</template>

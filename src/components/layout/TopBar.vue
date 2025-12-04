@@ -1,151 +1,74 @@
-<template>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand-mark" @click="scrollTo('hero')">
-        <div class="brand-text">
-          <span class="brand-title">SantaKite</span>
-          <span class="brand-sub">Río &amp; viento libre</span>
-        </div>
-      </div>
-      <nav class="topbar-nav" aria-label="Secciones principales">
-        <button
-          v-for="item in navItems"
-          :key="item.id"
-          type="button"
-          class="nav-button"
-          @click="scrollTo(item.id)"
-        >
-          {{ item.label }}
-        </button>
-        <a class="cta" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">
-          Reservar
-        </a>
-      </nav>
-    </div>
-  </header>
-</template>
-
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
-  navItems: {
-    type: Array,
-    default: () => [],
-  },
+  navItems: { type: Array, default: () => [] },
+  theme: { type: String, default: 'light' },
 })
+
+const emit = defineEmits(['toggle-theme'])
 
 const scrollTo = (id) => {
   const target = document.getElementById(id)
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
+
+const themeIcon = computed(() => (props.theme === 'dark' ? 'sunny' : 'nightlight'))
+const themeLabel = computed(() => (props.theme === 'dark' ? 'Modo claro' : 'Modo oscuro'))
 </script>
 
-<style scoped>
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #ffffff;
-  border-bottom: 1px solid #e0e7ea;
-}
+<template>
+  <header class="sticky top-0 z-50">
+    <div class="glass-card flex flex-col gap-3 md:flex-row md:items-center md:justify-between px-4 md:px-5 py-3 shadow-android">
+      <button
+        type="button"
+        class="flex items-center gap-3 rounded-2xl px-3 py-2 transition hover:-translate-y-0.5"
+        @click="scrollTo('hero')"
+      >
+        <span
+          class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-emerald-400 text-white font-black shadow-android"
+        >
+          SK
+        </span>
+        <span class="flex flex-col text-left">
+          <span class="text-lg font-extrabold tracking-tight">SantaKite</span>
+          <span class="text-xs font-semibold text-muted">Playa 52 · Río Uruguay</span>
+        </span>
+      </button>
 
-.topbar-inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0.7rem 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.brand-mark {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.brand-title {
-  color: #0b2f3f;
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
-}
-
-.brand-sub {
-  color: #0f5672;
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-
-.topbar-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  font-size: 0.9rem;
-  color: #0f4c5c;
-  align-items: center;
-}
-
-.nav-button {
-  background: #f4f7f9;
-  border: 1px solid #d7e0e4;
-  color: inherit;
-  cursor: pointer;
-  padding: 0.45rem 0.95rem;
-
-  transition: background 0.2s, color 0.2s;
-  letter-spacing: 0.01em;
-}
-
-.nav-button:hover {
-  background: #e6eff4;
-  color: #0f2f3f;
-}
-
-.cta {
-  padding: 0.65rem 1.25rem;
-
-  background: #0f4c5c;
-  color: #f6fbfd;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  border: 1px solid #0f4c5c;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.cta:hover {
-  background: #093544;
-  color: #e9f4f8;
-}
-
-@media (max-width: 720px) {
-  .topbar-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .topbar-nav {
-    width: 100%;
-    justify-content: space-between;
-    gap: 0.6rem;
-  }
-
-  .nav-button,
-  .cta {
-    flex: 1;
-    text-align: center;
-  }
-}
-</style>
+      <div class="flex flex-wrap items-center gap-2 md:justify-end w-full">
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            v-for="item in navItems"
+            :key="item.id"
+            type="button"
+            class="pill-button text-sm"
+            @click="scrollTo(item.id)"
+          >
+            {{ item.label }}
+          </button>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="pill-button text-sm"
+            :aria-label="themeLabel"
+            @click="emit('toggle-theme')"
+          >
+            <span class="material-symbols-rounded text-base">{{ themeIcon }}</span>
+            {{ themeLabel }}
+          </button>
+          <a
+            class="pill-button bg-[var(--accent)] text-white border-none shadow-android text-sm"
+            href="https://wa.me/543456479677"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="material-symbols-rounded text-base">chat</span>
+            Reservar
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+</template>
