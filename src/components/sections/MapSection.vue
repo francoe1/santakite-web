@@ -29,7 +29,10 @@
               height="320"
               src="https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs"
               frameborder="0"
+              scrolling="no"
+              loading="lazy"
             ></iframe>
+            <div class="windy-guard" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -52,7 +55,16 @@ onMounted(async () => {
   try {
     const L = await import('https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js')
 
-    const map = L.map(mapEl.value).setView([spotLat - 0.005, spotLon - 0.003], 14.5)
+    const map = L.map(mapEl.value, {
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      touchZoom: false,
+      keyboard: false,
+      zoomControl: false,
+      tap: false,
+    }).setView([spotLat - 0.005, spotLon - 0.003], 14.5)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 17,
@@ -181,6 +193,16 @@ h2 {
   border-radius: 0.9rem;
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.2);
+  position: relative;
+}
+
+.windy-guard {
+  position: absolute;
+  inset: 0;
+  bottom: 72px;
+  z-index: 2;
+  pointer-events: auto;
+  background: transparent;
 }
 
 .zones-legend {
