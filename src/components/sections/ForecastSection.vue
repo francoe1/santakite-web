@@ -30,11 +30,9 @@
           <div class="muted tiny">Mejor hora: {{ day.bestHour ? day.bestHour.label : 'Sin datos' }}</div>
         </button>
       </div>
-        <p v-if="!forecast.length && !statusError" class="muted small">Cargando datos…</p>
-        <p v-if="statusError" class="muted small">{{ statusError }}</p>
-      </div>
+      <p v-if="!forecast.length && !statusError" class="muted small">Cargando datos…</p>
+      <p v-if="statusError" class="muted small">{{ statusError }}</p>
     </div>
-
     <div v-if="selectedDay" class="overlay" @click.self="closeDetails">
       <div class="overlay-card">
         <div class="overlay-head">
