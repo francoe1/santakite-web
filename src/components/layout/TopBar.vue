@@ -7,20 +7,26 @@
           <span class="brand-sub">Río &amp; viento libre</span>
         </div>
       </div>
-      <nav class="topbar-nav" aria-label="Secciones principales">
-        <button
-          v-for="item in navItems"
-          :key="item.id"
-          type="button"
-          class="nav-button"
-          @click="scrollTo(item.id)"
-        >
-          {{ item.label }}
-        </button>
-        <a class="cta" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">
-          Reservar
-        </a>
-      </nav>
+      <div class="topbar-controls">
+        <label class="spot-switch" for="spot-select">Spot</label>
+        <select id="spot-select" class="spot-select" :value="currentSpotId" @change="onSelectChange">
+          <option v-for="spot in spots" :key="spot.id" :value="spot.id">
+            {{ spot.name }}
+          </option>
+        </select>
+
+        <nav class="topbar-nav" aria-label="Secciones principales">
+          <button
+            v-for="item in navItems"
+            :key="item.id"
+            type="button"
+            class="nav-button"
+            @click="scrollTo(item.id)"
+          >
+            {{ item.label }}
+          </button>
+        </nav>
+      </div>
     </div>
   </header>
 </template>
@@ -31,13 +37,27 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  spots: {
+    type: Array,
+    default: () => [],
+  },
+  currentSpotId: {
+    type: String,
+    default: null,
+  },
 })
+
+const emit = defineEmits(['select-spot'])
 
 const scrollTo = (id) => {
   const target = document.getElementById(id)
   if (target) {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+}
+
+const onSelectChange = (event) => {
+  emit('select-spot', event.target.value)
 }
 </script>
 
@@ -57,7 +77,7 @@ const scrollTo = (id) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .brand-mark {
@@ -89,6 +109,35 @@ const scrollTo = (id) => {
 }
 
 
+
+.topbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.spot-switch {
+  font-weight: 700;
+  color: #0b2f3f;
+  font-size: 0.85rem;
+}
+
+.spot-select {
+  background: #f4f7f9;
+  border: 1px solid #d7e0e4;
+  color: #0b2f3f;
+  padding: 0.45rem 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 190px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+}
+
 .topbar-nav {
   display: flex;
   flex-wrap: wrap;
@@ -114,26 +163,18 @@ const scrollTo = (id) => {
   color: #0f2f3f;
 }
 
-.cta {
-  padding: 0.65rem 1.25rem;
-
-  background: #0f4c5c;
-  color: #f6fbfd;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  border: 1px solid #0f4c5c;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.cta:hover {
-  background: #093544;
-  color: #e9f4f8;
-}
-
 @media (max-width: 720px) {
   .topbar-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .topbar-controls {
+    width: 100%;
+  }
+
+  .spot-select {
+    width: 100%;
   }
 
   .topbar-nav {
@@ -142,8 +183,7 @@ const scrollTo = (id) => {
     gap: 0.6rem;
   }
 
-  .nav-button,
-  .cta {
+  .nav-button {
     flex: 1;
     text-align: center;
   }

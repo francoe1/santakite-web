@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, watch } from 'vue'
 import { useSiteStore } from './stores/site'
 import TopBar from './components/layout/TopBar.vue'
 import HeroSection from './components/sections/HeroSection.vue'
@@ -9,17 +10,54 @@ import SecuritySection from './components/sections/SecuritySection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 
 const site = useSiteStore()
+
+const applySpotFromUrl = () => {
+  if (typeof window === 'undefined') return
+  const params = new URLSearchParams(window.location.search)
+  const spotId = params.get('spot')
+  if (spotId) {
+    site.setCurrentSpotId(spotId)
+  }
+}
+
+const persistSpotInUrl = (spotId) => {
+  if (typeof window === 'undefined') return
+  const url = new URL(window.location.href)
+  if (spotId) {
+    url.searchParams.set('spot', spotId)
+  } else {
+    url.searchParams.delete('spot')
+  }
+  const newUrl = `${url.pathname}${url.search}${url.hash}`
+  window.history.replaceState({}, '', newUrl)
+}
+
+onMounted(() => {
+  applySpotFromUrl()
+  watch(
+    () => site.currentSpotId,
+    (spotId) => {
+      persistSpotInUrl(spotId)
+    },
+    { immediate: true }
+  )
+})
 </script>
 
 <template>
-  <TopBar :nav-items="site.navItems" />
+  <TopBar
+    :nav-items="site.navItems"
+    :spots="site.spots"
+    :current-spot-id="site.currentSpotId"
+    @select-spot="site.setCurrentSpotId"
+  />
   <main class="page">
-    <HeroSection />
-    <SpotHighlights :highlights="site.spotHighlights" />
-    <MapSection />
-    <ForecastSection />
-    <SecuritySection :security="site.security" />
-    <ContactSection :contacts="site.contacts" />
+    <HeroSection v-if="site.currentSpot" :spot="site.currentSpot" />
+    <SpotHighlights v-if="site.currentSpot" :spot="site.currentSpot" />
+    <MapSection v-if="site.currentSpot" :spot="site.currentSpot" />
+    <ForecastSection v-if="site.currentSpot" :spot="site.currentSpot" />
+    <SecuritySection v-if="site.currentSpot" :security="site.currentSpot.security" />
+    <ContactSection v-if="site.currentSpot" :contacts="site.currentSpot.contacts" />
   </main>
 </template>
 

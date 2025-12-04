@@ -1,0 +1,371 @@
+[
+  {
+    "id": "playa52",
+    "name": "Playa 52",
+    "location": "Santa Ana, Entre Ríos",
+    "coordinates": {
+      "lat": -30.9085,
+      "lon": -57.915
+    },
+    "references": {
+      "coordinatesLabel": "-30.9085, -57.9150",
+      "description": "Playa 52, Santa Ana, Entre Ríos."
+    },
+    "hero": {
+      "badge": "Santa Ana · Río Uruguay",
+      "title": "Kitesurf libre",
+      "accent": "en Playa 52",
+      "lead": "Armá tu kite sobre arena y navegá con vista abierta al río.",
+      "tags": ["Vientos S · SE · E", "Zonas separadas"]
+    },
+    "highlights": [
+      {
+        "title": "Santa Ana, Entre Ríos",
+        "description": "Playa 52 es un spot abierto, sobre río, con espacio para armar y lanzar sin obstáculos."
+      },
+      {
+        "title": "Vientos útiles: S · SE · E",
+        "description": "Direcciones limpias con entrada lateral; se evita navegar con norte fuerte o tormentas."
+      },
+      {
+        "title": "Terreno y orilla",
+        "description": "Arena amplia y fondo parejo; permite delimitar zona de kites y separar bañistas."
+      }
+    ],
+    "wind": {
+      "latitude": -30.9085,
+      "longitude": -57.915
+    },
+    "map": {
+      "windyEmbedUrl": "https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs",
+      "view": {
+        "lat": -30.9135,
+        "lon": -57.918,
+        "zoom": 14.5
+      },
+      "markers": [
+        {
+          "lat": -30.9085,
+          "lon": -57.914,
+          "label": "Playa 52 - Spot de Kitesurf"
+        },
+        {
+          "lat": -30.9125,
+          "lon": -57.914,
+          "label": "Construcción cercana: tener precaución con niveles bajos de agua"
+        }
+      ],
+      "launchZone": [
+        [-30.908, -57.915],
+        [-30.908, -57.913],
+        [-30.9087, -57.913],
+        [-30.9087, -57.915]
+      ],
+      "swimZone": [
+        [-30.9087, -57.915],
+        [-30.9087, -57.913],
+        [-30.9136, -57.913],
+        [-30.9136, -57.924],
+        [-30.9115, -57.923],
+        [-30.9095, -57.92]
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.",
+      "detailText": "Viento > 12 nudos desde S, SE o E es navegable dentro de la ventana local. Verano: 7:00 a 20:00 · invierno: 9:00 a 17:30. La lluvia y la falta de luz reducen seguridad y visibilidad.",
+      "preferredDirections": ["S", "SE", "E"],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": { "startHour": 7, "endHour": 20 },
+      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "speedScoreBase": 8,
+      "speedScoreCap": 14
+    },
+    "security": {
+      "intro": "Ordenamos el spot para proteger a navegantes y bañistas: zonas marcadas, comunicación clara y criterio conservador.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Revisar líneas, leash y que no haya obstáculos en la zona de despegue.",
+            "Respetar la orientación recomendada: Sur, Sudeste o Este.",
+            "Evitar lanzar si hay tormenta eléctrica o ráfagas cruzadas."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Usar la zona de kites para maniobras y mantener distancia de la orilla.",
+            "Ceder prioridad a riders ya navegando y no cruzar la zona de bañistas.",
+            "Si el viento cae, regresar por la franja marcada para evitar cruces."
+          ]
+        },
+        {
+          "title": "Cierre de jornada",
+          "items": [
+            "Bajar cometas en la zona señalada y revisar que no queden líneas desplegadas.",
+            "Informar condiciones cambiantes al resto para ajustar el uso del spot."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "WhatsApp",
+        "value": "+54 3456 479677",
+        "href": "https://wa.me/543456479677",
+        "icon": "whatsapp"
+      },
+      {
+        "label": "Instagram",
+        "value": "@santakitechajari",
+        "href": "https://www.instagram.com/santakitechajari/",
+        "icon": "instagram"
+      },
+      {
+        "label": "Ubicación",
+        "value": "Playa 52 – Santa Ana, Entre Ríos",
+        "detail": "Coordenadas: -30.9085, -57.9150",
+        "icon": "location"
+      }
+    ]
+  },
+  {
+    "id": "federacion",
+    "name": "Federación",
+    "location": "Playa Grande, Federación (Entre Ríos)",
+    "coordinates": {
+      "lat": -30.983513,
+      "lon": -57.914698
+    },
+    "references": {
+      "coordinatesLabel": "-30.983513, -57.914698",
+      "description": "Balneario Playa Grande, Federación – lago Salto Grande."
+    },
+    "hero": {
+      "badge": "Federación · Lago Salto Grande",
+      "title": "Ventana norte",
+      "accent": "para navegar en Playa Grande",
+      "lead": "Spot de agua dulce con rampa de arena y fetch abierto cuando sopla norte.",
+      "tags": ["Vientos N · NNE · NNW", "Zona navegada señalada"]
+    },
+    "highlights": [
+      {
+        "title": "Federación, Entre Ríos",
+        "description": "Playa Grande mira al embalse del lago Salto Grande con acceso directo desde la costanera."
+      },
+      {
+        "title": "Viento útil: norte",
+        "description": "Se navega con viento de componente norte, que entra limpio desde el lago y evita obstáculos."
+      },
+      {
+        "title": "Zonas separadas",
+        "description": "La franja roja delimita la navegación y mantiene a bañistas alejados cuando hay cometas."
+      }
+    ],
+    "wind": {
+      "latitude": -30.983513,
+      "longitude": -57.914698
+    },
+    "map": {
+      "windyEmbedUrl": "https://embed.windy.com/embed2.html?lat=-30.9835&lon=-57.9147&zoom=13&level=surface&overlay=wind&product=gfs",
+      "view": {
+        "lat": -30.9845,
+        "lon": -57.917,
+        "zoom": 15
+      },
+      "markers": [
+        {
+          "lat": -30.983513,
+          "lon": -57.914698,
+          "label": "Playa Grande – zona de armado"
+        },
+        {
+          "lat": -30.9849,
+          "lon": -57.9186,
+          "label": "Área navegada abierta sobre el lago"
+        }
+      ],
+      "launchZone": [
+        [-30.9832, -57.9156],
+        [-30.9832, -57.9143],
+        [-30.984, -57.9143],
+        [-30.984, -57.9156]
+      ],
+      "swimZone": [
+        [-30.9829, -57.9162],
+        [-30.9838, -57.9129],
+        [-30.9855, -57.914],
+        [-30.9863, -57.9178],
+        [-30.985, -57.9204],
+        [-30.9832, -57.9188]
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 11 nudos con viento norte (N, NNE, NNW). Lluvia o tormenta cierran el spot.",
+      "detailText": "Viento sostenido > 11 nudos desde el norte abre la ventana navegable. Horarios sugeridos: 8:00 a 19:30 en verano, 9:00 a 17:30 en invierno. Evitar rachas cruzadas o cambios bruscos y suspender ante actividad eléctrica.",
+      "preferredDirections": ["N", "NNE", "NNW"],
+      "minPlayableKts": 11,
+      "maxPrecipMm": 2,
+      "summerWindow": { "startHour": 8, "endHour": 19, "endMinute": 30 },
+      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "speedScoreBase": 7,
+      "speedScoreCap": 13
+    },
+    "security": {
+      "intro": "Se prioriza lanzar desde la rampa de arena y mantener la navegación dentro del polígono marcado para no interferir con bañistas o muelles.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Revisar que el viento sea norte y estable; posponer si hay tormenta río arriba.",
+            "Marcar líneas en la zona verde para evitar cruces con caminantes de la costanera.",
+            "Planificar retorno a tierra por la misma rampa; identificar punto de salida alternativo a sotavento."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Navegar dentro del polígono rojo y dejar el borde cercano a la playa libre para seguridad.",
+            "Hacer body drag de entrada y salida para mantener el control lejos de bañistas.",
+            "Avisar cuando se lancen o aterricen cometas para coordinar el espacio."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajar cometa en la zona verde y enrollar líneas antes de volver por la pasarela.",
+            "Compartir cambios de nivel o corriente con el resto de riders y bañistas.",
+            "Retirar residuos y revisar que no queden cabos o anclajes sobre la arena."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Playa Grande – Federación",
+        "detail": "Coordenadas: -30.983513, -57.914698",
+        "icon": "location"
+      }
+    ]
+  },
+  {
+    "id": "santa-ana-oeste",
+    "name": "Santa Ana Oeste",
+    "location": "Playa oeste, Santa Ana (Entre Ríos)",
+    "coordinates": {
+      "lat": -30.913645,
+      "lon": -57.930449
+    },
+    "references": {
+      "coordinatesLabel": "-30.913645, -57.930449",
+      "description": "Playa oeste de Santa Ana – acceso por camino costero."
+    },
+    "hero": {
+      "badge": "Santa Ana · Río Uruguay",
+      "title": "Ventana oeste",
+      "accent": "para navegar en la playa oeste",
+      "lead": "Spot lateral al oeste con playa de arena y piedra y entrada directa al río.",
+      "tags": ["Viento W", "Arena + piedra", "Cuidado acantilado"]
+    },
+    "highlights": [
+      {
+        "title": "Orientación oeste",
+        "description": "Se navega con componente Oeste (W) que entra limpio desde el río y queda side-on respecto a la costa."
+      },
+      {
+        "title": "Acceso y armado",
+        "description": "Ingreso por la playa: franja de arena y piedra para armar y lanzar con asistencia entre riders."
+      },
+      {
+        "title": "Cuidado con el acantilado",
+        "description": "El viento se arracha cerca del acantilado; delimitar zona de kites al sur para mantener distancia de bañistas."
+      }
+    ],
+    "wind": {
+      "latitude": -30.913645,
+      "longitude": -57.930449
+    },
+    "map": {
+      "windyEmbedUrl": "https://embed.windy.com/embed2.html?lat=-30.9136&lon=-57.9304&zoom=14&level=surface&overlay=wind&product=gfs",
+      "view": {
+        "lat": -30.914,
+        "lon": -57.9305,
+        "zoom": 15
+      },
+      "markers": [
+        {
+          "lat": -30.913645,
+          "lon": -57.930449,
+          "label": "Playa oeste Santa Ana – zona de armado"
+        },
+        {
+          "lat": -30.9144,
+          "lon": -57.9289,
+          "label": "Área navegada sobre el río"
+        }
+      ],
+      "launchZone": [
+        [-30.9133, -57.9312],
+        [-30.9133, -57.9297],
+        [-30.9141, -57.9297],
+        [-30.9141, -57.9312]
+      ],
+      "swimZone": [
+        [-30.9142, -57.9315],
+        [-30.9148, -57.9292],
+        [-30.9156, -57.9298],
+        [-30.915, -57.9322]
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos con viento Oeste (W). Lluvia o tormenta suspenden la navegación.",
+      "detailText": "Viento sostenido > 12 nudos desde el Oeste genera ventana navegable side-on. Horarios sugeridos: 8:00 a 19:30 en verano y 9:00 a 17:30 en invierno. Evitar ráfagas cruzadas o actividad eléctrica.",
+      "preferredDirections": ["W"],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 2,
+      "summerWindow": { "startHour": 8, "endHour": 19, "endMinute": 30 },
+      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "speedScoreBase": 8,
+      "speedScoreCap": 14
+    },
+    "security": {
+      "intro": "Playa de arena y piedra sin rampa: armar lejos del acantilado donde el viento se arracha y mantener la navegación al sur para no interferir con tráfico fluvial.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmar viento Oeste estable y libre de tormenta.",
+            "Armar en la franja verde, buscando suelo plano y lejos del borde del acantilado.",
+            "Planificar retorno y punto de escape a sotavento en caso de caída de viento."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantenerse dentro del polígono de navegación y evitar maniobras cerca del acantilado o donde el viento se arracha.",
+            "Usar body drag de entrada y salida para alejar el kite de la orilla.",
+            "Avisar lanzamientos/aterrizajes para coordinar con otros riders."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajar cometa en la zona verde, enrollar líneas y dejar despejada la playa.",
+            "Reportar cambios de corriente o peligros flotantes al grupo.",
+            "Retirar basura y revisar que no queden anclajes en la arena."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Rampa oeste – Santa Ana",
+        "detail": "Coordenadas: -30.913645, -57.930449",
+        "icon": "location"
+      }
+    ]
+  }
+]

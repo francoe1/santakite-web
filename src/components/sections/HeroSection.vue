@@ -1,16 +1,15 @@
 <template>
   <section id="hero" class="hero">
     <div class="hero-copy">
-      <p class="badge">Santa Ana · Río Uruguay</p>
+      <p class="badge">{{ spot.hero?.badge }}</p>
       <h1>
-        Kitesurf libre <span class="accent">en Playa 52</span>
+        {{ spot.hero?.title }} <span class="accent">{{ spot.hero?.accent }}</span>
       </h1>
       <p class="lead">
-        Armá tu kite sobre arena y navegá con vista abierta al río.
+        {{ spot.hero?.lead }}
       </p>
       <div class="hero-tags" aria-label="Destacados">
-        <span>Vientos S · SE · E</span>
-        <span>Zonas separadas</span>
+        <span v-for="tag in spot.hero?.tags" :key="tag">{{ tag }}</span>
       </div>
       <div class="hero-actions">
         <button type="button" class="primary" @click="scrollTo('mapa')">Ver mapa &amp; viento</button>
@@ -30,11 +29,7 @@
               {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando viento…' }}
             </p>
             <p class="muted">
-              {{
-                currentWind.dirDeg !== null
-                  ? `Dirección ${currentDirLabel} (${Math.round(currentWind.dirDeg)}°)`
-                  : 'Midiendo dirección en Playa 52'
-              }}
+              {{ currentWind.dirDeg !== null ? `Dirección ${currentDirLabel} (${Math.round(currentWind.dirDeg)}°)` : windFallback }}
             </p>
           </div>
         </div>
@@ -44,7 +39,14 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+
+const props = defineProps({
+  spot: {
+    type: Object,
+    required: true,
+  },
+})
 
 const scrollTo = (id) => {
   const target = document.getElementById(id)
@@ -54,6 +56,13 @@ const scrollTo = (id) => {
 }
 
 const currentWind = ref({ speedKts: null, dirDeg: null })
+const windFallback = computed(() => `Midiendo dirección en ${props.spot.name}`)
+const windApiUrl = computed(() => {
+  const { latitude, longitude } = props.spot.wind || {}
+  if (latitude == null || longitude == null) return null
+
+  return `https://api.open-meteo.com/v1/gfs?latitude=${latitude}&longitude=${longitude}&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn`
+})
 
 const currentDirLabel = computed(() => {
   if (currentWind.value.dirDeg === null) return ''
@@ -65,12 +74,10 @@ const degToCompass = (deg) => {
   return dirs[Math.round(deg / 45) % 8]
 }
 
-onMounted(async () => {
+const fetchWind = async () => {
+  if (!windApiUrl.value) return
   try {
-    const url =
-      'https://api.open-meteo.com/v1/gfs?latitude=-30.9085&longitude=-57.915&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn'
-
-    const response = await fetch(url)
+    const response = await fetch(windApiUrl.value)
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     const data = await response.json()
 
@@ -81,6 +88,12 @@ onMounted(async () => {
   } catch (err) {
     console.error(err)
   }
+}
+
+onMounted(fetchWind)
+
+watch(windApiUrl, () => {
+  fetchWind()
 })
 </script>
 
