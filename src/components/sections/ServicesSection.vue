@@ -67,7 +67,7 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(148, 163, 184, 0.2);
   box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
@@ -83,7 +83,7 @@ h2 {
 .chip {
   align-self: flex-start;
   padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+  border-radius: 12px;
   background: rgba(14, 165, 233, 0.12);
   color: #38bdf8;
   border: 1px solid rgba(56, 189, 248, 0.35);

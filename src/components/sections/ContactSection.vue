@@ -63,7 +63,7 @@ const icons = {
 
 .contact-card {
   padding: 1.4rem;
-  border-radius: 1.2rem;
+  border-radius: 0.9rem;
   background: linear-gradient(145deg, rgba(4, 23, 41, 0.78), rgba(5, 30, 53, 0.92)),
     radial-gradient(circle at 90% 10%, rgba(94, 234, 212, 0.12), transparent 40%);
   border: 1px solid rgba(125, 242, 221, 0.2);
@@ -100,7 +100,7 @@ h2 {
 .contact-item {
   flex: 1 1 280px;
   padding: 0.9rem 1rem;
-  border-radius: 0.9rem;
+  border-radius: 0.7rem;
   background: linear-gradient(160deg, rgba(4, 30, 52, 0.8), rgba(4, 21, 38, 0.88));
   border: 1px solid rgba(125, 242, 221, 0.2);
   display: flex;
@@ -119,7 +119,7 @@ h2 {
   display: inline-flex;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: radial-gradient(circle at 30% 30%, rgba(94, 234, 212, 0.22), rgba(14, 165, 233, 0.08));
   align-items: center;
   justify-content: center;
@@ -145,7 +145,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 999px;
+  border-radius: 12px;
   padding: 0.75rem 1.4rem;
   font-weight: 700;
   border: 1px solid rgba(125, 242, 221, 0.35);

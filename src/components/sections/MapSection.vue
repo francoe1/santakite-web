@@ -127,7 +127,7 @@ onMounted(async () => {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(226, 245, 246, 0.88)),
     url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80') center/cover;
-  border-radius: 22px;
+  border-radius: 16px;
   padding: 1.4rem;
   border: 1px solid rgba(11, 65, 92, 0.12);
   box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
@@ -175,7 +175,7 @@ h2 {
 .map {
   width: 100%;
   height: 360px;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   overflow: hidden;
   border: 1px solid rgba(0, 186, 199, 0.28);
   box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
@@ -185,7 +185,7 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 249, 250, 0.9));
   border: 1px solid rgba(0, 186, 199, 0.18);
   box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
@@ -200,7 +200,7 @@ h2 {
 }
 
 .windy-wrapper {
-  border-radius: 0.9rem;
+  border-radius: 0.7rem;
   overflow: hidden;
   border: 1px solid rgba(0, 186, 199, 0.28);
   position: relative;
@@ -234,7 +234,7 @@ h2 {
 .legend-color {
   width: 18px;
   height: 18px;
-  border-radius: 6px;
+  border-radius: 4px;
   display: inline-block;
 }
 

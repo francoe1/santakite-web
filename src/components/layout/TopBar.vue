@@ -76,7 +76,7 @@ const scrollTo = (id) => {
 .brand-logo {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: 8px;
   background:
     linear-gradient(140deg, rgba(10, 173, 191, 0.95), rgba(8, 115, 183, 0.95)),
     url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=300&q=80') center/cover;
@@ -89,8 +89,8 @@ const scrollTo = (id) => {
 .brand-logo::after {
   content: '';
   position: absolute;
-  inset: 8% 10%;
-  border-radius: 12px;
+  inset: 10% 12%;
+  border-radius: 9px;
   background: linear-gradient(125deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
   opacity: 0.75;
   transform: translateY(-6px);
@@ -136,7 +136,7 @@ const scrollTo = (id) => {
   color: inherit;
   cursor: pointer;
   padding: 0.45rem 0.95rem;
-  border-radius: 14px;
+  border-radius: 10px;
   transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
   letter-spacing: 0.01em;
   box-shadow: 0 10px 20px rgba(15, 76, 92, 0.12);
@@ -151,7 +151,7 @@ const scrollTo = (id) => {
 
 .cta {
   padding: 0.65rem 1.25rem;
-  border-radius: 16px;
+  border-radius: 12px;
   background: linear-gradient(120deg, #ffb703, #fb8500, #f15bb5);
   color: #0b1f2a;
   font-weight: 800;

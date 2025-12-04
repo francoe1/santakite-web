@@ -35,7 +35,7 @@ const props = defineProps({
   flex-direction: column;
   gap: 1.5rem;
   background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 31, 54, 0.86));
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   padding: 1.2rem;
   border: 1px solid rgba(125, 242, 221, 0.12);
   box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
@@ -76,7 +76,7 @@ h2 {
 
 .step-card {
   padding: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: radial-gradient(circle at 10% 10%, rgba(94, 234, 212, 0.1), transparent 40%),
     linear-gradient(145deg, rgba(5, 23, 42, 0.75), rgba(6, 29, 52, 0.9));
   border: 1px solid rgba(56, 189, 248, 0.25);
@@ -104,7 +104,7 @@ h2 {
 
 .note {
   padding: 1rem 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: linear-gradient(120deg, rgba(94, 234, 212, 0.12), rgba(14, 165, 233, 0.12));
   border: 1px dashed rgba(125, 242, 221, 0.5);
   color: #e6fffb;

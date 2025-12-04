@@ -98,7 +98,7 @@ onMounted(async () => {
   padding-top: 2rem;
   position: relative;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(226, 245, 246, 0.6));
-  border-radius: 28px;
+  border-radius: 18px;
   padding: 2.4rem;
   overflow: hidden;
   box-shadow: 0 28px 60px rgba(11, 65, 92, 0.14);
@@ -136,7 +136,7 @@ onMounted(async () => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.9rem;
-  border-radius: 999px;
+  border-radius: 12px;
   background: rgba(15, 76, 92, 0.1);
   border: 1px solid rgba(15, 76, 92, 0.2);
   color: #0f4c5c;
@@ -173,7 +173,7 @@ h1 {
 }
 
 .hero-tags span {
-  border-radius: 999px;
+  border-radius: 12px;
   padding: 0.42rem 0.95rem;
   background: rgba(0, 186, 199, 0.12);
   color: #0b2f3f;
@@ -193,7 +193,7 @@ h1 {
 .primary,
 .ghost {
   border: none;
-  border-radius: 14px;
+  border-radius: 10px;
   padding: 0.75rem 1.3rem;
   font-weight: 800;
   cursor: pointer;
@@ -230,7 +230,7 @@ h1 {
     linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86)),
     url('https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&w=900&q=80') center/cover;
   border: 1px solid rgba(11, 65, 92, 0.18);
-  border-radius: 20px;
+  border-radius: 14px;
   box-shadow: 0 22px 50px rgba(11, 65, 92, 0.18);
   overflow: hidden;
   position: relative;
@@ -250,7 +250,7 @@ h1 {
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem;
-  border-radius: 14px;
+  border-radius: 10px;
   border: 1px solid rgba(0, 186, 199, 0.22);
   background: linear-gradient(145deg, rgba(0, 186, 199, 0.08), rgba(11, 65, 92, 0.05));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
@@ -259,7 +259,7 @@ h1 {
 .arrow-circle {
   width: 60px;
   height: 60px;
-  border-radius: 16px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 30% 20%, rgba(0, 186, 199, 0.22), rgba(0, 155, 183, 0.18));
@@ -311,7 +311,7 @@ h1 {
 .mini-chip {
   align-self: flex-start;
   padding: 0.38rem 0.78rem;
-  border-radius: 999px;
+  border-radius: 12px;
   background: rgba(251, 133, 0, 0.12);
   color: #c05621;
   font-weight: 800;

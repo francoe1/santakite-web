@@ -66,7 +66,7 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(148, 163, 184, 0.2);
   box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);

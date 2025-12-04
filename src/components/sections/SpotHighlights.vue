@@ -38,7 +38,7 @@ const props = defineProps({
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(226, 245, 246, 0.8)),
     url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80') center/cover;
-  border-radius: 22px;
+  border-radius: 16px;
   padding: 1.4rem;
   border: 1px solid rgba(11, 65, 92, 0.12);
   box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
@@ -79,7 +79,7 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(238, 249, 250, 0.92));
   border: 1px solid rgba(0, 186, 199, 0.18);
   box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
@@ -105,7 +105,7 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.6rem;
   padding: 1rem 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: linear-gradient(110deg, rgba(0, 186, 199, 0.12), rgba(251, 133, 0, 0.12));
   border: 1px solid rgba(11, 65, 92, 0.14);
   color: #0b2f3f;

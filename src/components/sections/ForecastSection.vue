@@ -348,7 +348,7 @@ onMounted(async () => {
   gap: 1.5rem;
   color: #e8f6ff;
   background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   padding: 1.2rem;
   border: 1px solid rgba(125, 242, 221, 0.12);
   box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
@@ -381,7 +381,7 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   background: radial-gradient(circle at 15% 20%, rgba(94, 234, 212, 0.12), transparent 40%),
     linear-gradient(145deg, rgba(6, 27, 48, 0.75), rgba(7, 22, 40, 0.92));
   border: 1px solid rgba(56, 189, 248, 0.25);
@@ -402,7 +402,7 @@ h2 {
 
 .status {
   padding: 0.35rem 0.85rem;
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -435,7 +435,7 @@ h2 {
   border: none;
   text-align: left;
   padding: 0.9rem;
-  border-radius: 0.9rem;
+  border-radius: 0.7rem;
   border: 1px solid rgba(125, 242, 221, 0.2);
   background: linear-gradient(160deg, rgba(5, 22, 43, 0.7), rgba(6, 28, 51, 0.9));
   display: flex;
@@ -461,7 +461,7 @@ h2 {
 .badge {
   align-self: flex-start;
   padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -508,7 +508,7 @@ h2 {
 .overlay-card {
   background: #0b1222;
   border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 1rem;
+  border-radius: 0.85rem;
   padding: 1.25rem;
   width: min(1040px, 100%);
   max-height: 90vh;
@@ -530,7 +530,7 @@ h2 {
   border: 1px solid rgba(148, 163, 184, 0.3);
   background: rgba(15, 23, 42, 0.8);
   color: #e2e8f0;
-  border-radius: 999px;
+  border-radius: 12px;
   width: 2.25rem;
   height: 2.25rem;
   display: grid;
@@ -545,7 +545,7 @@ h2 {
   gap: 0;
   overflow-x: auto;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.85rem;
+  border-radius: 0.65rem;
   position: relative;
 }
 
@@ -610,7 +610,7 @@ h2 {
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 8px;
+  border-radius: 6px;
   background: rgba(148, 163, 184, 0.12);
   border: 1px solid rgba(148, 163, 184, 0.25);
   font-weight: 900;
