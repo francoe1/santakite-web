@@ -1,0 +1,133 @@
+[
+  {
+    "id": "playa52",
+    "name": "Playa 52",
+    "location": "Santa Ana, Entre Ríos",
+    "coordinates": {
+      "lat": -30.9085,
+      "lon": -57.915
+    },
+    "references": {
+      "coordinatesLabel": "-30.9085, -57.9150",
+      "description": "Playa 52, Santa Ana, Entre Ríos."
+    },
+    "hero": {
+      "badge": "Santa Ana · Río Uruguay",
+      "title": "Kitesurf libre",
+      "accent": "en Playa 52",
+      "lead": "Armá tu kite sobre arena y navegá con vista abierta al río.",
+      "tags": ["Vientos S · SE · E", "Zonas separadas"]
+    },
+    "highlights": [
+      {
+        "title": "Santa Ana, Entre Ríos",
+        "description": "Playa 52 es un spot abierto, sobre río, con espacio para armar y lanzar sin obstáculos."
+      },
+      {
+        "title": "Vientos útiles: S · SE · E",
+        "description": "Direcciones limpias con entrada lateral; se evita navegar con norte fuerte o tormentas."
+      },
+      {
+        "title": "Terreno y orilla",
+        "description": "Arena amplia y fondo parejo; permite delimitar zona de kites y separar bañistas."
+      }
+    ],
+    "wind": {
+      "latitude": -30.9085,
+      "longitude": -57.915
+    },
+    "map": {
+      "windyEmbedUrl": "https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs",
+      "view": {
+        "lat": -30.9135,
+        "lon": -57.918,
+        "zoom": 14.5
+      },
+      "markers": [
+        {
+          "lat": -30.9085,
+          "lon": -57.914,
+          "label": "Playa 52 - Spot de Kitesurf"
+        },
+        {
+          "lat": -30.9125,
+          "lon": -57.914,
+          "label": "Construcción cercana: tener precaución con niveles bajos de agua"
+        }
+      ],
+      "launchZone": [
+        [-30.908, -57.915],
+        [-30.908, -57.913],
+        [-30.9087, -57.913],
+        [-30.9087, -57.915]
+      ],
+      "swimZone": [
+        [-30.9087, -57.915],
+        [-30.9087, -57.913],
+        [-30.9136, -57.913],
+        [-30.9136, -57.924],
+        [-30.9115, -57.923],
+        [-30.9095, -57.92]
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.",
+      "detailText": "Viento > 12 nudos desde S, SE o E es navegable dentro de la ventana local. Verano: 7:00 a 20:00 · invierno: 9:00 a 17:30. La lluvia y la falta de luz reducen seguridad y visibilidad.",
+      "preferredDirections": ["S", "SE", "E"],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": { "startHour": 7, "endHour": 20 },
+      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "speedScoreBase": 8,
+      "speedScoreCap": 14
+    },
+    "security": {
+      "intro": "Ordenamos el spot para proteger a navegantes y bañistas: zonas marcadas, comunicación clara y criterio conservador.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Revisar líneas, leash y que no haya obstáculos en la zona de despegue.",
+            "Respetar la orientación recomendada: Sur, Sudeste o Este.",
+            "Evitar lanzar si hay tormenta eléctrica o ráfagas cruzadas."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Usar la zona de kites para maniobras y mantener distancia de la orilla.",
+            "Ceder prioridad a riders ya navegando y no cruzar la zona de bañistas.",
+            "Si el viento cae, regresar por la franja marcada para evitar cruces."
+          ]
+        },
+        {
+          "title": "Cierre de jornada",
+          "items": [
+            "Bajar cometas en la zona señalada y revisar que no queden líneas desplegadas.",
+            "Informar condiciones cambiantes al resto para ajustar el uso del spot."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "WhatsApp",
+        "value": "+54 3456 479677",
+        "href": "https://wa.me/543456479677",
+        "icon": "whatsapp"
+      },
+      {
+        "label": "Instagram",
+        "value": "@santakitechajari",
+        "href": "https://www.instagram.com/santakitechajari/",
+        "icon": "instagram"
+      },
+      {
+        "label": "Ubicación",
+        "value": "Playa 52 – Santa Ana, Entre Ríos",
+        "detail": "Coordenadas: -30.9085, -57.9150",
+        "icon": "location"
+      }
+    ]
+  }
+]

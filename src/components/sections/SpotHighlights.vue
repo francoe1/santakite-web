@@ -4,23 +4,23 @@
       <p class="eyebrow">El spot</p>
     </div>
     <div class="cards">
-      <article v-for="item in highlights" :key="item.title" class="card">
+      <article v-for="item in spot.highlights" :key="item.title" class="card">
         <h3>{{ item.title }}</h3>
         <p class="muted">{{ item.description }}</p>
       </article>
     </div>
     <div class="info-banner">
-      <p>Coordenadas: <strong>-30.9085, -57.9150</strong></p>
-      <p>Referencia: Playa 52, Santa Ana, Entre Ríos.</p>
+      <p>Coordenadas: <strong>{{ spot.references?.coordinatesLabel }}</strong></p>
+      <p>Referencia: {{ spot.references?.description }}</p>
     </div>
   </section>
 </template>
 
 <script setup>
 const props = defineProps({
-  highlights: {
-    type: Array,
-    default: () => [],
+  spot: {
+    type: Object,
+    required: true,
   },
 })
 </script>

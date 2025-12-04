@@ -14,12 +14,12 @@ const site = useSiteStore()
 <template>
   <TopBar :nav-items="site.navItems" />
   <main class="page">
-    <HeroSection />
-    <SpotHighlights :highlights="site.spotHighlights" />
-    <MapSection />
-    <ForecastSection />
-    <SecuritySection :security="site.security" />
-    <ContactSection :contacts="site.contacts" />
+    <HeroSection v-if="site.currentSpot" :spot="site.currentSpot" />
+    <SpotHighlights v-if="site.currentSpot" :spot="site.currentSpot" />
+    <MapSection v-if="site.currentSpot" :spot="site.currentSpot" />
+    <ForecastSection v-if="site.currentSpot" :spot="site.currentSpot" />
+    <SecuritySection v-if="site.currentSpot" :security="site.currentSpot.security" />
+    <ContactSection v-if="site.currentSpot" :contacts="site.currentSpot.contacts" />
   </main>
 </template>
 

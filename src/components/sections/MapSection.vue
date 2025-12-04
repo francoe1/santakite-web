@@ -24,7 +24,7 @@
           <iframe
             width="100%"
             height="320"
-            src="https://embed.windy.com/embed2.html?lat=-30.9085&lon=-57.915&zoom=12&level=surface&overlay=wind&product=gfs"
+            :src="windyUrl"
             frameborder="0"
             scrolling="no"
             loading="lazy"
@@ -37,21 +37,64 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+
+const props = defineProps({
+  spot: {
+    type: Object,
+    required: true,
+  },
+})
 
 const mapEl = ref(null)
 const mapError = ref('')
+const mapInstance = ref(null)
+let leafletModule = null
 
-const spotLat = -30.9085
-const spotLon = -57.915
+const mapConfig = computed(() => ({
+  lat: props.spot.coordinates?.lat ?? 0,
+  lon: props.spot.coordinates?.lon ?? 0,
+  ...props.spot.map,
+}))
 
-onMounted(async () => {
+const windyUrl = computed(
+  () =>
+    mapConfig.value.windyEmbedUrl ||
+    `https://embed.windy.com/embed2.html?lat=${mapConfig.value.lat}&lon=${mapConfig.value.lon}&zoom=12&level=surface&overlay=wind&product=gfs`
+)
+
+const resetMapContainer = () => {
+  if (mapInstance.value) {
+    mapInstance.value.remove()
+    mapInstance.value = null
+  }
+  if (mapEl.value) {
+    mapEl.value.innerHTML = ''
+  }
+}
+
+const loadLeaflet = async () => {
+  if (!leafletModule) {
+    leafletModule = await import('https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js')
+  }
+  return leafletModule
+}
+
+const renderMap = async () => {
   if (!mapEl.value) return
 
   try {
-    const L = await import('https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js')
+    mapError.value = ''
+    const L = await loadLeaflet()
+    resetMapContainer()
 
-    const map = L.map(mapEl.value, {
+    const view = mapConfig.value.view || {
+      lat: mapConfig.value.lat - 0.005,
+      lon: mapConfig.value.lon - 0.003,
+      zoom: 14.5,
+    }
+
+    mapInstance.value = L.map(mapEl.value, {
       dragging: false,
       scrollWheelZoom: false,
       doubleClickZoom: false,
@@ -60,56 +103,57 @@ onMounted(async () => {
       keyboard: false,
       zoomControl: false,
       tap: false,
-    }).setView([spotLat - 0.005, spotLon - 0.003], 14.5)
+    }).setView([view.lat, view.lon], view.zoom)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 17,
       minZoom: 10,
-    }).addTo(map)
+    }).addTo(mapInstance.value)
 
-    L.marker([spotLat, spotLon + 0.001]).addTo(map).bindPopup('Playa 52 - Spot de Kitesurf')
-    L.marker([spotLat - 0.004, spotLon + 0.001])
-      .addTo(map)
-      .bindPopup('Construcción cercana: tener precaución con niveles bajos de agua')
+    if (Array.isArray(mapConfig.value.markers)) {
+      mapConfig.value.markers.forEach((marker) => {
+        if (marker.lat != null && marker.lon != null) {
+          L.marker([marker.lat, marker.lon]).addTo(mapInstance.value).bindPopup(marker.label ?? '')
+        }
+      })
+    }
 
-    const launchZoneCoords = [
-      [spotLat + 0.0005, spotLon],
-      [spotLat + 0.0005, spotLon + 0.002],
-      [spotLat - 0.0002, spotLon + 0.002],
-      [spotLat - 0.0002, spotLon],
-    ]
+    if (Array.isArray(mapConfig.value.launchZone) && mapConfig.value.launchZone.length) {
+      L.polygon(mapConfig.value.launchZone, {
+        color: '#22c55e',
+        fillColor: '#22c55e',
+        fillOpacity: 0.35,
+        weight: 2,
+      })
+        .addTo(mapInstance.value)
+        .bindPopup('Zona de kites (despegue / aterrizaje / navegación cercana)')
+    }
 
-    const swimZoneCoords = [
-      [spotLat - 0.0002, spotLon],
-      [spotLat - 0.0002, spotLon + 0.002],
-      [spotLat - 0.0051, spotLon + 0.002],
-      [spotLat - 0.0051, spotLon - 0.009],
-      [spotLat - 0.003, spotLon - 0.008],
-      [spotLat - 0.001, spotLon - 0.005],
-    ]
-
-    L.polygon(launchZoneCoords, {
-      color: '#22c55e',
-      fillColor: '#22c55e',
-      fillOpacity: 0.35,
-      weight: 2,
-    })
-      .addTo(map)
-      .bindPopup('Zona de kites (despegue / aterrizaje / navegación cercana)')
-
-    L.polygon(swimZoneCoords, {
-      color: '#ef4444',
-      fillColor: '#ef4444',
-      fillOpacity: 0.25,
-      weight: 2,
-    })
-      .addTo(map)
-      .bindPopup('Prohibido bañistas cuando hay cometas')
+    if (Array.isArray(mapConfig.value.swimZone) && mapConfig.value.swimZone.length) {
+      L.polygon(mapConfig.value.swimZone, {
+        color: '#ef4444',
+        fillColor: '#ef4444',
+        fillOpacity: 0.25,
+        weight: 2,
+      })
+        .addTo(mapInstance.value)
+        .bindPopup('Prohibido bañistas cuando hay cometas')
+    }
   } catch (err) {
     console.error(err)
     mapError.value = 'No se pudo cargar el mapa en este entorno.'
   }
-})
+}
+
+onMounted(renderMap)
+
+watch(
+  mapConfig,
+  () => {
+    renderMap()
+  },
+  { deep: true }
+)
 </script>
 
 <style scoped>

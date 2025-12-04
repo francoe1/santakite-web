@@ -9,7 +9,7 @@
 
     <div class="card">
       <div class="card-header">
-        <p class="muted">Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.</p>
+        <p class="muted">{{ forecastConfig.criteriaText }}</p>
         <span class="status" :class="statusClass">{{ statusText }}</span>
       </div>
       <div class="forecast-grid">
@@ -54,8 +54,7 @@
             <p class="eyebrow">Detalle por hora</p>
             <h3>{{ formatDate(selectedDay.date) }}</h3>
             <p class="muted small">
-              Viento > 12 nudos desde S, SE o E es navegable dentro de la ventana local. Verano: 7:00 a 20:00 · invierno: 9:00 a
-              17:30. La lluvia y la falta de luz reducen seguridad y visibilidad.
+              {{ forecastConfig.detailText }}
             </p>
           </div>
           <button type="button" class="close" @click="closeDetails">✕</button>
@@ -191,11 +190,51 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
+const props = defineProps({
+  spot: {
+    type: Object,
+    required: true,
+  },
+})
+
 const forecast = ref([])
 const statusError = ref('')
 const status = ref('loading')
 const selectedDay = ref(null)
 const isCompactLayout = ref(false)
+
+const forecastConfig = computed(() => {
+  const baseCoordinates = {
+    latitude: props.spot.wind?.latitude ?? props.spot.coordinates?.lat ?? 0,
+    longitude: props.spot.wind?.longitude ?? props.spot.coordinates?.lon ?? 0,
+  }
+
+  const baseConfig = {
+    criteriaText:
+      'Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.',
+    detailText:
+      'Viento > 12 nudos desde S, SE o E es navegable dentro de la ventana local. Verano: 7:00 a 20:00 · invierno: 9:00 a 17:30. La lluvia y la falta de luz reducen seguridad y visibilidad.',
+    preferredDirections: ['S', 'SE', 'E'],
+    minPlayableKts: 12,
+    maxPrecipMm: 3,
+    summerWindow: { startHour: 7, endHour: 20 },
+    winterWindow: { startHour: 9, endHour: 17, endMinute: 30 },
+    speedScoreBase: 8,
+    speedScoreCap: 14,
+    coordinates: baseCoordinates,
+  }
+
+  const configFromSpot = props.spot.forecast || {}
+
+  return {
+    ...baseConfig,
+    ...configFromSpot,
+    preferredDirections: configFromSpot.preferredDirections || baseConfig.preferredDirections,
+    summerWindow: { ...baseConfig.summerWindow, ...configFromSpot.summerWindow },
+    winterWindow: { ...baseConfig.winterWindow, ...configFromSpot.winterWindow },
+    coordinates: { ...baseCoordinates, ...(configFromSpot.coordinates || {}) },
+  }
+})
 
 const statusText = computed(() => {
   if (status.value === 'ok') return 'Datos GFS cargados'
@@ -207,6 +246,13 @@ const statusClass = computed(() => {
   if (status.value === 'ok') return 'status-ok'
   if (status.value === 'error') return 'status-error'
   return 'status-loading'
+})
+
+const forecastUrl = computed(() => {
+  const { latitude, longitude } = forecastConfig.value.coordinates
+  if (latitude == null || longitude == null) return ''
+
+  return `https://api.open-meteo.com/v1/gfs?latitude=${latitude}&longitude=${longitude}&hourly=winddirection_10m,windspeed_10m,windgusts_10m,precipitation,temperature_2m&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn`
 })
 
 const degToCompass = (deg) => {
@@ -238,7 +284,7 @@ const formatDate = (dateStr) => {
 
 const isPreferredDirection = (deg) => {
   const compass = degToCompass(deg)
-  return compass === 'S' || compass === 'SE' || compass === 'E'
+  return forecastConfig.value.preferredDirections.includes(compass)
 }
 
 const evaluateLayout = () => {
@@ -255,28 +301,104 @@ const isWithinWindow = (dateTime) => {
   const hour = date.getHours()
   const minute = date.getMinutes()
   if (isSummerDate(dateTime)) {
-    return hour >= 7 && hour <= 20
+    return hour >= forecastConfig.value.summerWindow.startHour && hour <= forecastConfig.value.summerWindow.endHour
   }
-  if (hour < 9) return false
-  if (hour < 17) return true
-  if (hour === 17) return minute <= 30
+  if (hour < forecastConfig.value.winterWindow.startHour) return false
+  if (hour < forecastConfig.value.winterWindow.endHour) return true
+  if (hour === forecastConfig.value.winterWindow.endHour)
+    return minute <= (forecastConfig.value.winterWindow.endMinute ?? 59)
   return false
 }
 
 const isPlayable = (hour) =>
-  hour.speedKts >= 12 && isPreferredDirection(hour.dirDeg) && hour.precipMm < 3 && isWithinWindow(hour.time)
+  hour.speedKts >= forecastConfig.value.minPlayableKts &&
+  isPreferredDirection(hour.dirDeg) &&
+  hour.precipMm < forecastConfig.value.maxPrecipMm &&
+  isWithinWindow(hour.time)
 
 const openDetails = (day) => {
   selectedDay.value = day
 }
 
 const playabilityScore = (hour) => {
-  const speedScore = Math.min(Math.max((hour.speedKts - 8) / 14, 0), 1)
+  const speedScore = Math.min(
+    Math.max((hour.speedKts - forecastConfig.value.speedScoreBase) / forecastConfig.value.speedScoreCap, 0),
+    1
+  )
   const directionBoost = isPreferredDirection(hour.dirDeg) ? 0.3 : -0.25
   const rainPenalty = Math.min(hour.precipMm / 5, 0.35)
   const windowPenalty = isWithinWindow(hour.time) ? 0 : 0.4
   const raw = speedScore + directionBoost - rainPenalty - windowPenalty
   return Math.min(Math.max(raw, 0), 1)
+}
+
+const fetchForecast = async () => {
+  if (!forecastUrl.value) return
+  status.value = 'loading'
+  statusError.value = ''
+  forecast.value = []
+
+  try {
+    const response = await fetch(forecastUrl.value)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+    const data = await response.json()
+    const { time, windspeed_10m, winddirection_10m, windgusts_10m, precipitation, temperature_2m } = data.hourly
+    const map = {}
+
+    for (let i = 0; i < time.length; i += 1) {
+      const date = time[i].split('T')[0]
+      if (!map[date]) map[date] = { speeds: [], dirs: [], rains: [], hours: [] }
+      const speedKts = windspeed_10m[i]
+      const dirDeg = winddirection_10m[i]
+      const rainMm = precipitation[i] ?? 0
+      const gustKts = windgusts_10m[i] ?? windspeed_10m[i]
+      const tempC = temperature_2m[i] ?? null
+
+      map[date].speeds.push(speedKts)
+      map[date].dirs.push(dirDeg)
+      map[date].rains.push(rainMm)
+      map[date].hours.push({
+        time: time[i],
+        label: new Date(time[i]).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
+        speedKts: speedKts,
+        dirDeg: Math.round(dirDeg),
+        precipMm: rainMm,
+        gustKts: gustKts,
+        tempC: tempC,
+      })
+    }
+
+    const days = Object.keys(map).map((date) => {
+      const speeds = map[date].speeds
+      const dirs = map[date].dirs
+      const rains = map[date].rains
+      const hours = map[date].hours
+
+      const playableHours = hours.filter((hour) => isPlayable(hour))
+      const bestHour = hours.find((hour) => isPlayable(hour) && hour.gustKts === Math.max(...hours.map((h) => h.gustKts)))
+      const mainDirDeg = Math.round(dirs.reduce((a, b) => a + b, 0) / dirs.length)
+
+      return {
+        date,
+        avgWindKts: speeds.reduce((a, b) => a + b, 0) / speeds.length,
+        mainDirDeg,
+        playableCount: playableHours.length,
+        maxGustKts: Math.max(...hours.map((h) => h.gustKts)),
+        totalRain: rains.reduce((a, b) => a + b, 0),
+        hours: hours,
+        bestHour: bestHour || null,
+        stars: bestStarRating(playableHours.length),
+      }
+    })
+
+    forecast.value = days.slice(0, 7)
+    status.value = 'ok'
+  } catch (err) {
+    console.error(err)
+    statusError.value = 'No se pudo cargar el pronóstico en este entorno.'
+    status.value = 'error'
+  }
 }
 
 const hourCellStyle = (hour) => {
@@ -315,85 +437,14 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', evaluateLayout)
 })
 
-onMounted(async () => {
+watch(forecastUrl, () => {
+  fetchForecast()
+})
+
+onMounted(() => {
   evaluateLayout()
   window.addEventListener('resize', evaluateLayout)
-  try {
-    const url =
-      'https://api.open-meteo.com/v1/gfs?latitude=-30.9085&longitude=-57.915&hourly=winddirection_10m,windspeed_10m,windgusts_10m,precipitation,temperature_2m&current=winddirection_10m,windspeed_10m&timezone=auto&windspeed_unit=kn'
-
-    const response = await fetch(url)
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-
-    const data = await response.json()
-    const { time, windspeed_10m, winddirection_10m, windgusts_10m, precipitation, temperature_2m } = data.hourly
-    const map = {}
-
-    for (let i = 0; i < time.length; i += 1) {
-      const date = time[i].split('T')[0]
-      if (!map[date]) map[date] = { speeds: [], dirs: [], rains: [], hours: [] }
-      const speedKts = windspeed_10m[i]
-      const dirDeg = winddirection_10m[i]
-      const rainMm = precipitation[i] ?? 0
-      const gustKts = windgusts_10m[i] ?? windspeed_10m[i]
-      const tempC = temperature_2m[i] ?? null
-
-      map[date].speeds.push(speedKts)
-      map[date].dirs.push(dirDeg)
-      map[date].rains.push(rainMm)
-      map[date].hours.push({
-        time: time[i],
-        label: new Date(time[i]).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
-        speedKts: speedKts,
-        dirDeg: Math.round(dirDeg),
-        precipMm: rainMm,
-        gustKts: gustKts,
-        tempC: tempC,
-      })
-    }
-
-    const days = Object.keys(map).map((date) => {
-      const speeds = map[date].speeds
-      const dirs = map[date].dirs
-      const rains = map[date].rains
-      const hours = map[date].hours
-
-      const avgWind = speeds.reduce((a, b) => a + b, 0) / speeds.length
-      const avgDir = dirs.reduce((a, b) => a + b, 0) / dirs.length
-      const totalRain = rains.reduce((a, b) => a + b, 0)
-      const playableHours = hours.filter((h) => isPlayable(h))
-      const bestHourEntry = playableHours.sort((a, b) => b.speedKts - a.speedKts)[0]
-      const maxGust = Math.max(...hours.map((h) => h.gustKts))
-      const stars = bestStarRating(playableHours.length)
-
-      return {
-        date,
-        avgWindKts: Math.round(avgWind),
-        mainDirDeg: Math.round(avgDir),
-        totalRain,
-        playableCount: playableHours.length,
-        maxGustKts: Math.round(maxGust),
-        stars,
-        bestHour: bestHourEntry
-          ? {
-              label: bestHourEntry.label,
-              speedKts: bestHourEntry.speedKts,
-              dirDeg: bestHourEntry.dirDeg,
-              precipMm: bestHourEntry.precipMm,
-              gustKts: bestHourEntry.gustKts,
-            }
-          : null,
-        hours,
-      }
-    })
-
-    forecast.value = days.slice(0, 7)
-    status.value = 'ok'
-  } catch (err) {
-    console.error(err)
-    status.value = 'error'
-    statusError.value = 'No se pudo cargar el pronóstico GFS en este entorno.'
-  }
+  fetchForecast()
 })
 </script>
 
