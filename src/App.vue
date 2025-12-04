@@ -12,7 +12,12 @@ const site = useSiteStore()
 </script>
 
 <template>
-  <TopBar :nav-items="site.navItems" />
+  <TopBar
+    :nav-items="site.navItems"
+    :spots="site.spots"
+    :current-spot-id="site.currentSpotId"
+    @select-spot="site.setCurrentSpotId"
+  />
   <main class="page">
     <HeroSection v-if="site.currentSpot" :spot="site.currentSpot" />
     <SpotHighlights v-if="site.currentSpot" :spot="site.currentSpot" />

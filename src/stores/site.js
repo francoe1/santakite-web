@@ -16,4 +16,12 @@ export const useSiteStore = defineStore('site', {
   getters: {
     currentSpot: (state) => state.spots.find((spot) => spot.id === state.currentSpotId) ?? state.spots[0] ?? null,
   },
+  actions: {
+    setCurrentSpotId(spotId) {
+      const exists = this.spots.some((spot) => spot.id === spotId)
+      if (exists) {
+        this.currentSpotId = spotId
+      }
+    },
+  },
 })
