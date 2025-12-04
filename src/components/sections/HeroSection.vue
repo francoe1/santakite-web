@@ -3,21 +3,17 @@
     <div class="hero-copy">
       <p class="badge">Santa Ana · Río Uruguay</p>
       <h1>
-        Kitesurf libre con vibra surfer
-        <span class="accent">en Playa 52</span>
+        Kitesurf libre <span class="accent">en Playa 52</span>
       </h1>
       <p class="lead">
-        Amanecé con brisa limpia, armá tu cometa sobre arena suave y navegá con vista abierta al río. Zona chill con música
-        baja, mates, y comunidad que respeta el mar y el viento.
+        Armá tu kite sobre arena y navegá con vista abierta al río.
       </p>
       <div class="hero-tags" aria-label="Destacados">
         <span>Vientos S · SE · E</span>
         <span>Zonas separadas</span>
-        <span>Pronóstico GFS</span>
       </div>
       <div class="hero-actions">
         <button type="button" class="primary" @click="scrollTo('mapa')">Ver mapa &amp; viento</button>
-        <a class="ghost" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">Coordinar sesión</a>
       </div>
     </div>
     <div class="hero-card" role="presentation">

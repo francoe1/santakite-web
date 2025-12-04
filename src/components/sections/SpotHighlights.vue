@@ -2,10 +2,6 @@
   <section id="spot" class="section">
     <div class="section-head">
       <p class="eyebrow">El spot</p>
-      <div>
-        <h2>Playa 52 en Santa Ana</h2>
-        <p class="muted">Zona abierta de río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
-      </div>
     </div>
     <div class="cards">
       <article v-for="item in highlights" :key="item.title" class="card">
