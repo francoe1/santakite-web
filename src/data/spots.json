@@ -255,5 +255,129 @@
         "icon": "location"
       }
     ]
+  },
+  {
+    "id": "prefectura-santa-ana",
+    "name": "Prefectura Santa Ana",
+    "location": "Base Prefectura Naval, Santa Ana (Entre Ríos)",
+    "coordinates": {
+      "lat": -30.913645,
+      "lon": -57.930449
+    },
+    "references": {
+      "coordinatesLabel": "-30.913645, -57.930449",
+      "description": "Zona de Prefectura, Santa Ana – acceso por camino costero."
+    },
+    "hero": {
+      "badge": "Santa Ana · Río Uruguay",
+      "title": "Ventana oeste",
+      "accent": "para navegar frente a Prefectura",
+      "lead": "Spot lateral al oeste con espacio de arena firme y acceso directo al río.",
+      "tags": ["Viento W", "Rampa de arena", "Apoyo de Prefectura"]
+    },
+    "highlights": [
+      {
+        "title": "Orientación oeste",
+        "description": "Se navega con componente Oeste (W) que entra limpio desde el río y queda side-on respecto a la costa."
+      },
+      {
+        "title": "Acceso y armado",
+        "description": "Entrada cercana a la base de Prefectura con franja de arena para armar y lanzar con asistencia."
+      },
+      {
+        "title": "Separación de zonas",
+        "description": "Delimitar zona de kites al sur de la rampa para evitar interferir con embarcaciones o bañistas."
+      }
+    ],
+    "wind": {
+      "latitude": -30.913645,
+      "longitude": -57.930449
+    },
+    "map": {
+      "windyEmbedUrl": "https://embed.windy.com/embed2.html?lat=-30.9136&lon=-57.9304&zoom=14&level=surface&overlay=wind&product=gfs",
+      "view": {
+        "lat": -30.914,
+        "lon": -57.9305,
+        "zoom": 15
+      },
+      "markers": [
+        {
+          "lat": -30.913645,
+          "lon": -57.930449,
+          "label": "Prefectura Santa Ana – zona de armado"
+        },
+        {
+          "lat": -30.9144,
+          "lon": -57.9289,
+          "label": "Área navegada sobre el río"
+        }
+      ],
+      "launchZone": [
+        [-30.9133, -57.9312],
+        [-30.9133, -57.9297],
+        [-30.9141, -57.9297],
+        [-30.9141, -57.9312]
+      ],
+      "swimZone": [
+        [-30.9142, -57.9315],
+        [-30.9148, -57.9292],
+        [-30.9156, -57.9298],
+        [-30.915, -57.9322]
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos con viento Oeste (W). Lluvia o tormenta suspenden la navegación.",
+      "detailText": "Viento sostenido > 12 nudos desde el Oeste genera ventana navegable side-on. Horarios sugeridos: 8:00 a 19:30 en verano y 9:00 a 17:30 en invierno. Evitar ráfagas cruzadas o actividad eléctrica.",
+      "preferredDirections": ["W"],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 2,
+      "summerWindow": { "startHour": 8, "endHour": 19, "endMinute": 30 },
+      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "speedScoreBase": 8,
+      "speedScoreCap": 14
+    },
+    "security": {
+      "intro": "Coordinar con Prefectura, respetar la rampa de embarque y mantener la navegación al sur para no interferir con tráfico fluvial.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmar viento Oeste estable y libre de tormenta.",
+            "Armar en la franja verde dejando despejada la rampa de embarque.",
+            "Planificar retorno y punto de escape a sotavento en caso de caída de viento."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantenerse dentro del polígono de navegación y evitar maniobras frente a la rampa.",
+            "Usar body drag de entrada y salida para alejar el kite de la orilla.",
+            "Avisar lanzamientos/aterrizajes para coordinar con otros riders y Prefectura."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajar cometa en la zona verde, enrollar líneas y despejar la rampa.",
+            "Reportar cambios de corriente o peligros flotantes a Prefectura y al grupo.",
+            "Retirar basura y revisar que no queden anclajes en la arena."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Emergencias Prefectura",
+        "value": "Llamar 106",
+        "href": "tel:106",
+        "icon": "phone"
+      },
+      {
+        "label": "Ubicación",
+        "value": "Base Prefectura – Santa Ana",
+        "detail": "Coordenadas: -30.913645, -57.930449",
+        "icon": "location"
+      }
+    ]
   }
 ]
