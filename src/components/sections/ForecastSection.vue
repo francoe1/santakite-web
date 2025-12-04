@@ -22,12 +22,20 @@
           @click="openDetails(day)"
         >
           <div class="forecast-date">{{ formatDate(day.date) }}</div>
-          <div class="muted small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> nudos</div>
+          <div class="muted small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> kts</div>
           <div class="muted small">Dirección principal: <strong>{{ degToCompass(day.mainDirDeg) }}</strong> ({{ day.mainDirDeg }}°)</div>
           <div class="muted small">Ventana jugable: <strong>{{ day.playableCount }}</strong> hs</div>
           <div class="muted small">Lluvia estimada: <strong>{{ day.totalRain.toFixed(1) }}</strong> mm</div>
           <div class="badge" :class="classifyDay(day).className">{{ classifyDay(day).label }}</div>
-          <div class="muted tiny">Mejor hora: {{ day.bestHour ? day.bestHour.label : 'Sin datos' }}</div>
+          <div class="muted tiny">
+            Mejor hora:
+            <template v-if="day.bestHour">
+              <strong>{{ day.bestHour.label }}</strong>
+              · {{ day.bestHour.speedKts.toFixed(0) }} kts · {{ degToCompass(day.bestHour.dirDeg) }} ({{ day.bestHour.dirDeg }}°)
+              · lluvia {{ day.bestHour.precipMm.toFixed(1) }} mm
+            </template>
+            <template v-else>Sin datos</template>
+          </div>
         </button>
       </div>
       <p v-if="!forecast.length && !statusError" class="muted small">Cargando datos…</p>
@@ -46,25 +54,28 @@
           <button type="button" class="close" @click="closeDetails">✕</button>
         </div>
 
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>Hora</th>
-                <th>Viento (kts)</th>
-                <th>Dirección</th>
-                <th>Lluvia (mm)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="hour in selectedDay.hours" :key="hour.time">
-                <td>{{ hour.label }}</td>
-                <td>{{ hour.speedKts.toFixed(0) }}</td>
-                <td>{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</td>
-                <td>{{ hour.precipMm.toFixed(1) }}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="hourly-strip">
+          <div
+            v-for="hour in selectedDay.hours"
+            :key="hour.time"
+            class="hour-card"
+            :class="{ playable: isPlayable(hour) }"
+          >
+            <div class="hour-top">
+              <p class="hour-label">{{ hour.label }}</p>
+              <span class="chip" :class="isPlayable(hour) ? 'chip-ok' : 'chip-muted'">
+                {{ isPlayable(hour) ? 'Jugable' : 'No jugable' }}
+              </span>
+            </div>
+            <div class="wind-block">
+              <div class="kts">{{ hour.speedKts.toFixed(0) }} kts</div>
+              <div class="dir-block">
+                <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg}deg)` }">↑</span>
+                <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
+              </div>
+            </div>
+            <div class="rain">Lluvia: {{ hour.precipMm.toFixed(1) }} mm</div>
+          </div>
         </div>
       </div>
     </div>
@@ -116,6 +127,8 @@ const isPreferredDirection = (deg) => {
   return compass === 'S' || compass === 'SE' || compass === 'E'
 }
 
+const isPlayable = (hour) => hour.speedKts >= 12 && isPreferredDirection(hour.dirDeg)
+
 const openDetails = (day) => {
   selectedDay.value = day
 }
@@ -165,7 +178,7 @@ onMounted(async () => {
       const avgDir = dirs.reduce((a, b) => a + b, 0) / dirs.length
       const totalRain = rains.reduce((a, b) => a + b, 0)
       const playableHours = hours.filter((h) => h.speedKts >= 12 && isPreferredDirection(h.dirDeg))
-      const bestHour = playableHours.sort((a, b) => b.speedKts - a.speedKts)[0]
+      const bestHourEntry = playableHours.sort((a, b) => b.speedKts - a.speedKts)[0]
 
       return {
         date,
@@ -173,7 +186,14 @@ onMounted(async () => {
         mainDirDeg: Math.round(avgDir),
         totalRain,
         playableCount: playableHours.length,
-        bestHour: bestHour ? { label: bestHour.label } : null,
+        bestHour: bestHourEntry
+          ? {
+              label: bestHourEntry.label,
+              speedKts: bestHourEntry.speedKts,
+              dirDeg: bestHourEntry.dirDeg,
+              precipMm: bestHourEntry.precipMm,
+            }
+          : null,
         hours,
       }
     })
@@ -339,7 +359,7 @@ h2 {
   display: grid;
   place-items: center;
   padding: 1rem;
-  z-index: 30;
+  z-index: 1200;
 }
 
 .overlay-card {
@@ -373,24 +393,98 @@ h2 {
   cursor: pointer;
 }
 
-.table-wrapper {
+.hourly-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: 0.8rem;
   overflow-x: auto;
+  padding-bottom: 0.25rem;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.hour-card {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.8rem;
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.75);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 
-th,
-td {
-  text-align: left;
-  padding: 0.65rem 0.5rem;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+.hour-card.playable {
+  border-color: rgba(34, 197, 94, 0.45);
+  box-shadow: 0 12px 28px rgba(34, 197, 94, 0.15);
 }
 
-th {
-  color: #cbd5e1;
+.hour-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hour-label {
   font-weight: 700;
+  color: #e2e8f0;
+}
+
+.chip {
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.chip-ok {
+  background: rgba(34, 197, 94, 0.18);
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.chip-muted {
+  background: rgba(148, 163, 184, 0.14);
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.wind-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.kts {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.dir-block {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #cbd5e1;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  font-weight: 900;
+}
+
+.dir-label {
+  font-size: 0.95rem;
+}
+
+.rain {
+  color: #cbd5e1;
+  font-size: 0.95rem;
 }
 </style>
