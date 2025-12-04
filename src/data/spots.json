@@ -129,5 +129,131 @@
         "icon": "location"
       }
     ]
+  },
+  {
+    "id": "federacion",
+    "name": "Federación",
+    "location": "Playa Grande, Federación (Entre Ríos)",
+    "coordinates": {
+      "lat": -30.983513,
+      "lon": -57.914698
+    },
+    "references": {
+      "coordinatesLabel": "-30.983513, -57.914698",
+      "description": "Balneario Playa Grande, Federación – lago Salto Grande."
+    },
+    "hero": {
+      "badge": "Federación · Lago Salto Grande",
+      "title": "Ventana norte",
+      "accent": "para navegar en Playa Grande",
+      "lead": "Spot de agua dulce con rampa de arena y fetch abierto cuando sopla norte.",
+      "tags": ["Vientos N · NNE · NNW", "Zona navegada señalada"]
+    },
+    "highlights": [
+      {
+        "title": "Federación, Entre Ríos",
+        "description": "Playa Grande mira al embalse del lago Salto Grande con acceso directo desde la costanera."
+      },
+      {
+        "title": "Viento útil: norte",
+        "description": "Se navega con viento de componente norte, que entra limpio desde el lago y evita obstáculos."
+      },
+      {
+        "title": "Zonas separadas",
+        "description": "La franja roja delimita la navegación y mantiene a bañistas alejados cuando hay cometas."
+      }
+    ],
+    "wind": {
+      "latitude": -30.983513,
+      "longitude": -57.914698
+    },
+    "map": {
+      "windyEmbedUrl": "https://embed.windy.com/embed2.html?lat=-30.9835&lon=-57.9147&zoom=13&level=surface&overlay=wind&product=gfs",
+      "view": {
+        "lat": -30.9845,
+        "lon": -57.917,
+        "zoom": 15
+      },
+      "markers": [
+        {
+          "lat": -30.983513,
+          "lon": -57.914698,
+          "label": "Playa Grande – zona de armado"
+        },
+        {
+          "lat": -30.9849,
+          "lon": -57.9186,
+          "label": "Área navegada abierta sobre el lago"
+        }
+      ],
+      "launchZone": [
+        [-30.9832, -57.9156],
+        [-30.9832, -57.9143],
+        [-30.984, -57.9143],
+        [-30.984, -57.9156]
+      ],
+      "swimZone": [
+        [-30.9829, -57.9162],
+        [-30.9838, -57.9129],
+        [-30.9855, -57.914],
+        [-30.9863, -57.9178],
+        [-30.985, -57.9204],
+        [-30.9832, -57.9188]
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 11 nudos con viento norte (N, NNE, NNW). Lluvia o tormenta cierran el spot.",
+      "detailText": "Viento sostenido > 11 nudos desde el norte abre la ventana navegable. Horarios sugeridos: 8:00 a 19:30 en verano, 9:00 a 17:30 en invierno. Evitar rachas cruzadas o cambios bruscos y suspender ante actividad eléctrica.",
+      "preferredDirections": ["N", "NNE", "NNW"],
+      "minPlayableKts": 11,
+      "maxPrecipMm": 2,
+      "summerWindow": { "startHour": 8, "endHour": 19, "endMinute": 30 },
+      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "speedScoreBase": 7,
+      "speedScoreCap": 13
+    },
+    "security": {
+      "intro": "Se prioriza lanzar desde la rampa de arena y mantener la navegación dentro del polígono marcado para no interferir con bañistas o muelles.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Revisar que el viento sea norte y estable; posponer si hay tormenta río arriba.",
+            "Marcar líneas en la zona verde para evitar cruces con caminantes de la costanera.",
+            "Planificar retorno a tierra por la misma rampa; identificar punto de salida alternativo a sotavento."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Navegar dentro del polígono rojo y dejar el borde cercano a la playa libre para seguridad.",
+            "Hacer body drag de entrada y salida para mantener el control lejos de bañistas.",
+            "Avisar cuando se lancen o aterricen cometas para coordinar el espacio."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajar cometa en la zona verde y enrollar líneas antes de volver por la pasarela.",
+            "Compartir cambios de nivel o corriente con el resto de riders y bañistas.",
+            "Retirar residuos y revisar que no queden cabos o anclajes sobre la arena."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Emergencias Prefectura",
+        "value": "Llamar 106",
+        "href": "tel:106",
+        "icon": "phone"
+      },
+      {
+        "label": "Ubicación",
+        "value": "Playa Grande – Federación",
+        "detail": "Coordenadas: -30.983513, -57.914698",
+        "icon": "location"
+      }
+    ]
   }
 ]
