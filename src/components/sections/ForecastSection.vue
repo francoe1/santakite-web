@@ -34,7 +34,6 @@
             <span v-else>Sin ventana marcada</span>
           </div>
           <div class="badge" :class="classifyDay(day).className">{{ classifyDay(day).label }}</div>
-          <div v-if="day.needsSuit" class="muted tiny suit-flag">🧥 Menos de 20°C en alguna franja: llevá neoprene</div>
           <div class="muted tiny">
             Mejor hora:
             <template v-if="day.bestHour">
@@ -127,7 +126,6 @@
               role="cell"
             >
               <span>{{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}</span>
-              <span v-if="hour.tempC !== null && hour.tempC < 20" class="suit" title="Traje de neoprene sugerido">🧥</span>
             </div>
           </div>
 
@@ -239,11 +237,10 @@ const hourCellStyle = (hour) => {
   const score = playabilityScore(hour)
   const hue = 8 + (128 - 8) * score
   const tone = `hsl(${hue}, 58%, 62%)`
-  const wash = `hsla(${hue}, 58%, 62%, 0.16)`
+  const wash = `hsla(${hue}, 58%, 62%, 0.14)`
   return {
     borderColor: tone,
-    background: `linear-gradient(180deg, ${wash}, rgba(15, 23, 42, 0.85))`,
-    boxShadow: `0 10px 22px ${wash}`,
+    background: `linear-gradient(180deg, ${wash}, rgba(15, 23, 42, 0.9))`,
   }
 }
 
@@ -311,7 +308,6 @@ onMounted(async () => {
       const bestHourEntry = playableHours.sort((a, b) => b.speedKts - a.speedKts)[0]
       const maxGust = Math.max(...hours.map((h) => h.gustKts))
       const stars = bestStarRating(playableHours.length)
-      const needsSuit = hours.some((h) => h.tempC !== null && h.tempC < 20)
 
       return {
         date,
@@ -321,7 +317,6 @@ onMounted(async () => {
         playableCount: playableHours.length,
         maxGustKts: Math.round(maxGust),
         stars,
-        needsSuit,
         bestHour: bestHourEntry
           ? {
               label: bestHourEntry.label,
@@ -533,48 +528,55 @@ h2 {
   cursor: pointer;
 }
 
+
 .hourly-table {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0;
   overflow-x: auto;
-  padding-bottom: 0.2rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.85rem;
 }
 
 .hour-row {
   display: flex;
-  gap: 0.4rem;
+  gap: 0;
   min-width: fit-content;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.hour-row:last-child {
+  border-bottom: none;
 }
 
 .label-cell {
   width: 150px;
   min-width: 150px;
-  border-radius: 0.75rem;
-  padding: 0.6rem 0.85rem;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(15, 23, 42, 0.85);
+  padding: 0.55rem 0.75rem;
+  background: rgba(15, 23, 42, 0.9);
   color: #e2e8f0;
   font-weight: 700;
   display: flex;
   align-items: center;
+  border-right: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .hour-cell {
   min-width: 80px;
   max-width: 80px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0.75rem;
-  padding: 0.6rem 0.35rem;
+  border-left: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 0.55rem 0.35rem;
   text-align: center;
   color: #e2e8f0;
   display: grid;
   gap: 0.35rem;
   justify-items: center;
+  background: rgba(15, 23, 42, 0.82);
 }
 
 .hour-row.header .hour-cell {
   font-weight: 700;
+  background: rgba(15, 23, 42, 0.95);
 }
 
 .hour-cell.value {
@@ -603,18 +605,8 @@ h2 {
   font-size: 0.78rem;
 }
 
-.suit {
-  font-size: 0.9rem;
-}
-
 .stars {
   color: #fbbf24;
   letter-spacing: 3px;
-}
-
-.suit-flag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
 }
 </style>
