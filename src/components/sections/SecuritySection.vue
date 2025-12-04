@@ -34,12 +34,10 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 31, 54, 0.86));
-  border-radius: 1rem;
+  background: #ffffff;
   padding: 1.2rem;
-  border: 1px solid rgba(125, 242, 221, 0.12);
-  box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
-  color: #e6f4ff;
+  border: 1px solid #dfe7ec;
+  color: #0b1f2a;
 }
 
 .section-head {
@@ -54,17 +52,16 @@ const props = defineProps({
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
 }
 
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
-  color: #f1f5f9;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   max-width: 640px;
 }
 
@@ -76,13 +73,9 @@ h2 {
 
 .step-card {
   padding: 1.2rem;
-  border-radius: 0.8rem;
-  background: radial-gradient(circle at 10% 10%, rgba(94, 234, 212, 0.1), transparent 40%),
-    linear-gradient(145deg, rgba(5, 23, 42, 0.75), rgba(6, 29, 52, 0.9));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  color: #e9f5ff;
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .step-card h3 {
@@ -93,21 +86,18 @@ h2 {
 .step-card ul {
   display: grid;
   gap: 0.5rem;
-  color: #cbd5e1;
+  color: #0f4c5c;
   padding-left: 1rem;
 }
 
 .step-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(125, 242, 221, 0.45);
+  border-color: #c7d6dc;
+  background: #f4f7f9;
 }
 
 .note {
   padding: 1rem 1.2rem;
-  border-radius: 0.8rem;
-  background: linear-gradient(120deg, rgba(94, 234, 212, 0.12), rgba(14, 165, 233, 0.12));
-  border: 1px dashed rgba(125, 242, 221, 0.5);
-  color: #e6fffb;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: #eef4f6;
+  border: 1px solid #dfe7ec;
 }
 </style>

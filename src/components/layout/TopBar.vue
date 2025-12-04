@@ -2,7 +2,6 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand-mark" @click="scrollTo('hero')">
-        <div class="brand-logo" aria-hidden="true"></div>
         <div class="brand-text">
           <span class="brand-title">SantaKite</span>
           <span class="brand-sub">Río &amp; viento libre</span>
@@ -47,9 +46,8 @@ const scrollTo = (id) => {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.86);
-  border-bottom: 1px solid rgba(11, 65, 92, 0.12);
-  box-shadow: 0 12px 28px rgba(12, 44, 60, 0.08);
+  background: #ffffff;
+  border-bottom: 1px solid #e0e7ea;
 }
 
 .topbar-inner {
@@ -69,31 +67,6 @@ const scrollTo = (id) => {
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.brand-logo {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background:
-    linear-gradient(140deg, rgba(10, 173, 191, 0.95), rgba(8, 115, 183, 0.95)),
-    url('https://images.unsplash.com/photo-1508896694512-7e90450b4a3b?auto=format&fit=crop&w=400&q=80') center/cover;
-  box-shadow: 0 8px 20px rgba(11, 76, 113, 0.25);
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.brand-logo::after {
-  content: '';
-  position: absolute;
-  inset: 10% 12%;
-  border-radius: 9px;
-  background: linear-gradient(125deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
-  opacity: 0.75;
-  transform: translateY(-6px);
-  animation: glide 5s ease-in-out infinite;
 }
 
 .brand-text {
@@ -104,9 +77,9 @@ const scrollTo = (id) => {
 
 .brand-title {
   color: #0b2f3f;
-  font-family: 'Pacifico', cursive;
-  font-size: 1.2rem;
-  letter-spacing: 0.01em;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
 }
 
 .brand-sub {
@@ -115,10 +88,6 @@ const scrollTo = (id) => {
   font-weight: 600;
 }
 
-
-.brand-mark:hover {
-  transform: translateY(-2px);
-}
 
 .topbar-nav {
   display: flex;
@@ -130,39 +99,35 @@ const scrollTo = (id) => {
 }
 
 .nav-button {
-  background: rgba(15, 77, 92, 0.06);
-  border: 1px solid rgba(15, 77, 92, 0.14);
+  background: #f4f7f9;
+  border: 1px solid #d7e0e4;
   color: inherit;
   cursor: pointer;
   padding: 0.45rem 0.95rem;
-  border-radius: 10px;
-  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+
+  transition: background 0.2s, color 0.2s;
   letter-spacing: 0.01em;
-  box-shadow: 0 10px 20px rgba(15, 76, 92, 0.12);
 }
 
 .nav-button:hover {
-  background: linear-gradient(120deg, rgba(14, 165, 233, 0.12), rgba(45, 212, 191, 0.12));
+  background: #e6eff4;
   color: #0f2f3f;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 24px rgba(15, 76, 92, 0.2);
 }
 
 .cta {
   padding: 0.65rem 1.25rem;
-  border-radius: 12px;
-  background: linear-gradient(120deg, #ffb703, #fb8500, #f15bb5);
-  color: #0b1f2a;
+
+  background: #0f4c5c;
+  color: #f6fbfd;
   font-weight: 800;
   letter-spacing: 0.02em;
-  box-shadow: 0 16px 36px rgba(241, 91, 181, 0.26);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  border: 1px solid #0f4c5c;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 44px rgba(251, 133, 0, 0.35);
-  filter: saturate(1.05);
+  background: #093544;
+  color: #e9f4f8;
 }
 
 @media (max-width: 720px) {
@@ -181,16 +146,6 @@ const scrollTo = (id) => {
   .cta {
     flex: 1;
     text-align: center;
-  }
-}
-
-@keyframes glide {
-  0%,
-  100% {
-    transform: translateY(-6px) translateX(0);
-  }
-  50% {
-    transform: translateY(-2px) translateX(6px);
   }
 }
 </style>

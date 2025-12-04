@@ -348,10 +348,10 @@ onMounted(async () => {
   gap: 1.5rem;
   color: #e8f6ff;
   background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
-  border-radius: 1rem;
+
   padding: 1.2rem;
   border: 1px solid rgba(125, 242, 221, 0.12);
-  box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
+
 }
 
 .section-head {
@@ -381,11 +381,11 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 0.8rem;
+
   background: radial-gradient(circle at 15% 20%, rgba(94, 234, 212, 0.12), transparent 40%),
     linear-gradient(145deg, rgba(6, 27, 48, 0.75), rgba(7, 22, 40, 0.92));
   border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -402,7 +402,7 @@ h2 {
 
 .status {
   padding: 0.35rem 0.85rem;
-  border-radius: 12px;
+
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -435,7 +435,7 @@ h2 {
   border: none;
   text-align: left;
   padding: 0.9rem;
-  border-radius: 0.7rem;
+
   border: 1px solid rgba(125, 242, 221, 0.2);
   background: linear-gradient(160deg, rgba(5, 22, 43, 0.7), rgba(6, 28, 51, 0.9));
   display: flex;
@@ -443,14 +443,14 @@ h2 {
   gap: 0.35rem;
   cursor: pointer;
   color: #e2e8f0;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .forecast-card:hover,
 .forecast-card:focus-visible {
   border-color: rgba(125, 242, 221, 0.55);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(3, 15, 32, 0.55);
+
   outline: none;
 }
 
@@ -461,7 +461,7 @@ h2 {
 .badge {
   align-self: flex-start;
   padding: 0.3rem 0.75rem;
-  border-radius: 12px;
+
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -507,11 +507,11 @@ h2 {
 .overlay-card {
   background: #0b1222;
   border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0.85rem;
+
   padding: 1.25rem;
   width: min(1040px, 100%);
   max-height: 90vh;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -529,7 +529,7 @@ h2 {
   border: 1px solid rgba(148, 163, 184, 0.3);
   background: rgba(15, 23, 42, 0.8);
   color: #e2e8f0;
-  border-radius: 12px;
+
   width: 2.25rem;
   height: 2.25rem;
   display: grid;
@@ -544,7 +544,7 @@ h2 {
   gap: 0;
   overflow-x: auto;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.65rem;
+
   position: relative;
 }
 
@@ -572,7 +572,7 @@ h2 {
   position: sticky;
   left: 0;
   z-index: 2;
-  box-shadow: 8px 0 18px rgba(4, 7, 16, 0.6);
+
 }
 
 .hour-cell {
@@ -609,7 +609,7 @@ h2 {
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 6px;
+
   background: rgba(148, 163, 184, 0.12);
   border: 1px solid rgba(148, 163, 184, 0.25);
   font-weight: 900;

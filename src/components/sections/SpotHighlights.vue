@@ -7,13 +7,6 @@
         <p class="muted">Zona abierta de río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
       </div>
     </div>
-    <div class="kite-strip" aria-hidden="true">
-      <img
-        src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=80"
-        alt="Amanecer con cometas en el agua"
-        loading="lazy"
-      />
-    </div>
     <div class="cards">
       <article v-for="item in highlights" :key="item.title" class="card">
         <h3>{{ item.title }}</h3>
@@ -42,26 +35,9 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(226, 245, 246, 0.8));
-  border-radius: 16px;
+  background: #ffffff;
   padding: 1.4rem;
-  border: 1px solid rgba(11, 65, 92, 0.12);
-  box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
-}
-
-.kite-strip {
-  border-radius: 0.9rem;
-  overflow: hidden;
-  border: 1px solid rgba(0, 186, 199, 0.18);
-  box-shadow: 0 14px 32px rgba(11, 65, 92, 0.18);
-}
-
-.kite-strip img {
-  display: block;
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  opacity: 0.92;
+  border: 1px solid #dfe7ec;
 }
 
 .section-head {
@@ -99,14 +75,12 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 0.8rem;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(238, 249, 250, 0.92));
-  border: 1px solid rgba(0, 186, 199, 0.18);
-  box-shadow: 0 14px 38px rgba(11, 65, 92, 0.18);
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .card h3 {
@@ -115,9 +89,8 @@ h2 {
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(0, 186, 199, 0.4);
-  box-shadow: 0 16px 42px rgba(11, 65, 92, 0.24);
+  border-color: #c7d6dc;
+  background: #f4f7f9;
 }
 
 .info-banner {
@@ -125,10 +98,8 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.6rem;
   padding: 1rem 1.2rem;
-  border-radius: 0.8rem;
-  background: linear-gradient(110deg, rgba(0, 186, 199, 0.12), rgba(251, 133, 0, 0.12));
-  border: 1px solid rgba(11, 65, 92, 0.14);
+  background: #eef4f6;
+  border: 1px solid #dfe7ec;
   color: #0b2f3f;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 </style>

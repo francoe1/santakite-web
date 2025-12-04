@@ -28,8 +28,8 @@ const props = defineProps({
   padding: 1rem 1.2rem;
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.75rem;
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+
+
 }
 
 .metric-value {

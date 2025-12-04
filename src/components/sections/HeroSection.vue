@@ -1,6 +1,5 @@
 <template>
   <section id="hero" class="hero">
-    <div class="hero-splash" aria-hidden="true"></div>
     <div class="hero-copy">
       <p class="badge">Santa Ana · Río Uruguay</p>
       <h1>
@@ -22,14 +21,6 @@
       </div>
     </div>
     <div class="hero-card" role="presentation">
-      <figure class="hero-photo-frame">
-        <img
-          class="hero-photo"
-          src="https://images.unsplash.com/photo-1508261306217-4006a46e24c4?auto=format&fit=crop&w=1200&q=80"
-          alt="Kitesurfista lanzando la cometa sobre la ola"
-          loading="lazy"
-        />
-      </figure>
       <div class="card-inner">
         <div class="wind-widget">
           <div
@@ -101,40 +92,17 @@ onMounted(async () => {
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 2.4rem;
+  gap: 2rem;
   align-items: center;
-  padding-top: 2rem;
-  position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(226, 245, 246, 0.72));
-  border-radius: 18px;
-  padding: 2.4rem;
-  overflow: hidden;
-  box-shadow: 0 28px 60px rgba(11, 65, 92, 0.14);
-}
-
-.hero > * {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-splash {
-  position: absolute;
-  inset: -12% -10% auto -8%;
-  height: 420px;
-  background:
-    radial-gradient(circle at 20% 60%, rgba(0, 186, 199, 0.14), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(241, 91, 181, 0.14), transparent 32%),
-    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.55), transparent 35%);
-  opacity: 0.75;
-  border-radius: 48%;
-  z-index: 0;
-  animation: drift 14s ease-in-out infinite;
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid #dfe7ec;
 }
 
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
-    padding: 1.6rem;
+    padding: 1.4rem;
   }
 }
 
@@ -143,33 +111,31 @@ onMounted(async () => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.9rem;
-  border-radius: 12px;
-  background: rgba(15, 76, 92, 0.1);
-  border: 1px solid rgba(15, 76, 92, 0.2);
+  background: #e7f1f5;
+  border: 1px solid #d7e2e8;
   color: #0f4c5c;
   font-weight: 700;
   letter-spacing: 0.2px;
   margin-bottom: 1rem;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 h1 {
-  font-size: clamp(2.3rem, 3.2vw, 3.2rem);
+  font-size: clamp(2.2rem, 3vw, 3rem);
   line-height: 1.05;
   margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: #0b1f2a;
 }
 
 .accent {
-  color: #fb8500;
+  color: #0f4c5c;
 }
 
 .lead {
   color: #0f4c5c;
   max-width: 640px;
   margin-bottom: 1.4rem;
-  font-size: 1.08rem;
+  font-size: 1.06rem;
 }
 
 .hero-tags {
@@ -180,13 +146,11 @@ h1 {
 }
 
 .hero-tags span {
-  border-radius: 12px;
   padding: 0.42rem 0.95rem;
-  background: rgba(0, 186, 199, 0.12);
+  background: #f4f7f9;
   color: #0b2f3f;
   font-weight: 800;
-  border: 1px solid rgba(0, 186, 199, 0.4);
-  box-shadow: 0 10px 24px rgba(11, 76, 92, 0.1);
+  border: 1px solid #d7e0e4;
 }
 
 .hero-actions {
@@ -198,66 +162,40 @@ h1 {
 
 .primary,
 .ghost {
-  border: none;
-  border-radius: 10px;
+  border: 1px solid #0f4c5c;
   padding: 0.75rem 1.3rem;
   font-weight: 800;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   font-size: 0.98rem;
+
 }
 
 .primary {
-  background: linear-gradient(120deg, #009fb7, #00c2cb);
-  color: #fdfefc;
-  box-shadow: 0 14px 32px rgba(0, 155, 183, 0.28);
+  background: #0f4c5c;
+  color: #f6fbfd;
 }
 
 .primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 40px rgba(0, 155, 183, 0.32);
+  background: #093544;
 }
 
 .ghost {
-  background: rgba(15, 76, 92, 0.08);
+  background: #ffffff;
   color: #0b2f3f;
-  border: 1px solid rgba(11, 65, 92, 0.14);
-  box-shadow: 0 10px 24px rgba(15, 76, 92, 0.12);
+  border-color: #d7e0e4;
 }
 
 .ghost:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(11, 65, 92, 0.18);
+  background: #f4f7f9;
 }
 
 .hero-card {
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(236, 247, 248, 0.92));
-  border: 1px solid rgba(11, 65, 92, 0.18);
-  border-radius: 14px;
-  box-shadow: 0 22px 50px rgba(11, 65, 92, 0.18);
-  overflow: hidden;
-  position: relative;
-  isolation: isolate;
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-}
-
-.hero-photo-frame {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  position: relative;
-  border-bottom: 1px solid rgba(11, 65, 92, 0.15);
-}
-
-.hero-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  opacity: 0.9;
 }
 
 .card-inner {
@@ -272,25 +210,20 @@ h1 {
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 186, 199, 0.22);
-  background: linear-gradient(145deg, rgba(0, 186, 199, 0.08), rgba(11, 65, 92, 0.05));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border: 1px solid #c7d6dc;
+  background: #eef4f6;
+
 }
 
 .arrow-circle {
   width: 60px;
   height: 60px;
-  border-radius: 12px;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 30% 20%, rgba(0, 186, 199, 0.22), rgba(0, 155, 183, 0.18));
-  border: 1px solid rgba(0, 155, 183, 0.45);
-  color: #0b2f3f;
+  background: #0f4c5c;
+  color: #f6fbfd;
   font-weight: 900;
   font-size: 1.2rem;
-  transition: transform 0.4s ease;
-  animation: pulse 3s ease-in-out infinite;
 }
 
 .wind-data {
@@ -333,33 +266,10 @@ h1 {
 .mini-chip {
   align-self: flex-start;
   padding: 0.38rem 0.78rem;
-  border-radius: 12px;
-  background: rgba(251, 133, 0, 0.12);
+  background: #fff9ef;
   color: #c05621;
   font-weight: 800;
-  border: 1px solid rgba(251, 133, 0, 0.35);
+  border: 1px solid #f4d4a3;
   margin-top: 0.5rem;
-}
-
-@keyframes drift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(12px, -10px, 0) scale(1.05);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 155, 183, 0.18);
-  }
-  50% {
-    box-shadow: 0 0 0 14px rgba(0, 155, 183, 0.06);
-  }
 }
 </style>
