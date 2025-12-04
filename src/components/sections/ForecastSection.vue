@@ -346,6 +346,12 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  color: #e8f6ff;
+  background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
+
+  padding: 1.2rem;
+  border: 1px solid rgba(125, 242, 221, 0.12);
+
 }
 
 .section-head {
@@ -366,6 +372,7 @@ onMounted(async () => {
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
+  color: #f1f5f9;
 }
 
 .muted {
@@ -374,13 +381,15 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+
+  background: radial-gradient(circle at 15% 20%, rgba(94, 234, 212, 0.12), transparent 40%),
+    linear-gradient(145deg, rgba(6, 27, 48, 0.75), rgba(7, 22, 40, 0.92));
+  border: 1px solid rgba(56, 189, 248, 0.25);
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #e5f3ff;
 }
 
 .card-header {
@@ -393,7 +402,7 @@ h2 {
 
 .status {
   padding: 0.35rem 0.85rem;
-  border-radius: 999px;
+
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -426,22 +435,22 @@ h2 {
   border: none;
   text-align: left;
   padding: 0.9rem;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(15, 23, 42, 0.6);
+
+  border: 1px solid rgba(125, 242, 221, 0.2);
+  background: linear-gradient(160deg, rgba(5, 22, 43, 0.7), rgba(6, 28, 51, 0.9));
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   cursor: pointer;
   color: #e2e8f0;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .forecast-card:hover,
 .forecast-card:focus-visible {
-  border-color: rgba(34, 197, 94, 0.55);
+  border-color: rgba(125, 242, 221, 0.55);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.55);
+
   outline: none;
 }
 
@@ -452,15 +461,15 @@ h2 {
 .badge {
   align-self: flex-start;
   padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+
   font-weight: 700;
   font-size: 0.85rem;
 }
 
 .badge-ok {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(94, 234, 212, 0.2);
+  color: #5eead4;
+  border: 1px solid rgba(94, 234, 212, 0.35);
 }
 
 .badge-warn {
@@ -487,7 +496,6 @@ h2 {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -499,14 +507,15 @@ h2 {
 .overlay-card {
   background: #0b1222;
   border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 1rem;
+
   padding: 1.25rem;
   width: min(1040px, 100%);
   max-height: 90vh;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #e5f3ff;
 }
 
 .overlay-head {
@@ -520,7 +529,7 @@ h2 {
   border: 1px solid rgba(148, 163, 184, 0.3);
   background: rgba(15, 23, 42, 0.8);
   color: #e2e8f0;
-  border-radius: 999px;
+
   width: 2.25rem;
   height: 2.25rem;
   display: grid;
@@ -535,7 +544,8 @@ h2 {
   gap: 0;
   overflow-x: auto;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 0.85rem;
+
+  position: relative;
 }
 
 .hour-row {
@@ -559,6 +569,10 @@ h2 {
   display: flex;
   align-items: center;
   border-right: 1px solid rgba(148, 163, 184, 0.2);
+  position: sticky;
+  left: 0;
+  z-index: 2;
+
 }
 
 .hour-cell {
@@ -595,7 +609,7 @@ h2 {
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 8px;
+
   background: rgba(148, 163, 184, 0.12);
   border: 1px solid rgba(148, 163, 184, 0.25);
   font-weight: 900;

@@ -124,6 +124,9 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: #ffffff;
+  padding: 1.4rem;
+  border: 1px solid #dfe7ec;
 }
 
 .section-head {
@@ -138,16 +141,18 @@ onMounted(async () => {
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
+  font-weight: 800;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
   margin-bottom: 0.35rem;
+  color: #0b1f2a;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   max-width: 640px;
 }
 
@@ -166,33 +171,27 @@ h2 {
 .map {
   width: 100%;
   height: 360px;
-  border-radius: 1rem;
-  overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  border: 1px solid #dfe7ec;
   position: relative;
   z-index: 0;
 }
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
 .card h3 {
-  font-size: 1.1rem;
+  font-size: 1.12rem;
+  color: #0b2f3f;
 }
 
 .windy-wrapper {
-  border-radius: 0.9rem;
-  overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid #dfe7ec;
   position: relative;
 }
 
@@ -210,7 +209,7 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0.5rem;
   margin-top: 0.75rem;
-  color: #cbd5e1;
+  color: #0f4c5c;
   font-size: 0.9rem;
 }
 
@@ -223,7 +222,6 @@ h2 {
 .legend-color {
   width: 18px;
   height: 18px;
-  border-radius: 6px;
   display: inline-block;
 }
 

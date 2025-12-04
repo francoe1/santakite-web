@@ -63,13 +63,15 @@ const icons = {
 
 .contact-card {
   padding: 1.4rem;
-  border-radius: 1.2rem;
-  background: rgba(15, 23, 42, 0.78);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
+
+  background: linear-gradient(145deg, rgba(4, 23, 41, 0.78), rgba(5, 30, 53, 0.92)),
+    radial-gradient(circle at 90% 10%, rgba(94, 234, 212, 0.12), transparent 40%);
+  border: 1px solid rgba(125, 242, 221, 0.2);
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #e6f6ff;
 }
 
 .eyebrow {
@@ -82,6 +84,7 @@ const icons = {
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
+  color: #f1f5f9;
 }
 
 .muted {
@@ -97,9 +100,9 @@ h2 {
 .contact-item {
   flex: 1 1 280px;
   padding: 0.9rem 1rem;
-  border-radius: 0.9rem;
-  background: rgba(14, 165, 233, 0.06);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+
+  background: linear-gradient(160deg, rgba(4, 30, 52, 0.8), rgba(4, 21, 38, 0.88));
+  border: 1px solid rgba(125, 242, 221, 0.2);
   display: flex;
   gap: 0.75rem;
   align-items: center;
@@ -108,16 +111,16 @@ h2 {
 }
 
 .contact-item:hover {
-  border-color: rgba(56, 189, 248, 0.6);
-  transform: translateY(-2px);
+  border-color: rgba(125, 242, 221, 0.5);
+  transform: translateY(-3px);
 }
 
 .icon {
   display: inline-flex;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
-  background: rgba(148, 163, 184, 0.08);
+
+  background: radial-gradient(circle at 30% 30%, rgba(94, 234, 212, 0.22), rgba(14, 165, 233, 0.08));
   align-items: center;
   justify-content: center;
 }
@@ -142,27 +145,27 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 999px;
+
   padding: 0.75rem 1.4rem;
   font-weight: 700;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  border: 1px solid rgba(125, 242, 221, 0.35);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .primary {
   background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #0b1727;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
+  color: #f8fafc;
+
 }
 
 .primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 22px 55px rgba(14, 165, 233, 0.5);
+
 }
 
 .ghost {
-  background: rgba(148, 163, 184, 0.1);
+  background: rgba(148, 163, 184, 0.12);
   color: #e2e8f0;
 }
 

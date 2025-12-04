@@ -24,25 +24,23 @@ const site = useSiteStore()
 </template>
 
 <style>
-:root {
-  color-scheme: dark;
-}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Pacifico&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background:
-    radial-gradient(circle at 0 0, #1f2937 0, transparent 55%),
-    radial-gradient(circle at 100% 0, #0f172a 0, transparent 55%),
-    radial-gradient(circle at 50% 100%, #111827 0, transparent 55%),
-    #020617;
-  color: #f9fafb;
+  font-family: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #0b1f2a;
   line-height: 1.6;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f7fbff 0%, #eaf3f7 100%);
+  overflow-x: hidden;
 }
 
 a {
@@ -51,8 +49,12 @@ a {
 }
 
 main {
-  max-width: 1180px;
+  max-width: 1260px;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
+  padding: 1.2rem 1.1rem 3.8rem;
+}
+
+.page {
+  position: relative;
 }
 </style>

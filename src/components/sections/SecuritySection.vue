@@ -34,6 +34,10 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: #ffffff;
+  padding: 1.2rem;
+  border: 1px solid #dfe7ec;
+  color: #0b1f2a;
 }
 
 .section-head {
@@ -48,7 +52,7 @@ const props = defineProps({
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
 }
 
 h2 {
@@ -57,7 +61,7 @@ h2 {
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   max-width: 640px;
 }
 
@@ -69,10 +73,9 @@ h2 {
 
 .step-card {
   padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .step-card h3 {
@@ -83,15 +86,18 @@ h2 {
 .step-card ul {
   display: grid;
   gap: 0.5rem;
-  color: #cbd5e1;
+  color: #0f4c5c;
   padding-left: 1rem;
+}
+
+.step-card:hover {
+  border-color: #c7d6dc;
+  background: #f4f7f9;
 }
 
 .note {
   padding: 1rem 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px dashed rgba(56, 189, 248, 0.4);
-  color: #e2e8f0;
+  background: #eef4f6;
+  border: 1px solid #dfe7ec;
 }
 </style>

@@ -35,6 +35,9 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: #ffffff;
+  padding: 1.4rem;
+  border: 1px solid #dfe7ec;
 }
 
 .section-head {
@@ -49,16 +52,18 @@ const props = defineProps({
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #0f4c5c;
+  font-weight: 800;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
   margin-bottom: 0.35rem;
+  color: #0b1f2a;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #0f4c5c;
   max-width: 640px;
 }
 
@@ -70,17 +75,22 @@ h2 {
 
 .card {
   padding: 1.2rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .card h3 {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
+  color: #0b2f3f;
+}
+
+.card:hover {
+  border-color: #c7d6dc;
+  background: #f4f7f9;
 }
 
 .info-banner {
@@ -88,9 +98,8 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.6rem;
   padding: 1rem 1.2rem;
-  border-radius: 1rem;
-  background: linear-gradient(110deg, rgba(14, 165, 233, 0.12), rgba(34, 211, 238, 0.06));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #e0f2fe;
+  background: #eef4f6;
+  border: 1px solid #dfe7ec;
+  color: #0b2f3f;
 }
 </style>

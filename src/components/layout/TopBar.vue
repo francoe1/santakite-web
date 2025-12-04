@@ -2,10 +2,9 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand-mark" @click="scrollTo('hero')">
-        <div class="brand-logo" aria-hidden="true"></div>
         <div class="brand-text">
           <span class="brand-title">SantaKite</span>
-          <span class="brand-sub">Playa 52</span>
+          <span class="brand-sub">Río &amp; viento libre</span>
         </div>
       </div>
       <nav class="topbar-nav" aria-label="Secciones principales">
@@ -47,9 +46,8 @@ const scrollTo = (id) => {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(14px);
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.92));
-  border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+  background: #ffffff;
+  border-bottom: 1px solid #e0e7ea;
 }
 
 .topbar-inner {
@@ -71,24 +69,6 @@ const scrollTo = (id) => {
   cursor: pointer;
 }
 
-.brand-logo {
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 0, #38bdf8, #0ea5e9 40%, #0f172a 85%);
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35);
-  position: relative;
-  overflow: hidden;
-}
-
-.brand-logo::after {
-  content: '';
-  position: absolute;
-  inset: 25% 35%;
-  border-radius: 999px 999px 20px 20px;
-  background: rgba(15, 23, 42, 0.9);
-}
-
 .brand-text {
   display: flex;
   flex-direction: column;
@@ -96,52 +76,58 @@ const scrollTo = (id) => {
 }
 
 .brand-title {
-  color: #e2e8f0;
+  color: #0b2f3f;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
 }
 
 .brand-sub {
-  color: #94a3b8;
-  font-size: 0.8rem;
+  color: #0f5672;
+  font-size: 0.82rem;
+  font-weight: 600;
 }
+
 
 .topbar-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  font-size: 0.84rem;
-  color: #9ca3af;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #0f4c5c;
   align-items: center;
 }
 
 .nav-button {
-  background: transparent;
-  border: none;
+  background: #f4f7f9;
+  border: 1px solid #d7e0e4;
   color: inherit;
   cursor: pointer;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  transition: background 0.15s, color 0.15s, transform 0.15s;
+  padding: 0.45rem 0.95rem;
+
+  transition: background 0.2s, color 0.2s;
+  letter-spacing: 0.01em;
 }
 
 .nav-button:hover {
-  background: rgba(15, 23, 42, 0.9);
-  color: #00c2ff;
-  transform: translateY(-1px);
+  background: #e6eff4;
+  color: #0f2f3f;
 }
 
 .cta {
-  padding: 0.45rem 1rem;
-  border-radius: 999px;
-  background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #0b1727;
-  font-weight: 700;
-  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0.65rem 1.25rem;
+
+  background: #0f4c5c;
+  color: #f6fbfd;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  border: 1px solid #0f4c5c;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 44px rgba(14, 165, 233, 0.5);
+  background: #093544;
+  color: #e9f4f8;
 }
 
 @media (max-width: 720px) {
@@ -153,6 +139,13 @@ const scrollTo = (id) => {
   .topbar-nav {
     width: 100%;
     justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .nav-button,
+  .cta {
+    flex: 1;
+    text-align: center;
   }
 }
 </style>
