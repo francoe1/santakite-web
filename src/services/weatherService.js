@@ -6,8 +6,12 @@ const toNumberOrNull = (value) => (Number.isFinite(value) ? value : null)
 
 const normalizeDirection = (deg, directionReference) => {
   if (deg == null) return null
+
+  // Open-Meteo entrega los grados con el eje Este/Oeste invertido respecto a lo que espera la UI.
+  // Reflejamos horizontalmente el ángulo antes de aplicar el offset local para alinear SE/NE/NO/SO.
+  const mirrored = 360 - deg
   const offset = getDirectionOffset(directionReference)
-  return Math.round(normalizeDegrees(deg - offset))
+  return Math.round(normalizeDegrees(mirrored - offset))
 }
 
 const buildWindSample = (entry, directionReference) => {
