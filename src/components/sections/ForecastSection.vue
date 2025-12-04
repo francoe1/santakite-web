@@ -43,6 +43,9 @@
             </template>
             <template v-else>Sin datos</template>
           </div>
+          <button type="button" class="share" @click.stop="shareDay(day)">
+            Compartir día navegable
+          </button>
         </button>
       </div>
       <p v-if="!forecast.length && !statusError" class="muted small">Cargando datos…</p>
@@ -60,6 +63,12 @@
             </p>
           </div>
           <button type="button" class="close" @click="closeDetails">✕</button>
+        </div>
+
+        <div class="overlay-actions">
+          <button type="button" class="share" @click="shareDay(selectedDay)">
+            Compartir este día
+          </button>
         </div>
 
         <div class="hourly-table" role="table">
@@ -222,6 +231,40 @@ const isPlayable = (hour) =>
 
 const openDetails = (day) => {
   selectedDay.value = day
+}
+
+const buildShareMessage = (day) => {
+  const dateLabel = formatDate(day.date)
+  const dirLabel = degToCompass(day.mainDirDeg)
+  const best = day.bestHour
+    ? `Mejor hora ${day.bestHour.label}: ${day.bestHour.speedKts.toFixed(0)} kts ${degToCompass(day.bestHour.dirDeg)} (ráfaga ${day.bestHour.gustKts.toFixed(0)} kts, lluvia ${day.bestHour.precipMm.toFixed(1)} mm)`
+    : 'Revisá las horas jugables en el tablero'
+
+  return `Te invito a navegar en Playa 52 el ${dateLabel}. Viento medio ${day.avgWindKts.toFixed(0)} kts (${dirLabel}), ráfaga máxima ${day.maxGustKts.toFixed(0)} kts. ${best}.`
+}
+
+const shareDay = async (day) => {
+  if (!day) return
+
+  const message = buildShareMessage(day)
+  const payload = {
+    title: `Sesión en Playa 52 · ${formatDate(day.date)}`,
+    text: message,
+    url: window.location.href,
+  }
+
+  try {
+    if (navigator.share) {
+      await navigator.share(payload)
+    } else if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(`${message} ${window.location.href}`)
+      alert('Detalle copiado para compartirlo')
+    } else {
+      alert('Tu navegador no permite compartir este contenido automáticamente')
+    }
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 const playabilityScore = (hour) => {
@@ -454,6 +497,28 @@ h2 {
   outline: none;
 }
 
+.share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  background: rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+  border: 1px solid rgba(125, 242, 221, 0.4);
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.share:hover,
+.share:focus-visible {
+  border-color: rgba(125, 242, 221, 0.7);
+  transform: translateY(-1px);
+  outline: none;
+}
+
 .forecast-date {
   font-weight: 700;
 }
@@ -510,7 +575,7 @@ h2 {
 
   padding: 1.25rem;
   width: min(1040px, 100%);
-  max-height: 90vh;
+  max-height: 92vh;
 
   display: flex;
   flex-direction: column;
@@ -523,6 +588,7 @@ h2 {
   justify-content: space-between;
   gap: 1rem;
   align-items: start;
+  flex-wrap: wrap;
 }
 
 .close {
@@ -535,6 +601,16 @@ h2 {
   display: grid;
   place-items: center;
   cursor: pointer;
+}
+
+.overlay-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.overlay-actions .share {
+  width: auto;
+  min-width: 220px;
 }
 
 
@@ -576,8 +652,8 @@ h2 {
 }
 
 .hour-cell {
-  min-width: 80px;
-  max-width: 80px;
+  min-width: 78px;
+  max-width: 78px;
   border-left: 1px solid rgba(148, 163, 184, 0.12);
   padding: 0.55rem 0.35rem;
   text-align: center;
@@ -622,5 +698,48 @@ h2 {
 .stars {
   color: #fbbf24;
   letter-spacing: 3px;
+}
+
+@media (max-width: 900px) {
+  .overlay {
+    align-items: flex-start;
+    padding: 0.85rem;
+  }
+
+  .overlay-card {
+    width: 100%;
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+
+  .forecast-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .forecast-card {
+    padding: 0.8rem;
+  }
+
+  .hour-cell {
+    min-width: 68px;
+    max-width: 68px;
+    font-size: 0.9rem;
+  }
+
+  .label-cell {
+    width: 120px;
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+
+  .overlay-card {
+    max-height: 90vh;
+  }
+
+  .overlay-head h3 {
+    margin-top: 0.2rem;
+  }
 }
 </style>
