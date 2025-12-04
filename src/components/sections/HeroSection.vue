@@ -22,6 +22,14 @@
       </div>
     </div>
     <div class="hero-card" role="presentation">
+      <figure class="hero-photo-frame">
+        <img
+          class="hero-photo"
+          src="https://images.unsplash.com/photo-1508261306217-4006a46e24c4?auto=format&fit=crop&w=1200&q=80"
+          alt="Kitesurfista lanzando la cometa sobre la ola"
+          loading="lazy"
+        />
+      </figure>
       <div class="card-inner">
         <div class="wind-widget">
           <div
@@ -97,7 +105,7 @@ onMounted(async () => {
   align-items: center;
   padding-top: 2rem;
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(226, 245, 246, 0.6));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(226, 245, 246, 0.72));
   border-radius: 18px;
   padding: 2.4rem;
   overflow: hidden;
@@ -114,12 +122,11 @@ onMounted(async () => {
   inset: -12% -10% auto -8%;
   height: 420px;
   background:
-    radial-gradient(circle at 20% 60%, rgba(0, 186, 199, 0.16), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(241, 91, 181, 0.16), transparent 32%),
-    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') center/cover;
-  filter: blur(10px) saturate(1.1);
-  opacity: 0.8;
-  border-radius: 50%;
+    radial-gradient(circle at 20% 60%, rgba(0, 186, 199, 0.14), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(241, 91, 181, 0.14), transparent 32%),
+    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.55), transparent 35%);
+  opacity: 0.75;
+  border-radius: 48%;
   z-index: 0;
   animation: drift 14s ease-in-out infinite;
 }
@@ -180,7 +187,6 @@ h1 {
   font-weight: 800;
   border: 1px solid rgba(0, 186, 199, 0.4);
   box-shadow: 0 10px 24px rgba(11, 76, 92, 0.1);
-  backdrop-filter: blur(6px);
 }
 
 .hero-actions {
@@ -226,16 +232,32 @@ h1 {
 }
 
 .hero-card {
-  background:
-    linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86)),
-    url('https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&w=900&q=80') center/cover;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(236, 247, 248, 0.92));
   border: 1px solid rgba(11, 65, 92, 0.18);
   border-radius: 14px;
   box-shadow: 0 22px 50px rgba(11, 65, 92, 0.18);
   overflow: hidden;
   position: relative;
   isolation: isolate;
-  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.hero-photo-frame {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid rgba(11, 65, 92, 0.15);
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.9;
 }
 
 .card-inner {

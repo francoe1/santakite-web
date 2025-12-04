@@ -47,8 +47,7 @@ const scrollTo = (id) => {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.86);
   border-bottom: 1px solid rgba(11, 65, 92, 0.12);
   box-shadow: 0 12px 28px rgba(12, 44, 60, 0.08);
 }
@@ -79,7 +78,7 @@ const scrollTo = (id) => {
   border-radius: 8px;
   background:
     linear-gradient(140deg, rgba(10, 173, 191, 0.95), rgba(8, 115, 183, 0.95)),
-    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=300&q=80') center/cover;
+    url('https://images.unsplash.com/photo-1508896694512-7e90450b4a3b?auto=format&fit=crop&w=400&q=80') center/cover;
   box-shadow: 0 8px 20px rgba(11, 76, 113, 0.25);
   position: relative;
   overflow: hidden;

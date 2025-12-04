@@ -4,6 +4,14 @@
       <p class="eyebrow">Mapa y zonas</p>
     </div>
 
+    <div class="kite-strip" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80"
+        alt="Kitesurfistas remontando el río"
+        loading="lazy"
+      />
+    </div>
+
     <div class="grid">
       <div>
         <div ref="mapEl" class="map"></div>
@@ -124,13 +132,26 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(226, 245, 246, 0.88)),
-    url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80') center/cover;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(226, 245, 246, 0.88));
   border-radius: 16px;
   padding: 1.4rem;
   border: 1px solid rgba(11, 65, 92, 0.12);
   box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
+}
+
+.kite-strip {
+  border-radius: 0.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(0, 186, 199, 0.18);
+  box-shadow: 0 14px 32px rgba(11, 65, 92, 0.18);
+}
+
+.kite-strip img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  opacity: 0.92;
 }
 
 .section-head {

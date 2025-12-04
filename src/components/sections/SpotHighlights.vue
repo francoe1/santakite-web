@@ -7,6 +7,13 @@
         <p class="muted">Zona abierta de río Uruguay, con arena amplia para armar y lanzar lejos de bañistas.</p>
       </div>
     </div>
+    <div class="kite-strip" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=80"
+        alt="Amanecer con cometas en el agua"
+        loading="lazy"
+      />
+    </div>
     <div class="cards">
       <article v-for="item in highlights" :key="item.title" class="card">
         <h3>{{ item.title }}</h3>
@@ -35,13 +42,26 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(226, 245, 246, 0.8)),
-    url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80') center/cover;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(226, 245, 246, 0.8));
   border-radius: 16px;
   padding: 1.4rem;
   border: 1px solid rgba(11, 65, 92, 0.12);
   box-shadow: 0 24px 54px rgba(11, 65, 92, 0.14);
+}
+
+.kite-strip {
+  border-radius: 0.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(0, 186, 199, 0.18);
+  box-shadow: 0 14px 32px rgba(11, 65, 92, 0.18);
+}
+
+.kite-strip img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  opacity: 0.92;
 }
 
 .section-head {
