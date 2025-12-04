@@ -238,9 +238,13 @@ onMounted(async () => {
       <p v-if="statusError" class="text-muted text-sm">{{ statusError }}</p>
     </div>
 
-    <div v-if="selectedDay" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" @click.self="closeDetails">
-      <div class="glass-card w-full max-w-5xl max-h-[90vh] overflow-y-auto p-5 md:p-6 space-y-4 bg-[var(--surface-card)]">
-        <div class="flex items-start justify-between gap-3">
+    <div
+      v-if="selectedDay"
+      class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
+      @click.self="closeDetails"
+    >
+      <div class="glass-card flex h-full w-full flex-col overflow-hidden bg-[var(--surface-strong)] p-4 md:p-6">
+        <div class="flex items-start justify-between gap-3 pb-4 border-b border-outline-60">
           <div class="space-y-1">
             <p class="section-eyebrow">Detalle por hora</p>
             <h3 class="text-2xl font-black">{{ formatDate(selectedDay.date) }}</h3>
@@ -249,7 +253,7 @@ onMounted(async () => {
           <button type="button" class="pill-button" @click="closeDetails">Cerrar</button>
         </div>
 
-        <div class="overflow-x-auto rounded-2xl border border-outline-60">
+        <div class="overflow-auto rounded-2xl border border-outline-60 bg-[var(--surface-card)] p-1 md:p-3 shadow-inner">
           <div class="flex flex-col">
             <div class="flex border-b border-outline-50 bg-surface-card-80 backdrop-blur">
               <div class="w-[150px] min-w-[150px] px-3 py-2 font-bold border-r border-outline-50">Hora</div>
