@@ -9,10 +9,6 @@
       <p class="lead">
         Información clara del spot, zonas sugeridas y pronóstico GFS para decidir rápido si se puede navegar.
       </p>
-      <div class="hero-actions">
-        <a class="primary" href="https://wa.me/5491137787151" target="_blank" rel="noreferrer">Escribir al WhatsApp</a>
-        <button class="ghost" type="button" @click="scrollTo('mapa')">Ver mapa</button>
-      </div>
       <div class="hero-tags" aria-label="Destacados">
         <span>Vientos S · SE · E</span>
         <span>Zonas separadas</span>
@@ -21,9 +17,6 @@
     </div>
     <div class="hero-card" role="presentation">
       <div class="card-inner">
-        <p class="eyebrow">Referencia rápida</p>
-        <h2>Río tranquilo, espacio de arena y accesos directos.</h2>
-        <p class="muted">Usá la info del mapa, respetá las zonas y revisá el pronóstico antes de armar.</p>
         <div class="wind-widget">
           <div class="arrow-circle" :style="currentWind.dirDeg !== null ? { transform: `rotate(${currentWind.dirDeg}deg)` } : {}">↑</div>
           <div class="wind-data">
@@ -39,21 +32,6 @@
             </p>
           </div>
         </div>
-        <div class="stat-grid">
-          <div>
-            <p class="stat">-30.9085</p>
-            <p class="muted">Latitud</p>
-          </div>
-          <div>
-            <p class="stat">-57.9150</p>
-            <p class="muted">Longitud</p>
-          </div>
-          <div>
-            <p class="stat">7 días</p>
-            <p class="muted">Pronóstico GFS</p>
-          </div>
-        </div>
-        <div class="mini-chip">Playa 52 · Santa Ana</div>
       </div>
     </div>
   </section>
@@ -144,45 +122,6 @@ h1 {
   color: #e2e8f0;
   max-width: 620px;
   margin-bottom: 1.5rem;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 0.85rem;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 1.25rem;
-}
-
-.primary,
-.ghost {
-  border-radius: 999px;
-  padding: 0.75rem 1.4rem;
-  font-weight: 700;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
-}
-
-.primary {
-  background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #0b1727;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
-}
-
-.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 55px rgba(14, 165, 233, 0.5);
-}
-
-.ghost {
-  background: rgba(15, 23, 42, 0.7);
-  color: #e2e8f0;
-}
-
-.ghost:hover {
-  border-color: rgba(56, 189, 248, 0.7);
-  transform: translateY(-1px);
 }
 
 .hero-tags {

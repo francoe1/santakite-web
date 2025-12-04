@@ -53,8 +53,8 @@ export const useSiteStore = defineStore('site', {
       ],
     },
     contacts: [
-      { label: 'WhatsApp', value: '+54 9 11 3778-7151' },
-      { label: 'Instagram', value: '@santakite' },
+      { label: 'WhatsApp', value: '+54 3456 479677' },
+      { label: 'Instagram', value: 'instagram.com/santakitechajari' },
       { label: 'Ubicación', value: 'Playa 52 – Santa Ana, Entre Ríos' },
     ],
   }),

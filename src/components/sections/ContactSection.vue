@@ -12,7 +12,7 @@
           <p class="value">{{ contact.value }}</p>
         </div>
       </div>
-      <a class="primary" href="https://wa.me/5491137787151" target="_blank" rel="noreferrer">Abrir WhatsApp</a>
+      <a class="primary" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">Abrir WhatsApp</a>
     </div>
     <div class="map-card">
       <div class="map-figure">

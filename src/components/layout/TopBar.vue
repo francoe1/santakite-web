@@ -18,7 +18,7 @@
         >
           {{ item.label }}
         </button>
-        <a class="cta" href="https://wa.me/5491137787151" target="_blank" rel="noreferrer">
+        <a class="cta" href="https://wa.me/543456479677" target="_blank" rel="noreferrer">
           Reservar
         </a>
       </nav>

@@ -2,10 +2,6 @@
   <section id="mapa" class="section">
     <div class="section-head">
       <p class="eyebrow">Mapa y zonas</p>
-      <div>
-        <h2>Referencias del spot en Playa 52</h2>
-        <p class="muted">Marcamos zona de kites y área a evitar para bañistas, tal como en el plan original.</p>
-      </div>
     </div>
 
     <div class="grid">
