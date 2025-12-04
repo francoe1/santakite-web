@@ -13,177 +13,29 @@
         <span class="status" :class="statusClass">{{ statusText }}</span>
       </div>
       <div class="forecast-grid">
-        <button
+        <ForecastCard
           v-for="day in forecast"
           :key="day.date"
-          class="forecast-card"
-          type="button"
-          @click="openDetails(day)"
-        >
-          <div class="forecast-date">{{ formatDate(day.date) }}</div>
-          <div class="muted small">Viento medio: <strong>{{ day.avgWindKts.toFixed(0) }}</strong> kts</div>
-          <div class="muted small">Dirección principal: <strong>{{ degToCompass(day.mainDirDeg) }}</strong> ({{ day.mainDirDeg }}°)</div>
-          <div class="muted small">Ventana jugable: <strong>{{ day.playableCount }}</strong> hs</div>
-          <div class="muted small">Ráfaga máxima: <strong>{{ day.maxGustKts.toFixed(0) }}</strong> kts</div>
-          <div class="muted small">Lluvia estimada: <strong>{{ day.totalRain.toFixed(1) }}</strong> mm</div>
-          <div class="muted small">
-            <span v-if="day.stars > 0" class="stars" :aria-label="`Mejor ventana ${day.stars} estrellas`" role="img">
-              {{ '★'.repeat(day.stars) }}
-            </span>
-            <span v-else>Sin ventana marcada</span>
-          </div>
-          <div class="badge" :class="classifyDay(day).className">{{ classifyDay(day).label }}</div>
-          <div class="muted tiny">
-            Mejor hora:
-            <template v-if="day.bestHour">
-              <strong>{{ day.bestHour.label }}</strong>
-              · {{ day.bestHour.speedKts.toFixed(0) }} kts · {{ degToCompass(day.bestHour.dirDeg) }} ({{ day.bestHour.dirDeg }}°)
-              · ráfaga {{ day.bestHour.gustKts.toFixed(0) }} kts · lluvia {{ day.bestHour.precipMm.toFixed(1) }} mm
-            </template>
-            <template v-else>Sin datos</template>
-          </div>
-        </button>
+          :day="day"
+          :classification="classifyDay(day)"
+          :format-date="formatDate"
+          @select="openDetails"
+        />
       </div>
       <p v-if="!forecast.length && !statusError" class="muted small">Cargando datos…</p>
       <p v-if="statusError" class="muted small">{{ statusError }}</p>
     </div>
-    <div v-if="selectedDay" class="overlay" @click.self="closeDetails">
-      <div class="overlay-card">
-        <div class="overlay-head">
-          <div>
-            <p class="eyebrow">Detalle por hora</p>
-            <h3>{{ formatDate(selectedDay.date) }}</h3>
-            <p class="muted small">
-              {{ forecastConfig.detailText }}
-            </p>
-          </div>
-          <button type="button" class="close" @click="closeDetails">✕</button>
-        </div>
-
-        <div v-if="!isCompactLayout" class="hourly-table" role="table">
-          <div class="hour-row header" role="row">
-            <div class="label-cell" role="columnheader">Hora</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`h-${hour.time}`"
-              class="hour-cell time"
-              :style="hourCellStyle(hour)"
-              role="columnheader"
-            >
-              {{ hour.label }}
-            </div>
-          </div>
-
-          <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Viento (kts)</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`w-${hour.time}`"
-              class="hour-cell value"
-              :style="hourCellStyle(hour)"
-              role="cell"
-            >
-              {{ hour.speedKts.toFixed(0) }}
-            </div>
-          </div>
-
-          <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Ráfagas (kts)</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`g-${hour.time}`"
-              class="hour-cell value"
-              :style="hourCellStyle(hour)"
-              role="cell"
-            >
-              {{ hour.gustKts.toFixed(0) }}
-            </div>
-          </div>
-
-          <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Dirección</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`d-${hour.time}`"
-              class="hour-cell direction"
-              :style="hourCellStyle(hour)"
-              role="cell"
-            >
-              <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg + 180}deg)` }">↑</span>
-              <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
-            </div>
-          </div>
-
-          <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Temperatura (°C)</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`t-${hour.time}`"
-              class="hour-cell value"
-              :style="hourCellStyle(hour)"
-              role="cell"
-            >
-              <span>{{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}</span>
-            </div>
-          </div>
-
-          <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Lluvia (mm)</div>
-            <div
-              v-for="hour in selectedDay.hours"
-              :key="`r-${hour.time}`"
-              class="hour-cell value"
-              :style="hourCellStyle(hour)"
-              role="cell"
-            >
-              {{ hour.precipMm.toFixed(1) }}
-            </div>
-          </div>
-        </div>
-
-        <div v-else class="hourly-list" role="list">
-          <article
-            v-for="hour in selectedDay.hours"
-            :key="`card-${hour.time}`"
-            class="hour-card"
-            :style="hourCardStyle(hour)"
-            role="listitem"
-          >
-            <header class="hour-card__head">
-              <p class="label">{{ hour.label }}</p>
-              <span class="badge" :class="isPlayable(hour) ? 'badge-ok' : 'badge-warn'">
-                {{ isPlayable(hour) ? 'Jugable' : 'Fuera de ventana' }}
-              </span>
-            </header>
-            <dl class="hour-card__grid">
-              <div>
-                <dt>Viento</dt>
-                <dd>{{ hour.speedKts.toFixed(0) }} kts</dd>
-              </div>
-              <div>
-                <dt>Ráfaga</dt>
-                <dd>{{ hour.gustKts.toFixed(0) }} kts</dd>
-              </div>
-              <div class="direction">
-                <dt>Dirección</dt>
-                <dd>
-                  <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg + 180}deg)` }">↑</span>
-                  <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
-                </dd>
-              </div>
-              <div>
-                <dt>Temp</dt>
-                <dd>{{ hour.tempC !== null ? `${hour.tempC.toFixed(0)} °C` : 'Sin dato' }}</dd>
-              </div>
-              <div>
-                <dt>Lluvia</dt>
-                <dd>{{ hour.precipMm.toFixed(1) }} mm</dd>
-              </div>
-            </dl>
-          </article>
-        </div>
-      </div>
-    </div>
+    <ForecastDetailModal
+      v-if="selectedDay"
+      :day="selectedDay"
+      :is-compact-layout="isCompactLayout"
+      :hour-cell-style="hourCellStyle"
+      :hour-card-style="hourCardStyle"
+      :is-playable="isPlayable"
+      :format-date="formatDate"
+      :detail-text="forecastConfig.detailText"
+      @close="closeDetails"
+    />
   </section>
 </template>
 
@@ -195,6 +47,8 @@ import {
   degToCompass,
 } from '../../utils/wind'
 import { weatherService } from '../../services/weatherService'
+import ForecastCard from '../forecast/ForecastCard.vue'
+import ForecastDetailModal from '../forecast/ForecastDetailModal.vue'
 
 const props = defineProps({
   spot: {
@@ -466,7 +320,6 @@ onMounted(() => {
 
   padding: 1.2rem;
   border: 1px solid rgba(125, 242, 221, 0.12);
-
 }
 
 .section-head {
@@ -546,272 +399,9 @@ h2 {
   gap: 0.75rem;
 }
 
-.forecast-card {
-  border: none;
-  text-align: left;
-  padding: 0.9rem;
-
-  border: 1px solid rgba(125, 242, 221, 0.2);
-  background: linear-gradient(160deg, rgba(5, 22, 43, 0.7), rgba(6, 28, 51, 0.9));
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  cursor: pointer;
-  color: #e2e8f0;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.forecast-card:hover,
-.forecast-card:focus-visible {
-  border-color: rgba(125, 242, 221, 0.55);
-  transform: translateY(-2px);
-
-  outline: none;
-}
-
-.forecast-date {
-  font-weight: 700;
-}
-
-.badge {
-  align-self: flex-start;
-  padding: 0.3rem 0.75rem;
-
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.badge-ok {
-  background: rgba(94, 234, 212, 0.2);
-  color: #5eead4;
-  border: 1px solid rgba(94, 234, 212, 0.35);
-}
-
-.badge-warn {
-  background: rgba(234, 179, 8, 0.2);
-  color: #eab308;
-  border: 1px solid rgba(234, 179, 8, 0.35);
-}
-
-.badge-bad {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.35);
-}
-
-.small {
-  font-size: 0.9rem;
-}
-
-.tiny {
-  font-size: 0.8rem;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  z-index: 1200;
-  overflow-y: auto;
-}
-
-.overlay-card {
-  background: #0b1222;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-
-  padding: 1.25rem;
-  width: min(1040px, 100%);
-  max-height: 90vh;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  color: #e5f3ff;
-}
-
-.overlay-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: start;
-}
-
-.close {
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: rgba(15, 23, 42, 0.8);
-  color: #e2e8f0;
-
-  width: 2.25rem;
-  height: 2.25rem;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-}
-
-
-.hourly-table {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  overflow-x: auto;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-
-  position: relative;
-}
-
-.hour-row {
-  display: flex;
-  gap: 0;
-  min-width: fit-content;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-}
-
-.hour-row:last-child {
-  border-bottom: none;
-}
-
-.label-cell {
-  width: 150px;
-  min-width: 150px;
-  padding: 0.55rem 0.75rem;
-  background: rgba(15, 23, 42, 0.9);
-  color: #e2e8f0;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  border-right: 1px solid rgba(148, 163, 184, 0.2);
-  position: sticky;
-  left: 0;
-  z-index: 2;
-
-}
-
-.hour-cell {
-  min-width: 80px;
-  max-width: 80px;
-  border-left: 1px solid rgba(148, 163, 184, 0.12);
-  padding: 0.55rem 0.35rem;
-  text-align: center;
-  color: #e2e8f0;
-  display: grid;
-  gap: 0.35rem;
-  justify-items: center;
-  background: rgba(15, 23, 42, 0.82);
-}
-
-.hour-row.header .hour-cell {
-  font-weight: 700;
-  background: rgba(15, 23, 42, 0.95);
-}
-
-.hour-cell.value {
-  font-size: 1rem;
-  font-weight: 800;
-}
-
-.hour-cell.direction {
-  font-size: 0.85rem;
-  line-height: 1.2;
-}
-
-.hour-cell .arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-
-  background: rgba(148, 163, 184, 0.12);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  font-weight: 900;
-}
-
-.dir-label {
-  font-size: 0.78rem;
-}
-
-.stars {
-  color: #fbbf24;
-  letter-spacing: 3px;
-}
-
-.hourly-list {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.hour-card {
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  padding: 0.75rem 0.85rem;
-  display: grid;
-  gap: 0.6rem;
-  color: #e5f3ff;
-}
-
-.hour-card__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.hour-card__head .label {
-  font-weight: 800;
-  color: #f1f5f9;
-}
-
-.hour-card__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.6rem 0.75rem;
-}
-
-.hour-card__grid dt {
-  font-size: 0.78rem;
-  color: #cbd5e1;
-  margin-bottom: 0.15rem;
-}
-
-.hour-card__grid dd {
-  margin: 0;
-  font-weight: 700;
-  color: #e5f3ff;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.hour-card__grid .direction {
-  grid-column: span 2;
-}
-
-@media (max-width: 720px) {
-  .overlay {
-    padding: 0.85rem;
-  }
-
-  .overlay-card {
-    padding: 1rem;
-    width: 100%;
-  }
-
-  .overlay-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
 @media (max-width: 520px) {
   .card-header {
     align-items: flex-start;
-  }
-
-  .hour-card__grid {
-    grid-template-columns: 1fr;
   }
 }
 </style>
