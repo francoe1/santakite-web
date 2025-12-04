@@ -1,12 +1,9 @@
 <template>
-  <section id="pronostico" class="section">
-    <div class="section-head">
-      <p class="eyebrow">Pronóstico GFS</p>
-      <div>
-        <h2>¿Es navegable los próximos días?</h2>
-      </div>
-    </div>
-
+  <SectionShell
+    id="pronostico"
+    eyebrow="Pronóstico GFS"
+    title="¿Es navegable los próximos días?"
+  >
     <div class="card">
       <div class="card-header">
         <p class="muted">{{ forecastConfig.criteriaText }}</p>
@@ -36,7 +33,7 @@
       :detail-text="forecastConfig.detailText"
       @close="closeDetails"
     />
-  </section>
+  </SectionShell>
 </template>
 
 <script setup>
@@ -49,6 +46,7 @@ import {
 import { weatherService } from '../../services/weatherService'
 import ForecastCard from '../forecast/ForecastCard.vue'
 import ForecastDetailModal from '../forecast/ForecastDetailModal.vue'
+import SectionShell from '../ui/SectionShell.vue'
 
 const props = defineProps({
   spot: {
@@ -78,330 +76,189 @@ const forecastConfig = computed(() => {
     directionReference: 'N',
     minPlayableKts: 12,
     maxPrecipMm: 3,
-    summerWindow: { startHour: 7, endHour: 20 },
-    winterWindow: { startHour: 9, endHour: 17, endMinute: 30 },
-    speedScoreBase: 8,
-    speedScoreCap: 14,
-    coordinates: baseCoordinates,
   }
 
-  const configFromSpot = props.spot.forecast || {}
+  const merged = { ...baseConfig, ...props.spot.forecast, ...baseCoordinates }
 
-  return {
-    ...baseConfig,
-    ...configFromSpot,
-    preferredDirections: configFromSpot.preferredDirections || baseConfig.preferredDirections,
-    directionReference: configFromSpot.directionReference || baseConfig.directionReference,
-    summerWindow: { ...baseConfig.summerWindow, ...configFromSpot.summerWindow },
-    winterWindow: { ...baseConfig.winterWindow, ...configFromSpot.winterWindow },
-    coordinates: { ...baseCoordinates, ...(configFromSpot.coordinates || {}) },
+  if (!merged.preferredDirections?.length) {
+    merged.preferredDirections = baseConfig.preferredDirections
   }
+
+  merged.directionReference = merged.directionReference || baseConfig.directionReference
+
+  return merged
 })
 
-const preferredDirectionSet = computed(() => {
-  const normalized = buildPreferredDirectionSet(forecastConfig.value.preferredDirections)
-  if (normalized.size === 0) {
-    return buildPreferredDirectionSet(['N', 'E', 'S', 'O'])
-  }
-  return normalized
-})
+const preferredDirectionSet = computed(() =>
+  buildPreferredDirectionSet(forecastConfig.value.preferredDirections)
+)
 
 const statusText = computed(() => {
-  if (status.value === 'ok') return 'Datos GFS cargados'
-  if (status.value === 'error') return 'Error al cargar pronóstico'
-  return 'Cargando datos GFS…'
+  if (status.value === 'ok') return 'Buena ventana'
+  if (status.value === 'warn') return 'Viento marginal'
+  if (status.value === 'error') return 'Error de datos'
+  return 'Midiendo viento…'
 })
 
-const statusClass = computed(() => {
-  if (status.value === 'ok') return 'status-ok'
-  if (status.value === 'error') return 'status-error'
-  return 'status-loading'
-})
+const statusClass = computed(() => ({
+  ok: status.value === 'ok',
+  warn: status.value === 'warn',
+  error: status.value === 'error',
+}))
+
+const isPlayable = (hour) => {
+  if (hour.speedKts < forecastConfig.value.minPlayableKts) return false
+  if (hour.precipMm >= forecastConfig.value.maxPrecipMm) return false
+  return preferredDirectionSet.value.has(degToCompass(hour.dirDeg))
+}
 
 const classifyDay = (day) => {
-  const hasPlayable = day.playableCount > 0
-  const soaked = day.totalRain >= 5
-  if (!hasPlayable) return { label: 'No apto', className: 'badge-bad' }
-  if (soaked) return { label: 'Dudoso por lluvia', className: 'badge-warn' }
-  if (day.playableCount >= 6) return { label: 'Óptimo', className: 'badge-ok' }
-  return { label: 'A revisar', className: 'badge-warn' }
+  const playableHours = day.hours.filter((hour) => isPlayable(hour))
+  const share = playableHours.length / day.hours.length
+
+  if (share > 0.65) return 'good'
+  if (share > 0.35) return 'ok'
+  if (share > 0.15) return 'marginal'
+  return 'bad'
 }
 
-const bestStarRating = (playableHours) => {
-  if (playableHours >= 6) return 3
-  if (playableHours >= 4) return 2
-  if (playableHours >= 2) return 1
-  return 0
-}
-
-const formatDate = (dateStr) => {
+const formatDate = (dateStr, withDay = false) => {
   const date = new Date(dateStr)
-  if (Number.isNaN(date.getTime())) return dateStr
-  return date.toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric', month: 'short' })
+  return date.toLocaleDateString('es-ES', {
+    weekday: withDay ? 'long' : undefined,
+    day: 'numeric',
+    month: 'short',
+  })
 }
 
-const isPreferredDirection = (deg) =>
-  deg != null &&
-  preferredDirectionSet.value.size > 0 &&
-  preferredDirectionSet.value.has(degToCompass(deg))
-
-const evaluateLayout = () => {
-  isCompactLayout.value = window.innerWidth <= 480
+const setLayoutFromWidth = () => {
+  isCompactLayout.value = window.innerWidth < 920
 }
 
-const isSummerDate = (dateStr) => {
-  const month = new Date(dateStr).getMonth()
-  return month >= 10 || month <= 2
-}
-
-const isWithinWindow = (dateTime) => {
-  if (!dateTime) return false
-  const date = new Date(dateTime)
-  if (Number.isNaN(date.getTime())) return false
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  if (isSummerDate(dateTime)) {
-    return hour >= forecastConfig.value.summerWindow.startHour && hour <= forecastConfig.value.summerWindow.endHour
-  }
-  if (hour < forecastConfig.value.winterWindow.startHour) return false
-  if (hour < forecastConfig.value.winterWindow.endHour) return true
-  if (hour === forecastConfig.value.winterWindow.endHour)
-    return minute <= (forecastConfig.value.winterWindow.endMinute ?? 59)
-  return false
-}
-
-const isPlayable = (hour) =>
-  (hour.speedKts ?? 0) >= forecastConfig.value.minPlayableKts &&
-  isPreferredDirection(hour.dirDeg) &&
-  (hour.precipMm ?? 0) < forecastConfig.value.maxPrecipMm &&
-  isWithinWindow(hour.time)
+const onResize = () => setLayoutFromWidth()
 
 const openDetails = (day) => {
   selectedDay.value = day
-}
-
-const playabilityScore = (hour) => {
-  const speed = hour.speedKts ?? 0
-  const rain = hour.precipMm ?? 0
-  const speedScore = Math.min(
-    Math.max((speed - forecastConfig.value.speedScoreBase) / forecastConfig.value.speedScoreCap, 0),
-    1
-  )
-  const directionBoost = isPreferredDirection(hour.dirDeg) ? 0.3 : -0.25
-  const rainPenalty = Math.min(rain / 5, 0.35)
-  const windowPenalty = isWithinWindow(hour.time) ? 0 : 0.4
-  const raw = speedScore + directionBoost - rainPenalty - windowPenalty
-  return Math.min(Math.max(raw, 0), 1)
-}
-
-const fetchForecast = async () => {
-  const { latitude, longitude } = forecastConfig.value.coordinates
-  if (latitude == null || longitude == null) {
-    statusError.value = 'No hay coordenadas para cargar el pronóstico.'
-    status.value = 'error'
-    return
-  }
-
-  status.value = 'loading'
-  statusError.value = ''
-  forecast.value = []
-
-  try {
-    const weekDays = await weatherService.getWeekWind({
-      latitude,
-      longitude,
-      directionReference: forecastConfig.value.directionReference,
-    })
-
-    const days = weekDays.map((day) => {
-      const hours = day.hours || []
-      const validSpeeds = hours.map((h) => h.speedKts).filter((speed) => speed != null)
-      const validDirs = hours.map((h) => h.dirDeg).filter((dir) => dir != null)
-      const validRains = hours.map((h) => h.precipMm ?? 0)
-      const gusts = hours.map((h) => h.gustKts).filter((gust) => gust != null)
-
-      const playableHours = hours.filter((hour) => isPlayable(hour))
-      const bestHour = playableHours.reduce((best, hour) => {
-        if (!best) return hour
-        return (hour.gustKts ?? 0) > (best.gustKts ?? 0) ? hour : best
-      }, null)
-
-      const avgWindKts =
-        validSpeeds.length > 0 ? validSpeeds.reduce((a, b) => a + b, 0) / validSpeeds.length : 0
-      const mainDirDeg =
-        validDirs.length > 0 ? Math.round(validDirs.reduce((a, b) => a + b, 0) / validDirs.length) : 0
-      const maxGustKts = gusts.length > 0 ? Math.max(...gusts) : 0
-      const totalRain = validRains.reduce((a, b) => a + b, 0)
-
-      return {
-        date: day.date,
-        avgWindKts,
-        mainDirDeg,
-        playableCount: playableHours.length,
-        maxGustKts,
-        totalRain,
-        hours,
-        bestHour: bestHour || null,
-        stars: bestStarRating(playableHours.length),
-      }
-    })
-
-    forecast.value = days.slice(0, 7)
-    status.value = 'ok'
-  } catch (err) {
-    console.error(err)
-    statusError.value = 'No se pudo cargar el pronóstico en este entorno.'
-    status.value = 'error'
-  }
-}
-
-const hourCellStyle = (hour) => {
-  const score = playabilityScore(hour)
-  const hue = 8 + (128 - 8) * score
-  const tone = `hsl(${hue}, 58%, 62%)`
-  const wash = `hsla(${hue}, 58%, 62%, 0.14)`
-  return {
-    borderColor: tone,
-    background: `linear-gradient(180deg, ${wash}, rgba(15, 23, 42, 0.9))`,
-  }
-}
-
-const hourCardStyle = (hour) => {
-  const tone = hourCellStyle(hour)
-  return {
-    borderColor: tone.borderColor,
-    background: tone.background,
-  }
 }
 
 const closeDetails = () => {
   selectedDay.value = null
 }
 
-watch(
-  selectedDay,
-  (val) => {
-    document.body.style.overflow = val ? 'hidden' : ''
-  },
-  { immediate: false }
-)
+const hourCellStyle = (hour) => ({
+  background: isPlayable(hour) ? 'rgba(34,197,94,0.08)' : 'transparent',
+  borderColor: isPlayable(hour) ? 'rgba(34,197,94,0.25)' : '#e2e8f0',
+})
+
+const hourCardStyle = (hour) => ({
+  background: isPlayable(hour) ? 'rgba(34,197,94,0.12)' : '#f8fafc',
+  borderColor: isPlayable(hour) ? 'rgba(34,197,94,0.32)' : '#e2e8f0',
+})
+
+const refreshForecast = async () => {
+  try {
+    statusError.value = ''
+    status.value = 'loading'
+    const data = await weatherService.getWeekWind({
+      latitude: forecastConfig.value.latitude,
+      longitude: forecastConfig.value.longitude,
+      directionReference: forecastConfig.value.directionReference,
+      maxPrecipMm: forecastConfig.value.maxPrecipMm,
+    })
+
+    forecast.value = data
+
+    const anyGood = data.some((day) => classifyDay(day) === 'good')
+    const anyPlayable = data.some((day) => classifyDay(day) !== 'bad')
+
+    status.value = anyGood ? 'ok' : anyPlayable ? 'warn' : 'warn'
+  } catch (err) {
+    console.error(err)
+    status.value = 'error'
+    statusError.value = 'No se pudo cargar el pronóstico en este entorno.'
+  }
+}
+
+onMounted(() => {
+  refreshForecast()
+  setLayoutFromWidth()
+  window.addEventListener('resize', onResize)
+})
 
 onBeforeUnmount(() => {
-  document.body.style.overflow = ''
-  window.removeEventListener('resize', evaluateLayout)
+  window.removeEventListener('resize', onResize)
 })
 
 watch(
   () => ({
-    coordinates: forecastConfig.value.coordinates,
+    coords: props.spot.wind,
     directionReference: forecastConfig.value.directionReference,
   }),
-  () => {
-    fetchForecast()
-  },
+  () => refreshForecast(),
   { deep: true }
 )
-
-onMounted(() => {
-  evaluateLayout()
-  window.addEventListener('resize', evaluateLayout)
-  fetchForecast()
-})
 </script>
 
 <style scoped>
-.section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  color: #e8f6ff;
-  background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
-
-  padding: 1.2rem;
-  border: 1px solid rgba(125, 242, 221, 0.12);
-}
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
-  color: #f1f5f9;
-}
-
-.muted {
-  color: #cbd5e1;
-}
-
 .card {
-  padding: 1.2rem;
-
-  background: radial-gradient(circle at 15% 20%, rgba(94, 234, 212, 0.12), transparent 40%),
-    linear-gradient(145deg, rgba(6, 27, 48, 0.75), rgba(7, 22, 40, 0.92));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-
+  padding: 1.1rem;
+  background: #f9fcfd;
+  border: 1px solid #dfe7ec;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: #e5f3ff;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   align-items: center;
-  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
+h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+  margin-bottom: 0.35rem;
+  color: #0b1f2a;
+}
+
+.muted {
+  color: #0f4c5c;
+}
+
+.small {
+  font-size: 0.95rem;
+}
+
 .status {
-  padding: 0.35rem 0.85rem;
-
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-weight: 800;
+  border: 1px solid #dfe7ec;
 }
 
-.status-loading {
-  background: rgba(234, 179, 8, 0.18);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.35);
+.status.ok {
+  background: #ecfdf3;
+  color: #0f5132;
+  border-color: #22c55e;
 }
 
-.status-ok {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+.status.warn {
+  background: #fffbeb;
+  color: #7c2d12;
+  border-color: #f59e0b;
 }
 
-.status-error {
-  background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
-  border: 1px solid rgba(248, 113, 113, 0.35);
+.status.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecdd3;
 }
 
 .forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.75rem;
-}
-
-@media (max-width: 520px) {
-  .card-header {
-    align-items: flex-start;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
 }
 </style>

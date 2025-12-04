@@ -1,9 +1,5 @@
 <template>
-  <section id="mapa" class="section">
-    <div class="section-head">
-      <p class="eyebrow">Mapa y zonas</p>
-    </div>
-
+  <SectionShell id="mapa" eyebrow="Mapa y zonas">
     <div class="grid">
       <div>
         <div ref="mapEl" class="map"></div>
@@ -33,11 +29,12 @@
         </div>
       </div>
     </div>
-  </section>
+  </SectionShell>
 </template>
 
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
+import SectionShell from '../ui/SectionShell.vue'
 
 const props = defineProps({
   spot: {
@@ -159,43 +156,6 @@ watch(
 <style scoped>
 @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
 
-.section {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  background: #ffffff;
-  padding: 1.4rem;
-  border: 1px solid #dfe7ec;
-}
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #0f4c5c;
-  font-weight: 800;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
-  margin-bottom: 0.35rem;
-  color: #0b1f2a;
-}
-
-.muted {
-  color: #0f4c5c;
-  max-width: 640px;
-}
-
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
@@ -214,20 +174,6 @@ h2 {
   border: 1px solid #dfe7ec;
   position: relative;
   z-index: 0;
-}
-
-.card {
-  padding: 1.2rem;
-  background: #f9fcfd;
-  border: 1px solid #dfe7ec;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.card h3 {
-  font-size: 1.12rem;
-  color: #0b2f3f;
 }
 
 .windy-wrapper {
