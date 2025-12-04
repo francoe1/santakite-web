@@ -243,27 +243,119 @@ const buildShareMessage = (day) => {
   return `Te invito a navegar en Playa 52 el ${dateLabel}. Viento medio ${day.avgWindKts.toFixed(0)} kts (${dirLabel}), ráfaga máxima ${day.maxGustKts.toFixed(0)} kts. ${best}.`
 }
 
+const drawShareCard = (day) =>
+  new Promise((resolve, reject) => {
+    try {
+      const canvas = document.createElement('canvas')
+      const width = 1080
+      const height = 720
+      canvas.width = width
+      canvas.height = height
+      const ctx = canvas.getContext('2d')
+
+      const gradient = ctx.createLinearGradient(0, 0, width, height)
+      gradient.addColorStop(0, '#061a2f')
+      gradient.addColorStop(1, '#0a2542')
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, width, height)
+
+      ctx.fillStyle = 'rgba(94, 234, 212, 0.12)'
+      ctx.fillRect(40, 40, width - 80, height - 80)
+
+      ctx.fillStyle = '#5eead4'
+      ctx.font = 'bold 42px "Inter", "Helvetica", sans-serif'
+      ctx.fillText('Playa 52 · Sesión navegable', 70, 110)
+
+      ctx.fillStyle = '#e2e8f0'
+      ctx.font = 'bold 60px "Inter", "Helvetica", sans-serif'
+      ctx.fillText(formatDate(day.date), 70, 185)
+
+      ctx.font = '400 30px "Inter", "Helvetica", sans-serif'
+      ctx.fillStyle = '#cbd5e1'
+      ctx.fillText(`Viento medio: ${day.avgWindKts.toFixed(0)} kts (${degToCompass(day.mainDirDeg)})`, 70, 245)
+      ctx.fillText(`Ráfaga máxima: ${day.maxGustKts.toFixed(0)} kts · Lluvia total: ${day.totalRain.toFixed(1)} mm`, 70, 295)
+      ctx.fillText(`Horas jugables: ${day.playableCount} · Rating: ${'★'.repeat(day.stars) || 'Sin ventana marcada'}`, 70, 345)
+
+      const best =
+        day.bestHour &&
+        `Mejor hora ${day.bestHour.label}: ${day.bestHour.speedKts.toFixed(0)} kts ${degToCompass(day.bestHour.dirDeg)} (ráfaga ${
+          day.bestHour.gustKts.toFixed(0)
+        } kts · lluvia ${day.bestHour.precipMm.toFixed(1)} mm)`
+
+      if (best) {
+        ctx.fillStyle = '#e2e8f0'
+        ctx.font = '600 34px "Inter", "Helvetica", sans-serif'
+        ctx.fillText('Ventana destacada', 70, 420)
+        ctx.font = '400 28px "Inter", "Helvetica", sans-serif'
+        ctx.fillStyle = '#cbd5e1'
+        const maxWidth = width - 140
+        const words = best.split(' ')
+        let line = ''
+        let y = 460
+        words.forEach((word) => {
+          const testLine = `${line}${word} `
+          const { width: testWidth } = ctx.measureText(testLine)
+          if (testWidth > maxWidth) {
+            ctx.fillText(line.trim(), 70, y)
+            line = `${word} `
+            y += 36
+          } else {
+            line = testLine
+          }
+        })
+        if (line) ctx.fillText(line.trim(), 70, y)
+      }
+
+      ctx.fillStyle = '#94a3b8'
+      ctx.font = '400 24px "Inter", "Helvetica", sans-serif'
+      ctx.fillText('Comparte esta imagen para invitar a navegar · santakite.com', 70, height - 70)
+
+      ctx.strokeStyle = 'rgba(94, 234, 212, 0.35)'
+      ctx.lineWidth = 4
+      ctx.strokeRect(52, 52, width - 104, height - 104)
+
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error('No se pudo crear la imagen para compartir'))
+          return
+        }
+        resolve({ blob, url: canvas.toDataURL('image/png') })
+      })
+    } catch (err) {
+      reject(err)
+    }
+  })
+
 const shareDay = async (day) => {
   if (!day) return
 
   const message = buildShareMessage(day)
-  const payload = {
-    title: `Sesión en Playa 52 · ${formatDate(day.date)}`,
-    text: message,
-    url: window.location.href,
-  }
+  const title = `Sesión en Playa 52 · ${formatDate(day.date)}`
 
   try {
-    if (navigator.share) {
-      await navigator.share(payload)
-    } else if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(`${message} ${window.location.href}`)
-      alert('Detalle copiado para compartirlo')
-    } else {
-      alert('Tu navegador no permite compartir este contenido automáticamente')
+    const { blob, url } = await drawShareCard(day)
+    const file = new File([blob], `playa52-${day.date}.png`, { type: 'image/png' })
+
+    if (navigator.canShare?.({ files: [file] })) {
+      await navigator.share({ files: [file], title, text: message })
+      return
     }
+
+    if (navigator.share) {
+      await navigator.share({ title, text: message, url: window.location.href })
+      return
+    }
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `playa52-${day.date}.png`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    alert('Descargamos una tarjeta de invitación para que la compartas')
   } catch (err) {
     console.error(err)
+    alert('No pudimos generar la tarjeta para compartir este día')
   }
 }
 
