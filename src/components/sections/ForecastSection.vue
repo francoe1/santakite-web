@@ -247,72 +247,161 @@ const drawShareCard = (day) =>
   new Promise((resolve, reject) => {
     try {
       const canvas = document.createElement('canvas')
-      const width = 1080
-      const height = 720
+      const width = 900
+      const height = 2000 // relación 9:20 vertical
       canvas.width = width
       canvas.height = height
       const ctx = canvas.getContext('2d')
 
-      const gradient = ctx.createLinearGradient(0, 0, width, height)
-      gradient.addColorStop(0, '#061a2f')
-      gradient.addColorStop(1, '#0a2542')
+      const gradient = ctx.createLinearGradient(0, 0, 0, height)
+      gradient.addColorStop(0, '#041529')
+      gradient.addColorStop(0.45, '#062036')
+      gradient.addColorStop(1, '#0a2f4e')
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, width, height)
 
-      ctx.fillStyle = 'rgba(94, 234, 212, 0.12)'
-      ctx.fillRect(40, 40, width - 80, height - 80)
-
-      ctx.fillStyle = '#5eead4'
-      ctx.font = 'bold 42px "Inter", "Helvetica", sans-serif'
-      ctx.fillText('Playa 52 · Sesión navegable', 70, 110)
+      const panel = (x, y, w, h) => {
+        ctx.save()
+        const g = ctx.createLinearGradient(x, y, x, y + h)
+        g.addColorStop(0, 'rgba(94, 234, 212, 0.18)')
+        g.addColorStop(1, 'rgba(14, 23, 42, 0.6)')
+        ctx.fillStyle = g
+        ctx.strokeStyle = 'rgba(94, 234, 212, 0.38)'
+        ctx.lineWidth = 3
+        ctx.beginPath()
+        ctx.roundRect(x, y, w, h, 28)
+        ctx.fill()
+        ctx.stroke()
+        ctx.restore()
+      }
 
       ctx.fillStyle = '#e2e8f0'
-      ctx.font = 'bold 60px "Inter", "Helvetica", sans-serif'
-      ctx.fillText(formatDate(day.date), 70, 185)
+      ctx.font = '700 46px "Inter", "Helvetica", sans-serif'
+      ctx.fillText('Playa 52 · Invitación a navegar', 60, 120)
+      ctx.font = '400 30px "Inter", "Helvetica", sans-serif'
+      ctx.fillStyle = '#94a3b8'
+      ctx.fillText('Comparte esta tarjeta 9:20 para tu crew', 60, 170)
 
+      panel(60, 210, width - 120, 360)
+      ctx.fillStyle = '#5eead4'
+      ctx.font = '800 70px "Inter", "Helvetica", sans-serif'
+      ctx.fillText(formatDate(day.date), 110, 305)
+
+      ctx.fillStyle = '#e2e8f0'
+      ctx.font = '600 34px "Inter", "Helvetica", sans-serif'
+      ctx.fillText('Resumen del día', 110, 360)
       ctx.font = '400 30px "Inter", "Helvetica", sans-serif'
       ctx.fillStyle = '#cbd5e1'
-      ctx.fillText(`Viento medio: ${day.avgWindKts.toFixed(0)} kts (${degToCompass(day.mainDirDeg)})`, 70, 245)
-      ctx.fillText(`Ráfaga máxima: ${day.maxGustKts.toFixed(0)} kts · Lluvia total: ${day.totalRain.toFixed(1)} mm`, 70, 295)
-      ctx.fillText(`Horas jugables: ${day.playableCount} · Rating: ${'★'.repeat(day.stars) || 'Sin ventana marcada'}`, 70, 345)
+      ctx.fillText(`Viento medio ${day.avgWindKts.toFixed(0)} kts (${degToCompass(day.mainDirDeg)})`, 110, 410)
+      ctx.fillText(`Ráfaga máxima ${day.maxGustKts.toFixed(0)} kts · Lluvia ${day.totalRain.toFixed(1)} mm`, 110, 455)
+      ctx.fillText(`Horas jugables ${day.playableCount} · Rating ${'★'.repeat(day.stars) || 'Sin ventana'}`, 110, 500)
 
-      const best =
-        day.bestHour &&
-        `Mejor hora ${day.bestHour.label}: ${day.bestHour.speedKts.toFixed(0)} kts ${degToCompass(day.bestHour.dirDeg)} (ráfaga ${
-          day.bestHour.gustKts.toFixed(0)
-        } kts · lluvia ${day.bestHour.precipMm.toFixed(1)} mm)`
-
-      if (best) {
-        ctx.fillStyle = '#e2e8f0'
-        ctx.font = '600 34px "Inter", "Helvetica", sans-serif'
-        ctx.fillText('Ventana destacada', 70, 420)
+      if (day.bestHour) {
+        ctx.fillStyle = '#5eead4'
+        ctx.font = '700 32px "Inter", "Helvetica", sans-serif'
+        ctx.fillText('Ventana destacada', 110, 560)
         ctx.font = '400 28px "Inter", "Helvetica", sans-serif'
         ctx.fillStyle = '#cbd5e1'
-        const maxWidth = width - 140
-        const words = best.split(' ')
-        let line = ''
-        let y = 460
-        words.forEach((word) => {
-          const testLine = `${line}${word} `
-          const { width: testWidth } = ctx.measureText(testLine)
-          if (testWidth > maxWidth) {
-            ctx.fillText(line.trim(), 70, y)
-            line = `${word} `
-            y += 36
-          } else {
-            line = testLine
-          }
-        })
-        if (line) ctx.fillText(line.trim(), 70, y)
+        const detail = `Mejor hora ${day.bestHour.label}: ${day.bestHour.speedKts.toFixed(0)} kts ${degToCompass(day.bestHour.dirDeg)} · ráfaga ${
+          day.bestHour.gustKts.toFixed(0)
+        } kts · lluvia ${day.bestHour.precipMm.toFixed(1)} mm`
+        ctx.fillText(detail, 110, 600)
       }
+
+      panel(60, 610, width - 120, 670)
+      ctx.fillStyle = '#e2e8f0'
+      ctx.font = '600 38px "Inter", "Helvetica", sans-serif'
+      ctx.fillText('Mejores horas (kts · ráfaga)', 110, 680)
+
+      const playableHours = day.hours.filter((h) => isPlayable(h))
+      const sorted = (playableHours.length ? playableHours : [...day.hours])
+        .slice()
+        .sort((a, b) => b.speedKts - a.speedKts)
+      const topHours = sorted.slice(0, 8).sort((a, b) => new Date(a.time) - new Date(b.time))
+
+      const chartLeft = 120
+      const chartBottom = 1200
+      const chartWidth = width - 2 * chartLeft
+      const chartHeight = 480
+      const maxKts = Math.max(18, ...topHours.map((h) => h.gustKts))
+
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.35)'
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      ctx.moveTo(chartLeft, chartBottom - chartHeight)
+      ctx.lineTo(chartLeft, chartBottom)
+      ctx.lineTo(chartLeft + chartWidth, chartBottom)
+      ctx.stroke()
+
+      ctx.font = '400 24px "Inter", "Helvetica", sans-serif'
+      ctx.fillStyle = '#94a3b8'
+      for (let i = 0; i <= 4; i += 1) {
+        const value = Math.round((maxKts / 4) * i)
+        const y = chartBottom - (chartHeight / maxKts) * value
+        ctx.beginPath()
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)'
+        ctx.moveTo(chartLeft, y)
+        ctx.lineTo(chartLeft + chartWidth, y)
+        ctx.stroke()
+        ctx.fillText(`${value} kts`, chartLeft - 80, y + 8)
+      }
+
+      const barWidth = topHours.length > 1 ? chartWidth / topHours.length - 20 : chartWidth * 0.4
+      const xStep = topHours.length > 1 ? chartWidth / (topHours.length - 1) : chartWidth / 2
+
+      ctx.strokeStyle = '#38bdf8'
+      ctx.lineWidth = 4
+      ctx.beginPath()
+
+      topHours.forEach((hour, index) => {
+        const x = chartLeft + index * xStep
+        const speedHeight = (chartHeight / maxKts) * hour.speedKts
+        const gustHeight = (chartHeight / maxKts) * hour.gustKts
+        const barX = x - barWidth / 2
+        const barY = chartBottom - speedHeight
+
+        const barGradient = ctx.createLinearGradient(0, barY, 0, chartBottom)
+        barGradient.addColorStop(0, 'rgba(94, 234, 212, 0.9)')
+        barGradient.addColorStop(1, 'rgba(94, 234, 212, 0.25)')
+        ctx.fillStyle = barGradient
+        ctx.beginPath()
+        ctx.roundRect(barX, barY, barWidth, speedHeight, 14)
+        ctx.fill()
+
+        const gustY = chartBottom - gustHeight
+        if (index === 0) {
+          ctx.moveTo(x, gustY)
+        } else {
+          ctx.lineTo(x, gustY)
+        }
+
+        ctx.fillStyle = '#e2e8f0'
+        ctx.font = '700 26px "Inter", "Helvetica", sans-serif'
+        ctx.fillText(hour.speedKts.toFixed(0), barX + barWidth / 2 - 14, barY - 12)
+        ctx.font = '400 22px "Inter", "Helvetica", sans-serif'
+        ctx.fillStyle = '#94a3b8'
+        ctx.fillText(`ráf ${hour.gustKts.toFixed(0)}`, barX + barWidth / 2 - 28, barY + 32)
+
+        ctx.fillStyle = '#cbd5e1'
+        ctx.font = '400 22px "Inter", "Helvetica", sans-serif'
+        ctx.fillText(hour.label, x - 36, chartBottom + 34)
+      })
+
+      ctx.stroke()
+
+      panel(60, 1300, width - 120, 520)
+      ctx.fillStyle = '#e2e8f0'
+      ctx.font = '600 34px "Inter", "Helvetica", sans-serif'
+      ctx.fillText('Tip rápido', 110, 1370)
+      ctx.font = '400 28px "Inter", "Helvetica", sans-serif'
+      ctx.fillStyle = '#cbd5e1'
+      ctx.fillText('Sur, Sudeste y Este arriba de 12 kts son ideales.', 110, 1415)
+      ctx.fillText('Evita lluvia intensa; revisa ráfagas y la ventana horaria.', 110, 1460)
+      ctx.fillText('Comparte y alinea a tu crew para la sesión.', 110, 1505)
 
       ctx.fillStyle = '#94a3b8'
       ctx.font = '400 24px "Inter", "Helvetica", sans-serif'
-      ctx.fillText('Comparte esta imagen para invitar a navegar · santakite.com', 70, height - 70)
-
-      ctx.strokeStyle = 'rgba(94, 234, 212, 0.35)'
-      ctx.lineWidth = 4
-      ctx.strokeRect(52, 52, width - 104, height - 104)
+      ctx.fillText('santakite.com · datos GFS · tarjeta 9:20 lista para compartir', 110, 1800)
 
       canvas.toBlob((blob) => {
         if (!blob) {
