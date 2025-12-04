@@ -238,100 +238,102 @@ onMounted(async () => {
       <p v-if="statusError" class="text-muted text-sm">{{ statusError }}</p>
     </div>
 
-    <div
-      v-if="selectedDay"
-      class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
-      @click.self="closeDetails"
-    >
-      <div class="glass-card flex h-full w-full flex-col overflow-hidden bg-[var(--surface-strong)] p-4 md:p-6">
-        <div class="flex items-start justify-between gap-3 pb-4 border-b border-outline-60">
-          <div class="space-y-1">
-            <p class="section-eyebrow">Detalle por hora</p>
-            <h3 class="text-2xl font-black">{{ formatDate(selectedDay.date) }}</h3>
-            <p class="text-muted text-sm">Viento > 12 nudos y dirección S/SE/E son jugables. Ventana: verano 7-20 h · invierno 9-17:30 h. La lluvia reduce seguridad y visibilidad.</p>
+    <Teleport to="body">
+      <div
+        v-if="selectedDay"
+        class="fixed inset-0 z-50 flex bg-black/70 backdrop-blur-sm"
+        @click.self="closeDetails"
+      >
+        <div class="glass-card relative m-0 flex h-full w-full flex-col overflow-hidden bg-[var(--surface-strong)] p-4 md:p-6">
+          <div class="flex items-start justify-between gap-3 pb-4 border-b border-outline-60">
+            <div class="space-y-1">
+              <p class="section-eyebrow">Detalle por hora</p>
+              <h3 class="text-2xl font-black">{{ formatDate(selectedDay.date) }}</h3>
+              <p class="text-muted text-sm">Viento > 12 nudos y dirección S/SE/E son jugables. Ventana: verano 7-20 h · invierno 9-17:30 h. La lluvia reduce seguridad y visibilidad.</p>
+            </div>
+            <button type="button" class="pill-button" @click="closeDetails">Cerrar</button>
           </div>
-          <button type="button" class="pill-button" @click="closeDetails">Cerrar</button>
-        </div>
 
-        <div class="overflow-auto rounded-2xl border border-outline-60 bg-[var(--surface-card)] p-1 md:p-3 shadow-inner">
-          <div class="flex flex-col">
-            <div class="flex border-b border-outline-50 bg-surface-card-80 backdrop-blur">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-bold border-r border-outline-50">Hora</div>
-              <div
-                v-for="hour in selectedDay.hours"
-                :key="`h-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-[var(--on-surface)] border-l border-outline-40"
-                :style="hourCellStyle(hour)"
-              >
-                {{ hour.label }}
+          <div class="flex-1 overflow-auto rounded-2xl border border-outline-60 bg-[var(--surface-card)] p-1 md:p-3 shadow-inner">
+            <div class="flex flex-col">
+              <div class="flex border-b border-outline-50 bg-surface-card-80 backdrop-blur">
+                <div class="w-[150px] min-w-[150px] px-3 py-2 font-bold border-r border-outline-50">Hora</div>
+                <div
+                  v-for="hour in selectedDay.hours"
+                  :key="`h-${hour.time}`"
+                  class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-[var(--on-surface)] border-l border-outline-40"
+                  :style="hourCellStyle(hour)"
+                >
+                  {{ hour.label }}
+                </div>
               </div>
-            </div>
 
-            <div class="flex border-b border-outline-50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Viento (kts)</div>
-              <div
-                v-for="hour in selectedDay.hours"
-                :key="`w-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-extrabold text-white border-l border-outline-40"
-                :style="hourCellStyle(hour)"
-              >
-                {{ hour.speedKts.toFixed(0) }}
+              <div class="flex border-b border-outline-50">
+                <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Viento (kts)</div>
+                <div
+                  v-for="hour in selectedDay.hours"
+                  :key="`w-${hour.time}`"
+                  class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-extrabold text-white border-l border-outline-40"
+                  :style="hourCellStyle(hour)"
+                >
+                  {{ hour.speedKts.toFixed(0) }}
+                </div>
               </div>
-            </div>
 
-            <div class="flex border-b border-outline-50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Ráfagas (kts)</div>
-              <div
-                v-for="hour in selectedDay.hours"
-                :key="`g-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
-                :style="hourCellStyle(hour)"
-              >
-                {{ hour.gustKts.toFixed(0) }}
+              <div class="flex border-b border-outline-50">
+                <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Ráfagas (kts)</div>
+                <div
+                  v-for="hour in selectedDay.hours"
+                  :key="`g-${hour.time}`"
+                  class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
+                  :style="hourCellStyle(hour)"
+                >
+                  {{ hour.gustKts.toFixed(0) }}
+                </div>
               </div>
-            </div>
 
-            <div class="flex border-b border-outline-50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Dirección</div>
-              <div
-                v-for="hour in selectedDay.hours"
-                :key="`d-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center text-white border-l border-outline-40 space-y-1"
-                :style="hourCellStyle(hour)"
-              >
-                <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/20">
-                  <span :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
-                </span>
-                <span class="block text-xs">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
+              <div class="flex border-b border-outline-50">
+                <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Dirección</div>
+                <div
+                  v-for="hour in selectedDay.hours"
+                  :key="`d-${hour.time}`"
+                  class="min-w-[80px] max-w-[80px] px-2 py-2 text-center text-white border-l border-outline-40 space-y-1"
+                  :style="hourCellStyle(hour)"
+                >
+                  <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/20">
+                    <span :style="{ transform: `rotate(${(hour.dirDeg + 180) % 360}deg)` }">↑</span>
+                  </span>
+                  <span class="block text-xs">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
+                </div>
               </div>
-            </div>
 
-            <div class="flex border-b border-outline-50">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Temperatura (°C)</div>
-              <div
-                v-for="hour in selectedDay.hours"
-                :key="`t-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
-                :style="hourCellStyle(hour)"
-              >
-                {{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}
+              <div class="flex border-b border-outline-50">
+                <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Temperatura (°C)</div>
+                <div
+                  v-for="hour in selectedDay.hours"
+                  :key="`t-${hour.time}`"
+                  class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
+                  :style="hourCellStyle(hour)"
+                >
+                  {{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}
+                </div>
               </div>
-            </div>
 
-            <div class="flex">
-              <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Lluvia (mm)</div>
-              <div
-                v-for="hour in selectedDay.hours"
-                :key="`r-${hour.time}`"
-                class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
-                :style="hourCellStyle(hour)"
-              >
-                {{ hour.precipMm.toFixed(1) }}
+              <div class="flex">
+                <div class="w-[150px] min-w-[150px] px-3 py-2 font-semibold text-muted border-r border-outline-50">Lluvia (mm)</div>
+                <div
+                  v-for="hour in selectedDay.hours"
+                  :key="`r-${hour.time}`"
+                  class="min-w-[80px] max-w-[80px] px-2 py-2 text-center font-semibold text-white border-l border-outline-40"
+                  :style="hourCellStyle(hour)"
+                >
+                  {{ hour.precipMm.toFixed(1) }}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </section>
 </template>
