@@ -86,7 +86,7 @@
           </div>
 
           <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Viento (kts)</div>
+            <div class="label-cell" role="rowheader">Viento</div>
             <div
               v-for="hour in selectedDay.hours"
               :key="`w-${hour.time}`"
@@ -99,7 +99,7 @@
           </div>
 
           <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Ráfagas (kts)</div>
+            <div class="label-cell" role="rowheader">Ráfaga</div>
             <div
               v-for="hour in selectedDay.hours"
               :key="`g-${hour.time}`"
@@ -112,7 +112,7 @@
           </div>
 
           <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Dirección</div>
+            <div class="label-cell" role="rowheader">Direc.</div>
             <div
               v-for="hour in selectedDay.hours"
               :key="`d-${hour.time}`"
@@ -126,7 +126,7 @@
           </div>
 
           <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Temperatura (°C)</div>
+            <div class="label-cell" role="rowheader">Temp</div>
             <div
               v-for="hour in selectedDay.hours"
               :key="`t-${hour.time}`"
@@ -139,7 +139,7 @@
           </div>
 
           <div class="hour-row" role="row">
-            <div class="label-cell" role="rowheader">Lluvia (mm)</div>
+            <div class="label-cell" role="rowheader">Lluvia</div>
             <div
               v-for="hour in selectedDay.hours"
               :key="`r-${hour.time}`"
@@ -744,14 +744,14 @@ h2 {
 }
 
 .hour-cell {
-  min-width: 78px;
-  max-width: 78px;
+  min-width: 76px;
+  max-width: 76px;
   border-left: 1px solid rgba(148, 163, 184, 0.12);
-  padding: 0.55rem 0.35rem;
+  padding: 0.5rem 0.3rem;
   text-align: center;
   color: #e2e8f0;
   display: grid;
-  gap: 0.35rem;
+  gap: 0.32rem;
   justify-items: center;
   background: rgba(15, 23, 42, 0.82);
 }
@@ -775,8 +775,8 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 
   background: rgba(148, 163, 184, 0.12);
   border: 1px solid rgba(148, 163, 184, 0.25);
@@ -784,7 +784,7 @@ h2 {
 }
 
 .dir-label {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
 }
 
 .stars {
@@ -800,8 +800,32 @@ h2 {
 
   .overlay-card {
     width: 100%;
-    padding: 1rem;
-    gap: 0.8rem;
+    padding: 0.9rem;
+    gap: 0.7rem;
+  }
+
+  .label-cell {
+    width: 132px;
+    min-width: 132px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  .hour-cell {
+    min-width: 64px;
+    max-width: 64px;
+    padding: 0.42rem 0.25rem;
+    gap: 0.28rem;
+    font-size: 0.92rem;
+  }
+
+  .hour-cell .arrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dir-label {
+    font-size: 0.72rem;
   }
 
   .forecast-grid {
@@ -814,20 +838,39 @@ h2 {
     padding: 0.8rem;
   }
 
-  .hour-cell {
-    min-width: 68px;
-    max-width: 68px;
-    font-size: 0.9rem;
+  .overlay-card {
+    max-height: 90vh;
+    padding: 0.75rem;
+    gap: 0.65rem;
+  }
+
+  .hourly-table {
+    font-size: 0.85rem;
   }
 
   .label-cell {
-    width: 120px;
-    min-width: 120px;
-    font-size: 0.9rem;
+    width: 102px;
+    min-width: 102px;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.88rem;
   }
 
-  .overlay-card {
-    max-height: 90vh;
+  .hour-cell {
+    min-width: 48px;
+    max-width: 48px;
+    padding: 0.35rem 0.2rem;
+    gap: 0.22rem;
+    font-size: 0.84rem;
+  }
+
+  .hour-cell .arrow {
+    width: 18px;
+    height: 18px;
+    font-size: 0.8rem;
+  }
+
+  .dir-label {
+    font-size: 0.68rem;
   }
 
   .overlay-head h3 {
