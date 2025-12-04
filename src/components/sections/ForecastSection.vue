@@ -570,12 +570,15 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  color: #e8f6ff;
-  background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
-
+  color: #fff8f4;
+  background:
+    radial-gradient(60% 65% at 10% 30%, rgba(255, 255, 255, 0.08), transparent),
+    radial-gradient(70% 70% at 80% 10%, rgba(255, 214, 170, 0.1), transparent),
+    linear-gradient(140deg, #ff7847 0%, #f24e52 45%, #d32962 100%);
   padding: 1.2rem;
-  border: 1px solid rgba(125, 242, 221, 0.12);
-
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px !important;
+  box-shadow: 0 28px 70px rgba(199, 61, 69, 0.35);
 }
 
 .section-head {
@@ -590,30 +593,30 @@ onMounted(async () => {
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #ffe0d0;
 }
 
 h2 {
   font-size: clamp(1.6rem, 2.5vw, 2rem);
   margin-bottom: 0.35rem;
-  color: #f1f5f9;
+  color: #fff8f4;
 }
 
 .muted {
-  color: #cbd5e1;
+  color: #ffe0d0;
 }
 
 .card {
   padding: 1.2rem;
-
-  background: radial-gradient(circle at 15% 20%, rgba(94, 234, 212, 0.12), transparent 40%),
-    linear-gradient(145deg, rgba(6, 27, 48, 0.75), rgba(7, 22, 40, 0.92));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  color: #e5f3ff;
+  gap: 1.15rem;
+  color: #fff5ec;
+  border-radius: 18px !important;
+  box-shadow: 0 24px 48px rgba(175, 37, 65, 0.28);
+  backdrop-filter: blur(8px);
 }
 
 .card-header {
@@ -622,59 +625,60 @@ h2 {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  color: #ffe3d5;
 }
 
 .status {
-  padding: 0.35rem 0.85rem;
-
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 0.35rem 0.95rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  border-radius: 12px !important;
 }
 
 .status-loading {
-  background: rgba(234, 179, 8, 0.18);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.35);
+  background: rgba(255, 221, 136, 0.18);
+  color: #ffd166;
+  border: 1px solid rgba(255, 221, 136, 0.35);
 }
 
 .status-ok {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(94, 248, 193, 0.2);
+  color: #26c196;
+  border: 1px solid rgba(94, 248, 193, 0.4);
 }
 
 .status-error {
-  background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
-  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(255, 116, 116, 0.2);
+  color: #ff8b8b;
+  border: 1px solid rgba(255, 116, 116, 0.35);
 }
 
 .forecast-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .forecast-card {
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   text-align: left;
-  padding: 0.9rem;
-
-  border: 1px solid rgba(125, 242, 221, 0.2);
-  background: linear-gradient(160deg, rgba(5, 22, 43, 0.7), rgba(6, 28, 51, 0.9));
+  padding: 1rem;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   cursor: pointer;
-  color: #e2e8f0;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  color: #fff7f3;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 32px rgba(156, 18, 56, 0.22);
 }
 
 .forecast-card:hover,
 .forecast-card:focus-visible {
-  border-color: rgba(125, 242, 221, 0.55);
+  border-color: rgba(255, 255, 255, 0.38);
   transform: translateY(-2px);
-
+  box-shadow: 0 18px 36px rgba(168, 31, 60, 0.4);
   outline: none;
 }
 
@@ -683,51 +687,57 @@ h2 {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 0.35rem;
-  padding: 0.55rem 0.75rem;
-  background: rgba(148, 163, 184, 0.12);
-  color: #e2e8f0;
-  border: 1px solid rgba(125, 242, 221, 0.4);
-  font-weight: 700;
+  margin-top: 0.4rem;
+  padding: 0.65rem 0.75rem;
+  background: linear-gradient(140deg, #ffe2c8, #ff955c);
+  color: #5f1b00;
+  border: none;
+  font-weight: 800;
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 26px rgba(255, 128, 88, 0.35);
 }
 
 .share:hover,
 .share:focus-visible {
-  border-color: rgba(125, 242, 221, 0.7);
-  transform: translateY(-1px);
+  background: linear-gradient(140deg, #fff0e2, #ffa46f);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(185, 46, 75, 0.28);
   outline: none;
 }
 
 .forecast-date {
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff5ed;
 }
 
 .badge {
   align-self: flex-start;
-  padding: 0.3rem 0.75rem;
-
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 0.38rem 0.95rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
 
 .badge-ok {
-  background: rgba(94, 234, 212, 0.2);
-  color: #5eead4;
-  border: 1px solid rgba(94, 234, 212, 0.35);
+  background: linear-gradient(120deg, #5ef8c1, #32e4a3);
+  color: #0f172a;
+  border: none;
 }
 
 .badge-warn {
-  background: rgba(234, 179, 8, 0.2);
-  color: #eab308;
-  border: 1px solid rgba(234, 179, 8, 0.35);
+  background: linear-gradient(120deg, #ffd166, #ffae42);
+  color: #5c1f00;
+  border: none;
 }
 
 .badge-bad {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: linear-gradient(120deg, #ffc1c1, #ff6b6b);
+  color: #5a0000;
+  border: none;
 }
 
 .small {
@@ -741,7 +751,8 @@ h2 {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.7);
+  background: radial-gradient(circle at 30% 20%, rgba(255, 199, 171, 0.3), transparent 40%), rgba(24, 8, 6, 0.78);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -751,37 +762,29 @@ h2 {
 }
 
 .overlay-card {
-  background: #0b1222;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.06));
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 1.25rem;
   width: min(1040px, 100%);
   max-height: 92vh;
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: #e5f3ff;
+  color: #fff9f4;
+  box-shadow: 0 28px 70px rgba(173, 35, 64, 0.42);
+  border-radius: 18px !important;
 }
 
 .overlay-head {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  align-items: start;
-  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
-.close {
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: rgba(15, 23, 42, 0.8);
-  color: #e2e8f0;
-
-  width: 2.25rem;
-  height: 2.25rem;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+.overlay-head h3 {
+  font-size: clamp(1.35rem, 2vw, 1.5rem);
+  color: #fff5ea;
 }
 
 .overlay-actions {
@@ -789,70 +792,75 @@ h2 {
   justify-content: flex-end;
 }
 
-.overlay-actions .share {
-  width: auto;
-  min-width: 220px;
+.close {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff8f4;
+  padding: 0.35rem 0.55rem;
+  border-radius: 10px !important;
+  cursor: pointer;
 }
 
-
 .hourly-table {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  gap: 0.25rem;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  padding: 0.25rem;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   overflow-x: auto;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-
-  position: relative;
+  max-width: 100%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .hour-row {
-  display: flex;
-  gap: 0;
-  min-width: fit-content;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-}
-
-.hour-row:last-child {
-  border-bottom: none;
-}
-
-.label-cell {
-  width: 150px;
-  min-width: 150px;
-  padding: 0.55rem 0.75rem;
-  background: rgba(15, 23, 42, 0.9);
-  color: #e2e8f0;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  border-right: 1px solid rgba(148, 163, 184, 0.2);
-  position: sticky;
-  left: 0;
-  z-index: 2;
-
-}
-
-.hour-cell {
-  min-width: 76px;
-  max-width: 76px;
-  border-left: 1px solid rgba(148, 163, 184, 0.12);
-  padding: 0.5rem 0.3rem;
-  text-align: center;
-  color: #e2e8f0;
   display: grid;
-  gap: 0.32rem;
-  justify-items: center;
-  background: rgba(15, 23, 42, 0.82);
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hour-row.header .label-cell {
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 800;
+  color: #fff8f4;
 }
 
 .hour-row.header .hour-cell {
   font-weight: 700;
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.label-cell {
+  width: 160px;
+  min-width: 160px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff5ec;
+  font-weight: 700;
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hour-cell {
+  min-width: 60px;
+  max-width: 70px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 0.3rem;
+  text-align: center;
+  color: #fff7f3;
+  display: grid;
+  gap: 0.32rem;
+  justify-items: center;
+  background: rgba(0, 0, 0, 0.12);
 }
 
 .hour-cell.value {
   font-size: 1rem;
   font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 .hour-cell.direction {
@@ -866,9 +874,8 @@ h2 {
   justify-content: center;
   width: 22px;
   height: 22px;
-
-  background: rgba(148, 163, 184, 0.12);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   font-weight: 900;
 }
 
@@ -877,7 +884,7 @@ h2 {
 }
 
 .stars {
-  color: #fbbf24;
+  color: #ffd166;
   letter-spacing: 3px;
 }
 
@@ -924,7 +931,7 @@ h2 {
 
 @media (max-width: 640px) {
   .forecast-card {
-    padding: 0.8rem;
+    padding: 0.85rem;
   }
 
   .overlay-card {
