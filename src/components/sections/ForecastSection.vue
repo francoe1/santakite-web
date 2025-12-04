@@ -346,6 +346,11 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: linear-gradient(120deg, rgba(3, 24, 41, 0.7), rgba(4, 29, 49, 0.85));
+  border-radius: 1.5rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(125, 242, 221, 0.12);
+  box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
 }
 
 .section-head {
@@ -375,9 +380,10 @@ h2 {
 .card {
   padding: 1.2rem;
   border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  background: radial-gradient(circle at 15% 20%, rgba(94, 234, 212, 0.12), transparent 40%),
+    linear-gradient(145deg, rgba(6, 27, 48, 0.75), rgba(7, 22, 40, 0.92));
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -427,8 +433,8 @@ h2 {
   text-align: left;
   padding: 0.9rem;
   border-radius: 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(125, 242, 221, 0.2);
+  background: linear-gradient(160deg, rgba(5, 22, 43, 0.7), rgba(6, 28, 51, 0.9));
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -439,9 +445,9 @@ h2 {
 
 .forecast-card:hover,
 .forecast-card:focus-visible {
-  border-color: rgba(34, 197, 94, 0.55);
+  border-color: rgba(125, 242, 221, 0.55);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.55);
+  box-shadow: 0 10px 25px rgba(3, 15, 32, 0.55);
   outline: none;
 }
 
@@ -458,9 +464,9 @@ h2 {
 }
 
 .badge-ok {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(94, 234, 212, 0.2);
+  color: #5eead4;
+  border: 1px solid rgba(94, 234, 212, 0.35);
 }
 
 .badge-warn {

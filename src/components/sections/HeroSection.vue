@@ -1,13 +1,15 @@
 <template>
   <section id="hero" class="hero">
+    <div class="hero-splash" aria-hidden="true"></div>
     <div class="hero-copy">
-      <p class="badge">Santa Ana · Entre Ríos</p>
+      <p class="badge">Santa Ana · Río Uruguay</p>
       <h1>
-        Spot de kitesurf accesible y ordenado
-        <span class="accent">en Playa 52</span>
+        Kitesurf relajado, viento limpio
+        <span class="accent">y vibra playera</span>
       </h1>
       <p class="lead">
-        Información clara del spot, zonas sugeridas y pronóstico GFS para decidir rápido si se puede navegar.
+        Base segura para armar, navegar y compartir. Zonas claras, pronóstico en vivo y ambiente chill para surfear cometas al
+        atardecer.
       </p>
       <div class="hero-tags" aria-label="Destacados">
         <span>Vientos S · SE · E</span>
@@ -90,6 +92,27 @@ onMounted(async () => {
   gap: 2.25rem;
   align-items: center;
   padding-top: 1.5rem;
+  position: relative;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-splash {
+  position: absolute;
+  inset: -12% -10% auto -8%;
+  height: 380px;
+  background:
+    radial-gradient(circle at 20% 60%, rgba(94, 234, 212, 0.35), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(56, 189, 248, 0.32), transparent 36%),
+    linear-gradient(135deg, rgba(4, 51, 73, 0.6), rgba(4, 30, 56, 0.8));
+  filter: blur(18px) saturate(1.15);
+  opacity: 0.9;
+  border-radius: 50%;
+  z-index: 0;
+  animation: drift 14s ease-in-out infinite;
 }
 
 @media (max-width: 900px) {
@@ -117,16 +140,18 @@ h1 {
   line-height: 1.1;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
+  text-shadow: 0 12px 28px rgba(3, 10, 24, 0.6);
 }
 
 .accent {
-  color: #38bdf8;
+  color: #5eead4;
 }
 
 .lead {
-  color: #e2e8f0;
-  max-width: 620px;
+  color: #e2f3ff;
+  max-width: 640px;
   margin-bottom: 1.5rem;
+  font-size: 1.05rem;
 }
 
 .hero-tags {
@@ -138,20 +163,24 @@ h1 {
 .hero-tags span {
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
-  background: rgba(14, 165, 233, 0.1);
-  color: #7dd3fc;
-  font-weight: 600;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(94, 234, 212, 0.12);
+  color: #7df2dd;
+  font-weight: 700;
+  border: 1px solid rgba(94, 234, 212, 0.35);
+  box-shadow: 0 8px 20px rgba(3, 21, 37, 0.4);
+  backdrop-filter: blur(6px);
 }
 
 .hero-card {
-  background: radial-gradient(circle at 30% 0, rgba(56, 189, 248, 0.2), rgba(37, 99, 235, 0.1)),
-    linear-gradient(160deg, #0b1224, #0b1729);
-  border: 1px solid rgba(148, 163, 184, 0.15);
-  border-radius: 1.4rem;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
+  background: linear-gradient(160deg, rgba(7, 26, 46, 0.8), rgba(4, 14, 32, 0.9)),
+    radial-gradient(circle at 20% 10%, rgba(34, 211, 238, 0.18), transparent 50%);
+  border: 1px solid rgba(125, 242, 221, 0.25);
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 60px rgba(2, 10, 24, 0.9);
   overflow: hidden;
   position: relative;
+  isolation: isolate;
+  backdrop-filter: blur(10px);
 }
 
 .card-inner {
@@ -167,8 +196,9 @@ h1 {
   gap: 0.75rem;
   padding: 0.75rem;
   border-radius: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  background: linear-gradient(145deg, rgba(11, 36, 51, 0.65), rgba(8, 25, 43, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .arrow-circle {
@@ -177,12 +207,13 @@ h1 {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #7dd3fc;
+  background: radial-gradient(circle at 30% 20%, rgba(125, 242, 221, 0.25), rgba(14, 165, 233, 0.12));
+  border: 1px solid rgba(125, 242, 221, 0.4);
+  color: #7df2dd;
   font-weight: 900;
   font-size: 1.2rem;
-  transition: transform 0.2s ease;
+  transition: transform 0.4s ease;
+  animation: pulse 3s ease-in-out infinite;
 }
 
 .wind-data {
@@ -194,7 +225,7 @@ h1 {
 .wind-value {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #e2e8f0;
+  color: #f8fafc;
 }
 
 .eyebrow {
@@ -226,10 +257,32 @@ h1 {
   align-self: flex-start;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  background: rgba(14, 165, 233, 0.1);
-  color: #38bdf8;
-  font-weight: 600;
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(94, 234, 212, 0.12);
+  color: #5eead4;
+  font-weight: 700;
+  border: 1px solid rgba(94, 234, 212, 0.35);
   margin-top: 0.5rem;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12px, -10px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(125, 242, 221, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(125, 242, 221, 0.04);
+  }
 }
 </style>

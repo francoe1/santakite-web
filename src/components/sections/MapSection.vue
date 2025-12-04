@@ -124,6 +124,11 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: linear-gradient(120deg, rgba(3, 23, 39, 0.7), rgba(4, 29, 49, 0.82));
+  border-radius: 1.5rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(125, 242, 221, 0.12);
+  box-shadow: 0 22px 46px rgba(2, 10, 24, 0.45);
 }
 
 .section-head {
@@ -168,8 +173,8 @@ h2 {
   height: 360px;
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(125, 242, 221, 0.35);
+  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
   position: relative;
   z-index: 0;
 }
@@ -177,9 +182,10 @@ h2 {
 .card {
   padding: 1.2rem;
   border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  background: radial-gradient(circle at 80% 10%, rgba(94, 234, 212, 0.1), transparent 40%),
+    linear-gradient(145deg, rgba(5, 26, 46, 0.76), rgba(6, 20, 38, 0.92));
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.7);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -192,7 +198,7 @@ h2 {
 .windy-wrapper {
   border-radius: 0.9rem;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid rgba(125, 242, 221, 0.28);
   position: relative;
 }
 

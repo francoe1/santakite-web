@@ -35,6 +35,11 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: linear-gradient(120deg, rgba(3, 22, 38, 0.65), rgba(5, 30, 48, 0.85));
+  border-radius: 1.5rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(125, 242, 221, 0.15);
+  box-shadow: 0 22px 46px rgba(3, 15, 32, 0.45);
 }
 
 .section-head {
@@ -71,16 +76,24 @@ h2 {
 .card {
   padding: 1.2rem;
   border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.65);
+  background: radial-gradient(circle at 20% 20%, rgba(94, 234, 212, 0.1), transparent 40%),
+    linear-gradient(145deg, rgba(5, 22, 43, 0.7), rgba(7, 30, 53, 0.85));
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 14px 38px rgba(2, 10, 24, 0.65);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card h3 {
   font-size: 1.05rem;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(125, 242, 221, 0.5);
+  box-shadow: 0 16px 42px rgba(3, 15, 32, 0.55);
 }
 
 .info-banner {
@@ -89,8 +102,9 @@ h2 {
   gap: 0.6rem;
   padding: 1rem 1.2rem;
   border-radius: 1rem;
-  background: linear-gradient(110deg, rgba(14, 165, 233, 0.12), rgba(34, 211, 238, 0.06));
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #e0f2fe;
+  background: linear-gradient(110deg, rgba(94, 234, 212, 0.14), rgba(14, 165, 233, 0.12));
+  border: 1px solid rgba(125, 242, 221, 0.3);
+  color: #e0fff7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 </style>

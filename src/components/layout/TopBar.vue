@@ -48,8 +48,12 @@ const scrollTo = (id) => {
   top: 0;
   z-index: 50;
   backdrop-filter: blur(14px);
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.92));
-  border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+  background:
+    linear-gradient(135deg, rgba(5, 32, 48, 0.94), rgba(3, 21, 38, 0.9)),
+    radial-gradient(circle at 10% 50%, rgba(34, 211, 238, 0.16), transparent 40%),
+    radial-gradient(circle at 90% 50%, rgba(14, 165, 233, 0.18), transparent 42%);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 10px 34px rgba(4, 24, 44, 0.55);
 }
 
 .topbar-inner {
@@ -69,6 +73,7 @@ const scrollTo = (id) => {
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .brand-logo {
@@ -79,6 +84,7 @@ const scrollTo = (id) => {
   box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35);
   position: relative;
   overflow: hidden;
+  animation: float 4s ease-in-out infinite;
 }
 
 .brand-logo::after {
@@ -104,6 +110,10 @@ const scrollTo = (id) => {
   font-size: 0.8rem;
 }
 
+.brand-mark:hover {
+  transform: translateY(-1px);
+}
+
 .topbar-nav {
   display: flex;
   flex-wrap: wrap;
@@ -120,28 +130,32 @@ const scrollTo = (id) => {
   cursor: pointer;
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
-  transition: background 0.15s, color 0.15s, transform 0.15s;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.01em;
 }
 
 .nav-button:hover {
-  background: rgba(15, 23, 42, 0.9);
-  color: #00c2ff;
+  background: rgba(14, 165, 233, 0.14);
+  color: #5eead4;
   transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(14, 165, 233, 0.18);
 }
 
 .cta {
   padding: 0.45rem 1rem;
   border-radius: 999px;
   background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #0b1727;
+  color: #03131f;
   font-weight: 700;
-  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.01em;
+  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 44px rgba(14, 165, 233, 0.5);
+  box-shadow: 0 18px 44px rgba(14, 165, 233, 0.6);
+  filter: saturate(1.1);
 }
 
 @media (max-width: 720px) {
@@ -153,6 +167,23 @@ const scrollTo = (id) => {
   .topbar-nav {
     width: 100%;
     justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .nav-button,
+  .cta {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
   }
 }
 </style>
