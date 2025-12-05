@@ -4,7 +4,18 @@
       <div class="overlay-head">
         <div>
           <p class="eyebrow">Detalle por hora</p>
-          <h3>{{ formatDate(day.date) }}</h3>
+          <h3>{{ formatDate(day.date, true) }}</h3>
+          <div>
+            <label style="margin-right: 10px;">
+              <input type="checkbox" v-model="filterBySunLight" />
+              <span style="margin-left: 4px;">Filtrar horas con luz solar</span>
+            </label>
+            <br></br>
+            <label>
+              <input type="checkbox" v-model="filterByPlayables" />
+              <span style="margin-left: 4px;">Filtrar horas navegables</span>
+            </label>
+          </div>
           <p class="muted small">
             {{ detailText }}
           </p>
@@ -12,127 +23,54 @@
         <button type="button" class="close" @click="$emit('close')">✕</button>
       </div>
 
-      <div v-if="!isCompactLayout" class="hourly-table" role="table">
+      <div class="hourly-table" role="table">
         <div class="hour-row header" role="row">
           <div class="label-cell" role="columnheader">Hora</div>
-          <div
-            v-for="hour in day.hours"
-            :key="`h-${hour.time}`"
-            class="hour-cell time"
-            :style="hourCellStyle(hour)"
-            role="columnheader"
-          >
-            {{ hour.label }}
+          <div v-for="hour in hours" :key="`h-${hour.time}`" class="hour-cell time" :style="hourCellStyle(hour)"
+            role="columnheader">
+            {{ hour.label }}h
           </div>
         </div>
 
         <div class="hour-row" role="row">
           <div class="label-cell" role="rowheader">Viento (kts)</div>
-          <div
-            v-for="hour in day.hours"
-            :key="`w-${hour.time}`"
-            class="hour-cell value"
-            :style="hourCellStyle(hour)"
-            role="cell"
-          >
+          <div v-for="hour in hours" :key="`w-${hour.time}`" class="hour-cell value" :style="hourCellStyle(hour)"
+            role="cell">
             {{ hour.speedKts.toFixed(0) }}
           </div>
         </div>
 
         <div class="hour-row" role="row">
           <div class="label-cell" role="rowheader">Ráfagas (kts)</div>
-          <div
-            v-for="hour in day.hours"
-            :key="`g-${hour.time}`"
-            class="hour-cell value"
-            :style="hourCellStyle(hour)"
-            role="cell"
-          >
+          <div v-for="hour in hours" :key="`g-${hour.time}`" class="hour-cell value" :style="hourCellStyle(hour)"
+            role="cell">
             {{ hour.gustKts.toFixed(0) }}
           </div>
         </div>
 
         <div class="hour-row" role="row">
           <div class="label-cell" role="rowheader">Dirección</div>
-          <div
-            v-for="hour in day.hours"
-            :key="`d-${hour.time}`"
-            class="hour-cell direction"
-            :style="hourCellStyle(hour)"
-            role="cell"
-          >
-            <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg + 180}deg)` }">↑</span>
-            <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
+          <div v-for="hour in hours" :key="`d-${hour.time}`" class="hour-cell direction" :style="hourCellStyle(hour)"
+            role="cell" :title="`${degToCompass(hour.dirDeg)} (${hour.dirDeg}°)`">
+            <span class="arrow" :style="{ transform: `rotate(${hour.dirDegVisual}deg)` }">↑</span>
           </div>
         </div>
 
         <div class="hour-row" role="row">
-          <div class="label-cell" role="rowheader">Temperatura (°C)</div>
-          <div
-            v-for="hour in day.hours"
-            :key="`t-${hour.time}`"
-            class="hour-cell value"
-            :style="hourCellStyle(hour)"
-            role="cell"
-          >
+          <div class="label-cell" role="rowheader">Temp (°C)</div>
+          <div v-for="hour in hours" :key="`t-${hour.time}`" class="hour-cell value" :style="hourCellStyle(hour)"
+            role="cell">
             <span>{{ hour.tempC !== null ? hour.tempC.toFixed(0) : '-' }}</span>
           </div>
         </div>
 
         <div class="hour-row" role="row">
           <div class="label-cell" role="rowheader">Lluvia (mm)</div>
-          <div
-            v-for="hour in day.hours"
-            :key="`r-${hour.time}`"
-            class="hour-cell value"
-            :style="hourCellStyle(hour)"
-            role="cell"
-          >
+          <div v-for="hour in hours" :key="`r-${hour.time}`" class="hour-cell value" :style="hourCellStyle(hour)"
+            role="cell">
             {{ hour.precipMm.toFixed(1) }}
           </div>
         </div>
-      </div>
-
-      <div v-else class="hourly-list" role="list">
-        <article
-          v-for="hour in day.hours"
-          :key="`card-${hour.time}`"
-          class="hour-card"
-          :style="hourCardStyle(hour)"
-          role="listitem"
-        >
-          <header class="hour-card__head">
-            <p class="label">{{ hour.label }}</p>
-            <span class="badge" :class="isPlayable(hour) ? 'badge-ok' : 'badge-warn'">
-              {{ isPlayable(hour) ? 'Jugable' : 'Fuera de ventana' }}
-            </span>
-          </header>
-          <dl class="hour-card__grid">
-            <div>
-              <dt>Viento</dt>
-              <dd>{{ hour.speedKts.toFixed(0) }} kts</dd>
-            </div>
-            <div>
-              <dt>Ráfaga</dt>
-              <dd>{{ hour.gustKts.toFixed(0) }} kts</dd>
-            </div>
-            <div class="direction">
-              <dt>Dirección</dt>
-              <dd>
-                <span class="arrow" :style="{ transform: `rotate(${hour.dirDeg + 180}deg)` }">↑</span>
-                <span class="dir-label">{{ degToCompass(hour.dirDeg) }} ({{ hour.dirDeg }}°)</span>
-              </dd>
-            </div>
-            <div>
-              <dt>Temp</dt>
-              <dd>{{ hour.tempC !== null ? `${hour.tempC.toFixed(0)} °C` : 'Sin dato' }}</dd>
-            </div>
-            <div>
-              <dt>Lluvia</dt>
-              <dd>{{ hour.precipMm.toFixed(1) }} mm</dd>
-            </div>
-          </dl>
-        </article>
       </div>
     </div>
   </div>
@@ -140,15 +78,15 @@
 
 <script setup>
 import { degToCompass } from '../../utils/wind'
+import { computed, ref } from 'vue'
+
+const filterBySunLight = ref(true)
+const filterByPlayables = ref(false)
 
 const props = defineProps({
   day: {
     type: Object,
     default: null,
-  },
-  isCompactLayout: {
-    type: Boolean,
-    required: true,
   },
   hourCellStyle: {
     type: Function,
@@ -170,6 +108,30 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  hasSunLight: {
+    type: Function,
+    required: true,
+  },
+  isPlayablePercent: {
+    type: Function,
+    required: true,
+  },
+})
+
+const hours = computed(() => {
+  if (!props.day) return []
+
+  let hours = props.day.hours;
+
+  if (filterBySunLight.value) {
+    hours = hours.filter(props.hasSunLight)
+  }
+
+  if (filterByPlayables.value) {
+    hours = hours.filter(props.isPlayable)
+  }
+
+  return hours
 })
 
 defineEmits(['close'])
@@ -266,6 +228,26 @@ defineEmits(['close'])
   position: relative;
 }
 
+.hourly-table {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  user-select: none;
+}
+
+.hourly-table::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hourly-table::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hourly-table::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
 .hour-row {
   display: flex;
   gap: 0;
@@ -278,12 +260,13 @@ defineEmits(['close'])
 }
 
 .label-cell {
-  width: 150px;
-  min-width: 150px;
-  padding: 0.55rem 0.75rem;
-  background: rgba(15, 23, 42, 0.9);
+  width: 100px;
+  min-width: 100px;
+  padding: 0.1rem 0.4rem;
+  background: rgba(15, 23, 42);
   color: #e2e8f0;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   border-right: 1px solid rgba(148, 163, 184, 0.2);
@@ -293,47 +276,39 @@ defineEmits(['close'])
 }
 
 .hour-cell {
-  min-width: 80px;
-  max-width: 80px;
+  min-width: 40px;
+  max-width: 40px;
   border-left: 1px solid rgba(148, 163, 184, 0.12);
-  padding: 0.55rem 0.35rem;
   text-align: center;
   color: #e2e8f0;
   display: grid;
   gap: 0.35rem;
   justify-items: center;
-  background: rgba(15, 23, 42, 0.82);
+  align-items: center;
+  background: rgba(15, 23, 42);
 }
 
 .hour-row.header .hour-cell {
-  font-weight: 700;
-  background: rgba(15, 23, 42, 0.95);
+  font-weight: 400;
+  background: rgba(15, 23, 42) !important;
 }
 
 .hour-cell.value {
-  font-size: 1rem;
-  font-weight: 800;
-}
-
-.hour-cell.direction {
-  font-size: 0.85rem;
-  line-height: 1.2;
+  font-size: .85rem;
+  font-weight: 400;
 }
 
 .hour-cell .arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-
-  background: rgba(148, 163, 184, 0.12);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  width: 14px;
+  height: 14px;
   font-weight: 900;
 }
 
 .dir-label {
-  font-size: 0.78rem;
+  font-size: 0.6rem;
 }
 
 .hourly-list {

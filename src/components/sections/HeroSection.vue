@@ -17,13 +17,11 @@
     </div>
     <div class="hero-card" role="presentation">
       <div class="card-inner">
-          <div class="wind-widget">
-            <div
-              class="arrow-circle"
-              :style="normalizedDirDeg !== null ? { transform: `rotate(${normalizedDirDeg + 180}deg)` } : {}"
-            >
-              ↑
-            </div>
+        <div class="wind-widget">
+          <div class="arrow-circle"
+            :style="visualDirDeg !== null ? { transform: `rotate(${visualDirDeg}deg)` } : {}">
+            ↑
+          </div>
           <div class="wind-data">
             <p class="wind-value">
               {{ currentWind.speedKts !== null ? `${currentWind.speedKts.toFixed(1)} kts` : 'Cargando viento…' }}
@@ -97,11 +95,10 @@ const preferredDirectionSet = computed(() => {
   if (set.size === 0) return buildPreferredDirectionSet(baseWindConfig.preferredDirections)
   return set
 })
-const normalizedDirDeg = computed(() =>
-  currentWind.value.dirDeg === null
-    ? null
-    : currentWind.value.dirDeg
-)
+
+const normalizedDirDeg = computed(() => currentWind.value.dirDeg || 0)
+
+const visualDirDeg = computed(() => currentWind.value.dirDegVisual || 0)
 
 const currentDirLabel = computed(() => {
   if (normalizedDirDeg.value === null) return ''

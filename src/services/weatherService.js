@@ -6,29 +6,25 @@ const toNumberOrNull = (value) => (Number.isFinite(value) ? value : null)
 
 const normalizeDirection = (deg, directionReference) => {
   if (deg == null) return null
-
-  // Open-Meteo entrega los grados con el eje Este/Oeste invertido respecto a lo que espera la UI.
-  // Reflejamos horizontalmente el ángulo antes de aplicar el offset local para alinear SE/NE/NO/SO.
-  const mirrored = 360 - deg
-  const offset = getDirectionOffset(directionReference)
-  return Math.round(normalizeDegrees(mirrored - offset))
+  return deg;
 }
 
 const buildWindSample = (entry, directionReference) => {
   const label = entry.label
     ? entry.label
     : entry.time
-      ? new Date(entry.time).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
+      ? new Date(entry.time).toLocaleTimeString('es-AR', { hour: '2-digit', hour12: false })
       : ''
 
+  const dirDeg = toNumberOrNull(entry.dirDeg) != null
+    ? normalizeDirection(entry.dirDeg, directionReference)
+    : 0;
   return {
     time: entry.time ?? null,
     label,
     speedKts: toNumberOrNull(entry.speedKts),
-    dirDeg:
-      toNumberOrNull(entry.dirDeg) != null
-        ? normalizeDirection(entry.dirDeg, directionReference)
-        : null,
+    dirDeg,
+    dirDegVisual: (dirDeg + 180) % 360,
     gustKts: toNumberOrNull(entry.gustKts ?? entry.speedKts),
     precipMm: toNumberOrNull(entry.precipMm) ?? 0,
     tempC: toNumberOrNull(entry.tempC),

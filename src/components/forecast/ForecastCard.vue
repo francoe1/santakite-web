@@ -34,7 +34,7 @@ const props = defineProps({
     required: true,
   },
   classification: {
-    type: Object,
+    type: String,
     required: true,
   },
   formatDate: {
