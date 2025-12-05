@@ -16,7 +16,10 @@
       "title": "Kitesurf libre",
       "accent": "en Playa 52",
       "lead": "Armá tu kite sobre arena y navegá con vista abierta al río.",
-      "tags": ["Vientos S · SE · E", "Zonas separadas"]
+      "tags": [
+        "Vientos S · SE · E",
+        "Zonas separadas"
+      ]
     },
     "highlights": [
       {
@@ -56,28 +59,71 @@
         }
       ],
       "launchZone": [
-        [-30.908, -57.915],
-        [-30.908, -57.913],
-        [-30.9087, -57.913],
-        [-30.9087, -57.915]
+        [
+          -30.908,
+          -57.915
+        ],
+        [
+          -30.908,
+          -57.913
+        ],
+        [
+          -30.9087,
+          -57.913
+        ],
+        [
+          -30.9087,
+          -57.915
+        ]
       ],
       "swimZone": [
-        [-30.9087, -57.915],
-        [-30.9087, -57.913],
-        [-30.9136, -57.913],
-        [-30.9136, -57.924],
-        [-30.9115, -57.923],
-        [-30.9095, -57.92]
+        [
+          -30.9087,
+          -57.915
+        ],
+        [
+          -30.9087,
+          -57.913
+        ],
+        [
+          -30.9136,
+          -57.913
+        ],
+        [
+          -30.9136,
+          -57.924
+        ],
+        [
+          -30.9115,
+          -57.923
+        ],
+        [
+          -30.9095,
+          -57.92
+        ]
       ]
     },
     "forecast": {
       "criteriaText": "Criterio: más de 12 nudos con dirección Sur, Sudeste o Este; lluvia limita la navegación.",
-      "detailText": "Viento > 12 nudos desde S, SE o E es navegable dentro de la ventana local. Verano: 7:00 a 20:00 · invierno: 9:00 a 17:30. La lluvia y la falta de luz reducen seguridad y visibilidad.",
-      "preferredDirections": ["S", "SE", "E"],
+      "detailText": "Viento > 13 nudos desde S, SE o E es navegable dentro de la ventana local. Verano: 7:00 a 20:00 · invierno: 9:00 a 17:30. La lluvia y la falta de luz reducen seguridad y visibilidad.",
+      "preferredDirections": [
+        "S",
+        "SE",
+        "E",
+        "SO",
+        "SSO",
+        "SSE"
+      ],
       "minPlayableKts": 12,
       "maxPrecipMm": 3,
-      "summerWindow": { "startHour": 7, "endHour": 20 },
-      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
       "speedScoreBase": 8,
       "speedScoreCap": 14
     },
@@ -147,7 +193,10 @@
       "title": "Ventana norte",
       "accent": "para navegar en Playa Grande",
       "lead": "Spot de agua dulce con rampa de arena y fetch abierto cuando sopla norte.",
-      "tags": ["Vientos N · NNE · NNW", "Zona navegada señalada"]
+      "tags": [
+        "Vientos N · NNE · NNW",
+        "Zona navegada señalada"
+      ]
     },
     "highlights": [
       {
@@ -187,28 +236,70 @@
         }
       ],
       "launchZone": [
-        [-30.9832, -57.9156],
-        [-30.9832, -57.9143],
-        [-30.984, -57.9143],
-        [-30.984, -57.9156]
+        [
+          -30.9832,
+          -57.9156
+        ],
+        [
+          -30.9832,
+          -57.9143
+        ],
+        [
+          -30.984,
+          -57.9143
+        ],
+        [
+          -30.984,
+          -57.9156
+        ]
       ],
       "swimZone": [
-        [-30.9829, -57.9162],
-        [-30.9838, -57.9129],
-        [-30.9855, -57.914],
-        [-30.9863, -57.9178],
-        [-30.985, -57.9204],
-        [-30.9832, -57.9188]
+        [
+          -30.9829,
+          -57.9162
+        ],
+        [
+          -30.9838,
+          -57.9129
+        ],
+        [
+          -30.9855,
+          -57.914
+        ],
+        [
+          -30.9863,
+          -57.9178
+        ],
+        [
+          -30.985,
+          -57.9204
+        ],
+        [
+          -30.9832,
+          -57.9188
+        ]
       ]
     },
     "forecast": {
       "criteriaText": "Criterio: más de 11 nudos con viento norte (N, NNE, NNW). Lluvia o tormenta cierran el spot.",
       "detailText": "Viento sostenido > 11 nudos desde el norte abre la ventana navegable. Horarios sugeridos: 8:00 a 19:30 en verano, 9:00 a 17:30 en invierno. Evitar rachas cruzadas o cambios bruscos y suspender ante actividad eléctrica.",
-      "preferredDirections": ["N", "NNE", "NNW"],
+      "preferredDirections": [
+        "N",
+        "NNE",
+        "NNW",
+        "NE",
+        "NW"
+      ],
       "minPlayableKts": 11,
       "maxPrecipMm": 2,
-      "summerWindow": { "startHour": 8, "endHour": 19, "endMinute": 30 },
-      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
       "speedScoreBase": 7,
       "speedScoreCap": 13
     },
@@ -267,7 +358,11 @@
       "title": "Ventana oeste",
       "accent": "para navegar en la playa oeste",
       "lead": "Spot lateral al oeste con playa de arena y piedra y entrada directa al río.",
-      "tags": ["Viento W", "Arena + piedra", "Cuidado acantilado"]
+      "tags": [
+        "Viento W",
+        "Arena + piedra",
+        "Cuidado acantilado"
+      ]
     },
     "highlights": [
       {
@@ -307,26 +402,60 @@
         }
       ],
       "launchZone": [
-        [-30.9133, -57.9312],
-        [-30.9133, -57.9297],
-        [-30.9141, -57.9297],
-        [-30.9141, -57.9312]
+        [
+          -30.9133,
+          -57.9312
+        ],
+        [
+          -30.9133,
+          -57.9297
+        ],
+        [
+          -30.9141,
+          -57.9297
+        ],
+        [
+          -30.9141,
+          -57.9312
+        ]
       ],
       "swimZone": [
-        [-30.9142, -57.9315],
-        [-30.9148, -57.9292],
-        [-30.9156, -57.9298],
-        [-30.915, -57.9322]
+        [
+          -30.9142,
+          -57.9315
+        ],
+        [
+          -30.9148,
+          -57.9292
+        ],
+        [
+          -30.9156,
+          -57.9298
+        ],
+        [
+          -30.915,
+          -57.9322
+        ]
       ]
     },
     "forecast": {
       "criteriaText": "Criterio: más de 12 nudos con viento Oeste (W). Lluvia o tormenta suspenden la navegación.",
       "detailText": "Viento sostenido > 12 nudos desde el Oeste genera ventana navegable side-on. Horarios sugeridos: 8:00 a 19:30 en verano y 9:00 a 17:30 en invierno. Evitar ráfagas cruzadas o actividad eléctrica.",
-      "preferredDirections": ["W"],
+      "preferredDirections": [
+        "O",
+        "ON",
+        "OS"
+      ],  
       "minPlayableKts": 12,
       "maxPrecipMm": 2,
-      "summerWindow": { "startHour": 8, "endHour": 19, "endMinute": 30 },
-      "winterWindow": { "startHour": 9, "endHour": 17, "endMinute": 30 },
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 17
+      },
       "speedScoreBase": 8,
       "speedScoreCap": 14
     },
