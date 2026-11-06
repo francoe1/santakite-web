@@ -42,6 +42,20 @@ const JOKES = {
     'Finde con viento: cancelá el asado, o hacelo en la playa.',
     'El finde sopla. Avisale a la familia que no hay plan B.',
   ],
+  dayYes: [
+    'Ese día sopla. Andá avisando en el laburo.',
+    'Día de viento: inventá una excusa buena.',
+    'Anotá la fecha: ese día se navega.',
+  ],
+  dayMaybe: [
+    'Ventana cortita: llegá con todo armado.',
+    'Poquito viento, pero alcanza para el mate y una pasada.',
+  ],
+  dayNo: [
+    'Ese día no sopla: ideal para asado y siesta.',
+    'Ese día el río descansa. Vos también.',
+    'Sin viento ese día. El kite se queda en el bolso.',
+  ],
   notfound: ['Buscamos esta página y no hay ni una brisa.', 'Esta URL se fue a navegar y no dejó dirección.'],
   weekendMaybe: ['Finde dudoso: llevá el kite y también el mate, por las dudas.'],
   weekendNo: [
