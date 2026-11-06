@@ -1,5 +1,5 @@
 <template>
-  <svg class="m" viewBox="0 0 270 190" aria-hidden="true">
+  <svg class="m" viewBox="0 0 270 177" aria-hidden="true">
     <g class="umb">
       <path class="o" d="M135 44V160" />
       <path class="o" fill="#ffd60a" d="M44 72C58 14 212 14 226 72 210 62 196 62 180 72 164 62 150 62 135 72 120 62 106 62 90 72 74 62 58 62 44 72Z" />

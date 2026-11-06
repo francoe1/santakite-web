@@ -5,7 +5,8 @@ const clamp = (n, a, b) => Math.min(b, Math.max(a, n))
 /**
  * Publica el viento real como variables CSS globales para que palmeras, hojas, sombrilla,
  * kites y rayas de viento se muevan acorde (más viento = más balanceo y más rápido).
- * Además el scroll "empuja" el viento: al desplazar, todo se agita y se inclina un instante.
+ * El scroll "empuja" el viento SOLO en las capas marcadas con [data-wind-scroll] (palmeras y hojas):
+ * los personajes y el resto de la página usan siempre los valores base, así no se corren al scrollear.
  *  --w-sway   amplitud del balanceo (deg)        --w-period  duración de cada vaivén
  *  --w-lean   inclinación hacia donde sopla (deg) --w-flap    aleteo de telas
  *  --w-dir    1 / -1 sentido del viento           --w-streak  intensidad de las rayas
@@ -18,10 +19,21 @@ export const useWindVars = (getCurrent) => {
   let lastY = 0
   let lastT = 0
 
+  let targets = []
   const root = () => document.documentElement.style
+  const refreshTargets = () => (targets = [...document.querySelectorAll('[data-wind-scroll]')])
   const apply = () => {
-    root().setProperty('--w-sway', `${(base.sway * (1 + boost * 1.6)).toFixed(1)}deg`)
-    root().setProperty('--w-lean', `${(base.lean + dir * boost * 12).toFixed(1)}deg`)
+    // base para todos (no cambia al scrollear)
+    root().setProperty('--w-sway', `${base.sway.toFixed(1)}deg`)
+    root().setProperty('--w-lean', `${base.lean.toFixed(1)}deg`)
+    // con el empujón del scroll, solo en las capas decorativas
+    if (!targets.length || !targets[0].isConnected) refreshTargets()
+    const sway = `${(base.sway * (1 + boost * 1.4)).toFixed(1)}deg`
+    const lean = `${(base.lean + dir * boost * 4).toFixed(1)}deg`
+    targets.forEach((el) => {
+      el.style.setProperty('--w-sway', sway)
+      el.style.setProperty('--w-lean', lean)
+    })
   }
 
   const stop = watchEffect(() => {

@@ -17,7 +17,7 @@ const leaves = [
 </script>
 
 <template>
-  <div class="field" aria-hidden="true" inert>
+  <div class="field" aria-hidden="true" inert data-wind-scroll>
     <div v-for="(l, i) in leaves" :key="i" class="slot" :class="l.side" :style="{ top: `${l.top}%`, '--k': l.s, '--r': `${l.r}deg`, '--ld': `${l.d}s` }">
       <Leaf :dark="l.dark" />
     </div>

@@ -3,7 +3,7 @@ import Kite from './Kite.vue'
 </script>
 
 <template>
-  <svg class="gk" viewBox="0 0 230 74" aria-hidden="true">
+  <svg class="gk" viewBox="0 0 230 71" aria-hidden="true">
     <path class="o" fill="none" d="M2 68q40-9 100-3t126 3" />
     <path class="thin" d="M12 51Q80 66 172 62M150 51Q166 60 196 62M81 56Q130 66 178 62" />
     <g class="flat"><g transform="translate(6 24) scale(.5 .26)"><Kite :tube-w="22" /></g></g>
