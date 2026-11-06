@@ -1,13 +1,14 @@
+<script setup>
+import Kite from './Kite.vue'
+</script>
+
 <template>
   <svg class="gk" viewBox="0 0 230 74" aria-hidden="true">
     <path class="o" fill="none" d="M2 68q40-9 100-3t126 3" />
-    <g class="flat">
-      <path class="o" fill="#0b0b0b" d="M10 56C22 30 104 20 156 42 116 40 94 48 86 60 62 50 36 50 10 56Z" />
-      <path fill="#c9ff2f" d="M44 54C58 38 108 32 138 44 112 44 98 50 90 56 76 52 60 52 44 54Z" />
-    </g>
-    <path class="thin" d="M18 54 176 64M150 42 178 62M86 60 178 64" />
-    <path class="o" d="M170 62h24" />
-    <rect class="o" x="196" y="52" width="26" height="14" rx="6" fill="#ffd60a" />
+    <path class="thin" d="M12 51Q80 66 172 62M150 51Q166 60 196 62M81 56Q130 66 178 62" />
+    <g class="flat"><g transform="translate(6 24) scale(.5 .26)"><Kite :tube-w="22" /></g></g>
+    <path class="o" d="M170 62h28" />
+    <rect class="o" x="198" y="54" width="22" height="14" rx="6" fill="#ffd60a" />
   </svg>
 </template>
 

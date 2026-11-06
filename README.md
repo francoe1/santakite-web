@@ -25,4 +25,4 @@ Los spots viven en `src/data/spots.json` (viento ideal, mínimo de nudos, horari
 
 ## Animaciones
 
-Los personajes vectoriales (`src/components/fx`) cambian con el estado del viento. Siempre activas (se mueven con el viento real); solo se pausan si el sistema pide `prefers-reduced-motion`.
+Los personajes vectoriales (`src/components/fx`) cambian con el estado del viento. Siempre activas y muy tenues: un solo personaje por vez, elegido al azar según el viento, más palmeras, hojas y rayas de viento que reaccionan al viento real y al scroll. Solo se pausan si el sistema pide `prefers-reduced-motion`.

@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import Icon from '../ui/Icon.vue'
+import KiteMark from '../fx/KiteMark.vue'
 import SpotSwitcher from './SpotSwitcher.vue'
 import { scrollToId, useScrollSpy } from '@/composables/useScrollSpy'
 
@@ -25,10 +26,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   <header class="header">
     <div class="container bar">
       <a href="#hoy" class="brand" aria-label="SantaKite, inicio" @click.prevent="scrollToId('hoy')">
-        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
-          <rect x="1" y="1" width="38" height="38" fill="var(--ink)" />
-          <path d="M7 24C10 11 25 6 34 12 28 14 22 21 20 33 16 28 11 25 7 24Z" fill="var(--volt)" />
-        </svg>
+        <KiteMark class="logo" />
         <span class="wordmark">Santa<b>Kite</b></span>
       </a>
 
