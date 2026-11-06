@@ -10,7 +10,7 @@ const iconFor = { whatsapp: 'chat', instagram: 'external', location: 'pin' }
   <section id="contacto" class="section section--volt contact">
     <div class="container inner">
       <div class="copy reveal">
-        <p class="eyebrow">[07] Contacto</p>
+        <p class="eyebrow">[08] Contacto</p>
         <h2 class="section-title">Vení a<br />navegar con<br />nosotros</h2>
         <p class="section-lead hand">¿Dudas sobre el viento, el acceso o las zonas de {{ spot?.name }}? Escribinos antes de salir.</p>
       </div>

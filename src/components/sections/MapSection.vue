@@ -100,7 +100,7 @@ watch(tab, async (t) => {
 <template>
   <section id="mapa" class="section section--sand">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <p class="eyebrow">[04] Mapa y zonas</p>
         <h2 class="section-title">Dónde armar,<br />dónde navegar</h2>
         <p class="section-lead">Respetá los polígonos: la zona verde es de kites y la roja es de bañistas.</p>
