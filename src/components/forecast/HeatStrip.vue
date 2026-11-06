@@ -45,37 +45,11 @@ const cells = computed(() => {
 </template>
 
 <style scoped>
-.strip {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 44px;
-}
-.cell {
-  position: relative;
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  min-width: 0;
-}
-.cell i {
-  display: block;
-  width: 100%;
-  border-radius: 3px 3px 1px 1px;
-  background: rgba(157, 185, 198, 0.35);
-}
-.cell.night i { background: rgba(157, 185, 198, 0.14); }
-.cell.past { opacity: 0.45; }
-.cell.now::after {
-  content: '';
-  position: absolute;
-  inset: -3px -2px -3px;
-  border: 1.5px solid var(--sun-500);
-  border-radius: 4px;
-}
-.lv1 i { background: #8fd8b8; }
-.lv2 i { background: #4cc590; }
-.lv3 i { background: #17a56f; }
-.lv4 i { background: #0f8758; box-shadow: 0 0 10px rgba(23, 165, 111, 0.6); }
+.strip { display: flex; align-items: flex-end; gap: 3px; height: 48px; }
+.cell { position: relative; flex: 1; height: 100%; display: flex; align-items: flex-end; min-width: 0; }
+.cell i { display: block; width: 100%; background: #4a4a4a; }
+.cell.night i { background: #2b2b2b; }
+.cell.past { opacity: 0.4; }
+.cell.now::after { content: ''; position: absolute; inset: -4px -2px; border: 2px solid var(--yellow); }
+.lv1 i { background: #6d8a14; } .lv2 i { background: #93bb1b; } .lv3 i { background: #b0e020; } .lv4 i { background: var(--volt); }
 </style>

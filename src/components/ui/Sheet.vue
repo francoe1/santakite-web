@@ -74,100 +74,36 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .sheet-root {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(4, 20, 29, 0.66);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(11, 11, 11, 0.72);
+  display: flex; align-items: flex-end; justify-content: center;
 }
 .sheet {
-  width: 100%;
-  max-height: 92dvh;
-  display: flex;
-  flex-direction: column;
-  background: var(--sand-50);
-  color: var(--text);
-  border-radius: var(--r-xl) var(--r-xl) 0 0;
-  padding: 10px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+  width: 100%; max-height: 92dvh; display: flex; flex-direction: column;
+  background: var(--paper); color: var(--ink);
+  border: var(--bw) solid var(--ink); border-bottom: 0;
+  padding: 10px 18px calc(18px + env(safe-area-inset-bottom, 0px));
   outline: none;
 }
-.grab {
-  align-self: center;
-  width: 44px;
-  height: 5px;
-  border-radius: 99px;
-  background: var(--sand-200);
-  margin-bottom: 12px;
-}
-.sheet-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  padding-bottom: 14px;
-}
-.sheet-head h3 {
-  font-size: 1.6rem;
-  margin-top: 6px;
-}
-.sheet-head h3::first-letter {
-  text-transform: uppercase;
-}
+.grab { align-self: center; width: 48px; height: 6px; background: var(--ink); margin-bottom: 12px; }
+.sheet-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 16px; }
+.sheet-head h3 { font-size: clamp(2.2rem, 7vw, 3.6rem); margin-top: 10px; }
+.sheet-head h3::first-letter { text-transform: uppercase; }
 .x {
-  flex: none;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--sand-100);
+  flex: none; width: 46px; height: 46px; display: grid; place-items: center;
+  border: var(--bw) solid var(--ink); background: var(--volt); box-shadow: var(--shadow-sm);
 }
-.x:hover {
-  background: var(--sand-200);
-}
-.sheet-body {
-  overflow: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
+.x:hover { background: var(--ink); color: var(--volt); }
+.sheet-body { overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 
 @media (min-width: 1024px) {
-  .sheet-root {
-    align-items: center;
-    padding: 40px;
-  }
-  .sheet {
-    width: min(720px, 100%);
-    max-height: 86vh;
-    border-radius: var(--r-xl);
-    padding: 32px;
-    box-shadow: var(--shadow-2);
-  }
-  .sheet--wide {
-    width: min(1120px, 100%);
-  }
-  .grab {
-    display: none;
-  }
+  .sheet-root { align-items: center; padding: 40px; }
+  .sheet { width: min(720px, 100%); max-height: 88vh; border-bottom: var(--bw) solid var(--ink); padding: 32px; box-shadow: 12px 12px 0 var(--volt); }
+  .sheet--wide { width: min(1160px, 100%); }
+  .grab { display: none; }
 }
-
-.sheet-enter-active,
-.sheet-leave-active {
-  transition: opacity 0.25s ease;
-}
-.sheet-enter-active .sheet,
-.sheet-leave-active .sheet {
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.sheet-enter-from,
-.sheet-leave-to {
-  opacity: 0;
-}
-.sheet-enter-from .sheet,
-.sheet-leave-to .sheet {
-  transform: translateY(40px);
-}
+.sheet-enter-active, .sheet-leave-active { transition: opacity 0.18s ease; }
+.sheet-enter-active .sheet, .sheet-leave-active .sheet { transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.2, 1); }
+.sheet-enter-from, .sheet-leave-to { opacity: 0; }
+.sheet-enter-from .sheet, .sheet-leave-to .sheet { transform: translateY(30px); }
 </style>

@@ -81,120 +81,37 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.switcher {
-  position: relative;
-}
+.switcher { position: relative; }
 .trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--ink-line);
-  color: var(--text-inv);
-  font-weight: 600;
-  font-size: 14px;
-  transition: background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px;
+  border: var(--bw) solid var(--ink); background: var(--volt); box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono); font-weight: 700; font-size: 13px; text-transform: uppercase;
 }
-.trigger:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-.name {
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.chev {
-  transition: transform 0.2s;
-}
-.chev.up {
-  transform: rotate(180deg);
-}
+.trigger:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.name { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chev { transition: transform 0.15s; }
+.chev.up { transform: rotate(180deg); }
 .popover {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 10px);
-  width: 320px;
-  padding: 8px;
-  background: var(--sand-50);
-  color: var(--text);
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-2);
-  z-index: 70;
+  position: absolute; right: 0; top: calc(100% + 12px); width: 340px; z-index: 70;
+  background: var(--paper); border: var(--bw) solid var(--ink); box-shadow: var(--shadow);
 }
-.opt {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  text-align: left;
-  gap: 0 12px;
-  padding: 12px 14px;
-  border-radius: 12px;
-}
-.opt:hover,
-.opt.on {
-  background: var(--sand-100);
-}
-.opt-name {
-  font-weight: 700;
-}
-.opt-loc {
-  grid-column: 1;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-.opt-check {
-  grid-row: 1 / span 2;
-  grid-column: 2;
-  align-self: center;
-  color: var(--ok);
-}
-.pop-enter-active,
-.pop-leave-active {
-  transition: opacity 0.15s ease, transform 0.15s ease;
-}
-.pop-enter-from,
-.pop-leave-to {
-  opacity: 0;
-  transform: translateY(-6px);
-}
+.opt { width: 100%; display: grid; grid-template-columns: 1fr auto; text-align: left; gap: 0 12px; padding: 14px 16px; border-bottom: var(--bw) solid var(--ink); }
+li:last-child .opt { border-bottom: 0; }
+.opt:hover { background: var(--paper-2); }
+.opt.on { background: var(--ink); color: var(--paper); }
+.opt-name { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; }
+.opt-loc { grid-column: 1; font-family: var(--font-mono); font-size: 12px; opacity: 0.75; }
+.opt-check { grid-row: 1 / span 2; grid-column: 2; align-self: center; color: var(--volt); }
+.pop-enter-active, .pop-leave-active { transition: opacity 0.1s, transform 0.1s; }
+.pop-enter-from, .pop-leave-to { opacity: 0; transform: translateY(-6px); }
 
-.sheet-list {
-  display: grid;
-  gap: 10px;
-}
+.sheet-list { display: grid; gap: 12px; padding: 4px 4px 8px; }
 .s-opt {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  text-align: left;
-  padding: 16px;
-  border-radius: var(--r-md);
-  border: 1.5px solid var(--sand-line);
-  background: #fff;
-  min-height: 72px;
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left;
+  padding: 16px; min-height: 76px; background: var(--paper); border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm);
 }
-.s-opt.on {
-  border-color: var(--sun-500);
-  background: var(--sun-100);
-}
-.s-opt strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-}
-.s-opt small {
-  display: block;
-  color: var(--text-soft);
-  font-size: 13px;
-}
-.winds {
-  font-family: var(--font-mono);
-  margin-top: 2px;
-}
+.s-opt.on { background: var(--volt); }
+.s-opt strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.7rem; text-transform: uppercase; line-height: 1; }
+.s-opt small { display: block; font-size: 13px; }
+.winds { font-family: var(--font-mono); margin-top: 4px; font-weight: 700; }
 </style>

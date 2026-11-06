@@ -33,8 +33,8 @@ const criteria = computed(() => props.spot.forecast?.criteriaText)
     <div class="container">
       <div class="head">
         <div class="section-head">
-          <p class="eyebrow">Pronóstico 7 días · GFS</p>
-          <h2 class="section-title">¿Cuándo se navega?</h2>
+          <p class="eyebrow">[05] Pronóstico 7 días · GFS</p>
+          <h2 class="section-title">¿Cuándo<br />se navega?</h2>
           <p class="section-lead">{{ criteria }}</p>
         </div>
         <button type="button" class="btn btn--ghost btn--sm reload" :disabled="status === 'loading'" @click="$emit('reload')">
@@ -90,47 +90,33 @@ const criteria = computed(() => props.spot.forecast?.criteriaText)
 </template>
 
 <style scoped>
-.head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-}
+.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
 .reload { display: none; }
-.summary {
-  display: grid;
-  gap: 16px;
-  padding: 22px;
-  margin-bottom: 20px;
-  border-radius: var(--r-lg);
-  background: linear-gradient(135deg, rgba(255, 106, 61, 0.22), rgba(255, 106, 61, 0.06));
-  border: 1px solid rgba(255, 106, 61, 0.4);
-}
-.summary.calm { background: rgba(255, 255, 255, 0.05); border-color: var(--ink-line); }
+.summary { display: grid; gap: 16px; padding: 20px; margin-bottom: 24px; background: var(--volt); color: var(--ink); border: var(--bw) solid var(--ink); box-shadow: 8px 8px 0 var(--paper); }
+.summary.calm { background: var(--yellow); }
 .s-main { display: grid; gap: 4px; }
-.s-main small { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun-500); }
-.s-main strong { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; text-transform: capitalize; }
-.s-main span { font-size: 14px; color: var(--text-inv-soft); }
-.s-stat { display: flex; align-items: baseline; gap: 10px; font-size: 14px; color: var(--text-inv-soft); }
-.s-stat b { font-family: var(--font-display); font-size: 2.2rem; color: #fff; }
-.key { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 16px; font-size: 12px; color: var(--text-inv-soft); }
+.s-main small { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.s-main strong { font-family: var(--font-display); font-weight: 400; font-size: 2.4rem; line-height: 0.95; text-transform: uppercase; }
+.s-main span { font-size: 14px; font-weight: 600; }
+.s-stat { display: flex; align-items: baseline; gap: 10px; font-size: 14px; font-weight: 600; }
+.s-stat b { font-family: var(--font-display); font-weight: 400; font-size: 4rem; line-height: 0.8; }
+.summary .btn { background: var(--ink); color: var(--volt); border-color: var(--ink); box-shadow: none; }
+.key { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 18px; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--paper-3); }
 .key span { display: inline-flex; align-items: center; gap: 6px; }
-.key .alt { flex-basis: 100%; }
-.k { width: 12px; height: 12px; border-radius: 3px; background: rgba(157, 185, 198, 0.4); }
-.k.lv1 { background: #8fd8b8; } .k.lv2 { background: #4cc590; } .k.lv3 { background: #17a56f; } .k.lv4 { background: #0f8758; }
-.list { display: grid; gap: 12px; }
-.sk { height: 176px; border-radius: var(--r-md); background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(255,255,255,.1), rgba(255,255,255,.04)); background-size: 200% 100%; animation: sh 1.4s infinite; }
-@keyframes sh { to { background-position: -200% 0; } }
-.fail { display: grid; justify-items: center; gap: 14px; padding: 48px 16px; text-align: center; color: var(--text-inv-soft); }
-.foot { margin-top: 24px; font-size: 13px; color: var(--text-inv-soft); }
-
+.key .alt { flex-basis: 100%; text-transform: none; }
+.k { width: 12px; height: 12px; background: #4a4a4a; }
+.k.lv1 { background: #6d8a14; } .k.lv2 { background: #93bb1b; } .k.lv3 { background: #b0e020; } .k.lv4 { background: var(--volt); }
+.list { display: grid; gap: 14px; }
+.sk { height: 176px; background: var(--ink-3); animation: pulse 1s steps(2) infinite; }
+@keyframes pulse { 50% { opacity: 0.45; } }
+.fail { display: grid; justify-items: center; gap: 14px; padding: 48px 16px; text-align: center; }
+.foot { margin-top: 26px; font-size: 13px; color: var(--paper-3); max-width: 70ch; }
 @media (min-width: 1024px) {
   .reload { display: inline-flex; margin-top: 56px; }
-  .summary { grid-template-columns: 1fr auto auto; align-items: center; gap: 40px; padding: 28px 36px; margin-bottom: 28px; }
-  .s-main strong { font-size: 2.2rem; }
-  .key { justify-content: flex-start; }
+  .summary { grid-template-columns: 1fr auto auto; align-items: center; gap: 48px; padding: 28px 36px; margin-bottom: 36px; }
+  .s-main strong { font-size: 3.6rem; }
   .key .alt { flex-basis: auto; margin-left: auto; }
-  .list { gap: 10px; }
+  .list { gap: 16px; }
   .sk { height: 84px; }
 }
 </style>

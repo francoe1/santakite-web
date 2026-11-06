@@ -76,55 +76,24 @@ const needleRotation = computed(() => (props.deg == null ? 0 : (props.deg + 180)
 
 <style scoped>
 .compass {
-  --c-ring: rgba(180, 225, 240, 0.25);
-  --c-tick: rgba(180, 225, 240, 0.5);
-  --c-text: #9db9c6;
-  --c-bg: rgba(255, 255, 255, 0.03);
+  --c-ring: var(--paper);
+  --c-text: var(--paper);
+  --c-bg: transparent;
+  --c-hub: var(--ink);
   overflow: visible;
 }
 .compass--light {
-  --c-ring: rgba(7, 32, 45, 0.18);
-  --c-tick: rgba(7, 32, 45, 0.4);
-  --c-text: #46606f;
-  --c-bg: rgba(7, 32, 45, 0.03);
+  --c-ring: var(--ink);
+  --c-text: var(--ink);
 }
-.ring-bg {
-  fill: var(--c-bg);
-}
-.ring {
-  stroke: var(--c-ring);
-  stroke-width: 1;
-}
-.wedge {
-  fill: rgba(23, 165, 111, 0.55);
-  stroke: rgba(23, 165, 111, 0.9);
-  stroke-width: 0.5;
-}
-.tick {
-  stroke: var(--c-tick);
-  stroke-width: 1;
-}
-.tick.long {
-  stroke-width: 1.8;
-}
-.card {
-  fill: var(--c-text);
-  font: 700 11px var(--font-mono);
-}
-.needle {
-  transform-origin: 100px 100px;
-  transition: transform 1.2s cubic-bezier(0.3, 1.4, 0.5, 1);
-}
-.needle-head {
-  fill: var(--sun-500);
-}
-.needle-tail {
-  fill: var(--c-text);
-  opacity: 0.55;
-}
-.hub {
-  fill: var(--sand-50);
-  stroke: var(--ink-900);
-  stroke-width: 2;
-}
+.ring-bg { fill: var(--c-bg); }
+.ring { stroke: var(--c-ring); stroke-width: 2.5; }
+.wedge { fill: var(--volt); stroke: var(--ink); stroke-width: 1.2; }
+.tick { stroke: var(--c-ring); stroke-width: 1; }
+.tick.long { stroke-width: 2.5; }
+.card { fill: var(--c-text); font: 700 12px var(--font-mono); }
+.needle { transform-origin: 100px 100px; transition: transform 1.1s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.needle-head { fill: var(--red); stroke: var(--ink); stroke-width: 1.5; }
+.needle-tail { fill: var(--c-text); stroke: var(--ink); stroke-width: 1.5; }
+.hub { fill: var(--paper); stroke: var(--ink); stroke-width: 3; }
 </style>

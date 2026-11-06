@@ -2,30 +2,21 @@
 defineProps({ tone: { type: String, default: 'muted' } })
 </script>
 <template>
-  <span class="pill" :class="`pill--${tone}`"><i class="dot" aria-hidden="true"></i><slot /></span>
+  <span class="tag" :class="`tag--${tone}`"><i aria-hidden="true"></i><slot /></span>
 </template>
 <style scoped>
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 32px;
-  padding: 0 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1px solid;
+.tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 30px; padding: 0 12px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  border: var(--bw) solid var(--ink);
+  background: var(--paper-2); color: var(--ink);
 }
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.pill--ok { color: #5ff0b4; background: rgba(23, 165, 111, 0.16); border-color: rgba(23, 165, 111, 0.5); }
-.pill--ok .dot { box-shadow: 0 0 0 0 currentColor; animation: ping 1.8s infinite; }
-.pill--warn { color: #ffcf5c; background: rgba(227, 164, 23, 0.14); border-color: rgba(227, 164, 23, 0.45); }
-.pill--bad { color: #ff9288; background: rgba(214, 72, 59, 0.14); border-color: rgba(214, 72, 59, 0.45); }
-.pill--muted { color: var(--text-inv-soft); background: rgba(255, 255, 255, 0.06); border-color: var(--ink-line); }
-@keyframes ping { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+i { width: 9px; height: 9px; background: currentColor; }
+.tag--ok { background: var(--volt); }
+.tag--ok i { animation: blink 1.2s steps(2) infinite; }
+.tag--warn { background: var(--yellow); }
+.tag--bad { background: var(--red); color: #fff; }
+.tag--muted { background: var(--paper-2); }
+@keyframes blink { 50% { opacity: 0; } }
 </style>

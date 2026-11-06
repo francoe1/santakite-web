@@ -7,13 +7,12 @@ const iconFor = { whatsapp: 'chat', instagram: 'external', location: 'pin' }
 </script>
 
 <template>
-  <section id="contacto" class="section section--dark contact">
-    <div class="glow" aria-hidden="true"></div>
+  <section id="contacto" class="section section--volt contact">
     <div class="container inner">
       <div class="copy reveal">
-        <p class="eyebrow">Contacto</p>
-        <h2 class="section-title">Vení a navegar con nosotros</h2>
-        <p class="section-lead">¿Dudas sobre el viento, el acceso o las zonas de {{ spot?.name }}? Escribinos antes de salir.</p>
+        <p class="eyebrow">[07] Contacto</p>
+        <h2 class="section-title">Vení a<br />navegar con<br />nosotros</h2>
+        <p class="section-lead hand">¿Dudas sobre el viento, el acceso o las zonas de {{ spot?.name }}? Escribinos antes de salir.</p>
       </div>
       <ul class="items reveal">
         <li v-for="c in contacts" :key="c.label">
@@ -39,23 +38,17 @@ const iconFor = { whatsapp: 'chat', instagram: 'external', location: 'pin' }
 </template>
 
 <style scoped>
-.contact { overflow: hidden; background: linear-gradient(180deg, var(--ink-900), var(--ink-950)); }
-.glow { position: absolute; left: -10%; bottom: -40%; width: 70vw; max-width: 900px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 61, 0.22), transparent 65%); }
+.contact { overflow: hidden; }
+.section-lead { font-family: var(--font-hand); font-size: 1.5rem; font-weight: 400; line-height: 1.2; }
 .inner { position: relative; display: grid; gap: 36px; }
-.items { display: grid; gap: 12px; align-content: start; }
-.item {
-  display: flex; align-items: center; gap: 16px; padding: 18px 20px; min-height: 84px;
-  border-radius: var(--r-md); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--ink-line);
-  transition: background 0.2s, transform 0.2s, border-color 0.2s;
-}
-a.item:hover { background: rgba(255, 255, 255, 0.12); transform: translateX(6px); border-color: var(--sun-500); }
-.ic { flex: none; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 106, 61, 0.18); color: var(--sun-500); }
+.items { display: grid; gap: 16px; align-content: start; }
+.item { display: flex; align-items: center; gap: 16px; padding: 16px 18px; min-height: 88px; background: var(--ink); color: var(--paper); border: var(--bw) solid var(--ink); box-shadow: 6px 6px 0 var(--paper); transition: transform 0.12s, box-shadow 0.12s; }
+a.item:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--paper); }
+.ic { flex: none; width: 52px; height: 52px; display: grid; place-items: center; background: var(--volt); color: var(--ink); }
 .txt { flex: 1; min-width: 0; display: grid; }
-.txt small { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-inv-soft); }
-.txt strong { font-size: 1.1rem; overflow-wrap: anywhere; }
-.txt em { font-style: normal; font-size: 13px; color: var(--text-inv-soft); }
-.go { color: var(--text-inv-soft); }
-@media (min-width: 1024px) {
-  .inner { grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
-}
+.txt small { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--volt); }
+.txt strong { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; text-transform: uppercase; line-height: 1.1; overflow-wrap: anywhere; }
+.txt em { font-style: normal; font-size: 13px; color: var(--paper-3); }
+.go { color: var(--volt); }
+@media (min-width: 1024px) { .inner { grid-template-columns: 1.2fr 1fr; gap: 96px; align-items: center; } }
 </style>

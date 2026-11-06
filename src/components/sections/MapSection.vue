@@ -58,11 +58,11 @@ const render = () => {
       if (mk.lat != null && mk.lon != null) L.marker([mk.lat, mk.lon], { icon: pinIcon(mk.label ?? '') }).addTo(m).bindPopup(mk.label ?? '')
     })
     if (cfg.value.launchZone?.length)
-      L.polygon(cfg.value.launchZone, { color: '#17a56f', fillColor: '#17a56f', fillOpacity: 0.35, weight: 2 })
+      L.polygon(cfg.value.launchZone, { color: '#0b0b0b', fillColor: '#c9ff2f', fillOpacity: 0.6, weight: 2 })
         .addTo(m)
         .bindPopup('<b>Zona de kites</b><br>Armado, despegue y navegación cercana.')
     if (cfg.value.swimZone?.length)
-      L.polygon(cfg.value.swimZone, { color: '#d6483b', fillColor: '#d6483b', fillOpacity: 0.28, weight: 2 })
+      L.polygon(cfg.value.swimZone, { color: '#0b0b0b', fillColor: '#ff3d1f', fillOpacity: 0.45, weight: 2 })
         .addTo(m)
         .bindPopup('<b>Zona de bañistas</b><br>Sin kites mientras haya cometas.')
     map.value = m
@@ -101,8 +101,8 @@ watch(tab, async (t) => {
   <section id="mapa" class="section section--sand">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow">Mapa y zonas</p>
-        <h2 class="section-title">Dónde armar, dónde navegar</h2>
+        <p class="eyebrow">[04] Mapa y zonas</p>
+        <h2 class="section-title">Dónde armar,<br />dónde navegar</h2>
         <p class="section-lead">Respetá los polígonos: la zona verde es de kites y la roja es de bañistas.</p>
       </div>
 
@@ -149,161 +149,34 @@ watch(tab, async (t) => {
 </template>
 
 <style scoped>
-.tabs {
-  display: inline-flex;
-  padding: 5px;
-  margin-bottom: 18px;
-  gap: 4px;
-  background: #fff;
-  border: 1.5px solid var(--sand-line);
-  border-radius: 999px;
-  max-width: 100%;
-}
-.tabs button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 18px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--text-soft);
-  white-space: nowrap;
-}
-.tabs button.on {
-  background: var(--ink-900);
-  color: #fff;
-}
-.board {
-  display: grid;
-  gap: 18px;
-}
-.stage {
-  position: relative;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  border: 1.5px solid var(--sand-line);
-  background: var(--sea-100);
-  height: 440px;
-}
-.map,
-.windy,
-.windy iframe {
-  width: 100%;
-  height: 100%;
-}
-.windy iframe {
-  border: 0;
-  display: block;
-}
-.locked,
-.locked iframe {
-  /* sin trampa de scroll mientras no se active */
-  pointer-events: none;
-}
-.unlock {
-  position: absolute;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  z-index: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 20px;
-  border-radius: 999px;
-  background: var(--ink-900);
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  box-shadow: var(--shadow-2);
-}
-.err {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  text-align: center;
-  color: var(--text-soft);
-}
-.side {
-  background: #fff;
-  border: 1.5px solid var(--sand-line);
-  border-radius: var(--r-lg);
-  padding: 22px;
-  display: grid;
-  gap: 14px;
-  align-content: start;
-}
-.side h3 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-}
-.legend {
-  display: grid;
-  gap: 12px;
-}
-.legend li {
-  display: grid;
-  grid-template-columns: 22px 1fr;
-  gap: 12px;
-  font-size: 14px;
-  color: var(--text-soft);
-}
-.legend b {
-  display: block;
-  color: var(--text);
-}
-.sw {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  margin-top: 2px;
-}
-.sw-ok { background: rgba(23, 165, 111, 0.4); border: 2px solid var(--ok); }
-.sw-bad { background: rgba(214, 72, 59, 0.3); border: 2px solid var(--bad); }
-.pois button {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 22px 1fr 20px;
-  gap: 10px;
-  align-items: center;
-  text-align: left;
-  font-size: 14px;
-  padding: 12px;
-  border-radius: var(--r-sm);
-  background: var(--sand-50);
-  min-height: 52px;
-}
-.pois li + li { margin-top: 8px; }
-.pois button:hover { background: var(--sand-100); }
-.pois .go { opacity: 0.4; }
-
+.tabs { display: inline-flex; margin-bottom: 22px; border: var(--bw) solid var(--ink); background: var(--paper); box-shadow: var(--shadow-sm); max-width: 100%; }
+.tabs button { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; font-family: var(--font-mono); font-weight: 700; font-size: 13px; text-transform: uppercase; white-space: nowrap; }
+.tabs button + button { border-left: var(--bw) solid var(--ink); }
+.tabs button.on { background: var(--ink); color: var(--volt); }
+.board { display: grid; gap: 24px; }
+.stage { position: relative; overflow: hidden; border: var(--bw) solid var(--ink); box-shadow: var(--shadow); background: var(--paper-2); height: 440px; }
+.map, .windy, .windy iframe { width: 100%; height: 100%; }
+.windy iframe { border: 0; display: block; }
+.locked, .locked iframe { pointer-events: none; }
+.unlock { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 500; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; background: var(--volt); border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm); font-family: var(--font-display); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.err { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; }
+.side { background: var(--paper); border: var(--bw) solid var(--ink); display: grid; align-content: start; }
+.side h3 { padding: 10px 18px; background: var(--ink); color: var(--volt); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; }
+.legend { display: grid; }
+.legend li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 16px 18px; font-size: 14px; border-bottom: var(--bw) solid var(--ink); }
+.legend b { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; text-transform: uppercase; }
+.sw { width: 26px; height: 26px; border: var(--bw) solid var(--ink); }
+.sw-ok { background: var(--volt); }
+.sw-bad { background: var(--red); }
+.pois button { width: 100%; display: grid; grid-template-columns: 22px 1fr 20px; gap: 10px; align-items: center; text-align: left; font-size: 14px; font-weight: 600; padding: 14px 18px; min-height: 56px; border-bottom: var(--bw) solid var(--ink); }
+.pois li:last-child button { border-bottom: 0; }
+.pois button:hover { background: var(--volt); }
 @media (min-width: 1024px) {
-  .board {
-    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-    gap: 24px;
-  }
-  .stage { height: 600px; }
-  .side { padding: 28px; }
+  .board { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 36px; align-items: start; }
+  .stage { height: 620px; }
 }
 </style>
 
 <style>
-.sk-pin span {
-  display: block;
-  width: 28px;
-  height: 28px;
-  border-radius: 50% 50% 50% 0;
-  background: var(--sun-500);
-  border: 3px solid #fff;
-  transform: rotate(-45deg);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-}
+.sk-pin span { display: block; width: 28px; height: 28px; background: var(--volt); border: 3px solid #0b0b0b; transform: rotate(45deg); box-shadow: 3px 3px 0 #0b0b0b; margin: 0 0 0 0; }
 </style>

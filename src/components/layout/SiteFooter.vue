@@ -7,17 +7,11 @@ defineEmits(['select-spot'])
 
 <template>
   <footer class="footer">
-    <div class="container grid">
-      <div class="about">
-        <p class="wordmark">Santa<b>Kite</b></p>
-        <p class="soft">Kitesurf sobre el Río Uruguay y el lago de Salto Grande. Información de viento, zonas y seguridad para navegar mejor.</p>
-      </div>
+    <div class="container cols">
       <div>
         <h4>Explorar</h4>
         <ul>
-          <li v-for="n in navItems" :key="n.id">
-            <a :href="`#${n.id}`" @click.prevent="scrollToId(n.id)">{{ n.label }}</a>
-          </li>
+          <li v-for="n in navItems" :key="n.id"><a :href="`#${n.id}`" @click.prevent="scrollToId(n.id)">{{ n.label }}</a></li>
         </ul>
       </div>
       <div>
@@ -28,86 +22,29 @@ defineEmits(['select-spot'])
           </li>
         </ul>
       </div>
+      <p class="legal">
+        Datos de viento: modelo GFS vía Open-Meteo. Son pronósticos: confirmá siempre las condiciones reales en la orilla.
+        <br />© {{ new Date().getFullYear() }} SantaKite — hecho en Entre Ríos.
+      </p>
     </div>
-    <div class="container legal">
-      <p>Datos de viento: modelo GFS vía Open-Meteo. Son pronósticos: confirmá siempre las condiciones reales en la orilla.</p>
-      <p>© {{ new Date().getFullYear() }} SantaKite</p>
-    </div>
+    <p class="mega" aria-hidden="true">SantaKite</p>
   </footer>
 </template>
 
 <style scoped>
-.footer {
-  background: var(--ink-950);
-  color: var(--text-inv);
-  padding: 56px 0 24px;
-  border-top: 1px solid var(--ink-line);
-}
-.grid {
-  display: grid;
-  gap: 32px;
-  grid-template-columns: 1fr 1fr;
-}
-.about {
-  grid-column: 1 / -1;
-  max-width: 44ch;
-}
-.wordmark {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-}
-.wordmark b {
-  color: var(--sun-500);
-  font-weight: 800;
-}
-.soft {
-  color: var(--text-inv-soft);
-  margin-top: 8px;
-}
-h4 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-inv-soft);
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-li {
-  margin-bottom: 8px;
-}
-li a,
-li button {
-  color: var(--text-inv);
-  opacity: 0.9;
-  min-height: 32px;
-}
-li a:hover,
-li button:hover {
-  color: var(--sun-500);
-}
-.legal {
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--ink-line);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--text-inv-soft);
+.footer { background: var(--ink); color: var(--paper); border-top: var(--bw) solid var(--ink); padding-top: 48px; overflow: hidden; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+h4 { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--volt); margin-bottom: 14px; font-weight: 700; }
+li a, li button { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; line-height: 1.4; }
+li a:hover, li button:hover { color: var(--volt); }
+.legal { grid-column: 1 / -1; font-size: 13px; color: var(--paper-3); max-width: 46ch; }
+.mega {
+  font-family: var(--font-display); text-transform: uppercase; line-height: 0.8; text-align: center;
+  font-size: clamp(4rem, 21vw, 24rem); color: var(--volt); margin-top: 32px; margin-bottom: -0.06em; white-space: nowrap;
+  user-select: none;
 }
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: 2fr 1fr 1fr;
-  }
-  .about {
-    grid-column: auto;
-  }
-  .legal {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  .cols { grid-template-columns: 1fr 1fr 2fr; }
+  .legal { grid-column: auto; justify-self: end; text-align: right; }
 }
 </style>

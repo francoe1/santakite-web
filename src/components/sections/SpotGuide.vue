@@ -36,9 +36,9 @@ const mapsUrl = computed(
   <section id="spot" class="section">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow">El spot</p>
+        <p class="eyebrow">[03] El spot</p>
         <h2 class="section-title">{{ spot.name }}</h2>
-        <p class="section-lead">{{ spot.location }}</p>
+        <p class="section-lead hand place">{{ spot.location }}</p>
       </div>
 
       <div class="layout">
@@ -89,134 +89,38 @@ const mapsUrl = computed(
 </template>
 
 <style scoped>
-.layout {
-  display: grid;
-  gap: 28px;
-}
-.highlights {
-  display: grid;
-}
-.hl {
-  display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 14px;
-  padding: 22px 0;
-  border-top: 1.5px solid var(--sand-line);
-}
-.hl:last-child {
-  border-bottom: 1.5px solid var(--sand-line);
-}
-.num {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--sun-600);
-  padding-top: 6px;
-}
-.hl h3 {
-  font-size: 1.35rem;
-  margin-bottom: 8px;
-}
-.hl p {
-  color: var(--text-soft);
-}
-.sheet {
-  background: #fff;
-  border: 1.5px solid var(--sand-line);
-  border-radius: var(--r-lg);
-  padding: 22px;
-  display: grid;
-  gap: 22px;
-  align-content: start;
-}
-.wind-box {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 18px;
-  align-items: center;
-}
-.mini {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-}
-.dirs {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-top: 4px;
-  color: var(--ok);
-}
-.note {
-  font-size: 13px;
-  color: var(--text-soft);
-  margin-top: 6px;
-}
-.facts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.facts > div {
-  padding: 14px;
-  background: var(--sand-50);
-  border-radius: var(--r-sm);
-}
-dt {
-  font-size: 12px;
-  color: var(--text-soft);
-}
-dd {
-  font-weight: 700;
-  font-size: 0.95rem;
-  margin: 2px 0;
-}
-.facts small {
-  color: var(--text-soft);
-  font-size: 12px;
-}
-.where {
-  display: grid;
-  gap: 12px;
-  padding-top: 18px;
-  border-top: 1.5px dashed var(--sand-line);
-}
-.coords {
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-.where-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.btn.dark {
-  color: var(--ink-900);
-}
-.btn.dark:hover {
-  background: var(--sand-100);
-}
-
-@media (max-width: 380px) {
-  .wind-box { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-}
+.section-title { font-size: clamp(3.4rem, 1rem + 12vw, 11rem); }
+.place { font-size: 1.5rem; font-weight: 400; margin-top: 10px; transform: rotate(-1.5deg); display: inline-block; background: var(--yellow); padding: 2px 12px; }
+.layout { display: grid; gap: 36px; }
+.hl { display: grid; grid-template-columns: 76px 1fr; gap: 12px; padding: 22px 0; border-top: var(--bw) solid var(--ink); }
+.hl:last-child { border-bottom: var(--bw) solid var(--ink); }
+.num { font-family: var(--font-display); font-size: 3.4rem; line-height: 0.85; color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+.hl h3 { font-size: 1.9rem; margin-bottom: 8px; }
+.hl p { font-weight: 500; }
+.sheet { background: var(--paper); border: var(--bw) solid var(--ink); box-shadow: var(--shadow); display: grid; align-content: start; }
+.sheet > * { padding: 18px; border-bottom: var(--bw) solid var(--ink); }
+.sheet > :last-child { border-bottom: 0; }
+.wind-box { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; background: var(--volt); }
+.mini { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.dirs { font-family: var(--font-display); font-size: 2.2rem; line-height: 1; margin-top: 4px; }
+.note { font-size: 13px; margin-top: 6px; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; padding: 0 !important; }
+.facts > div { padding: 14px 16px; border-right: var(--bw) solid var(--ink); border-bottom: var(--bw) solid var(--ink); }
+.facts > div:nth-child(2n) { border-right: 0; }
+.facts > div:nth-last-child(-n + 2) { border-bottom: 0; }
+dt { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+dd { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.1; margin: 2px 0; }
+.facts small { font-size: 12px; }
+.where { display: grid; gap: 12px; }
+.coords { font-weight: 700; }
+.where-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn.dark { color: var(--ink); }
+@media (max-width: 380px) { .wind-box { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
 @media (min-width: 1024px) {
-  .layout {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    gap: 72px;
-    align-items: start;
-  }
-  .hl {
-    grid-template-columns: 72px 1fr;
-    padding: 32px 0;
-  }
-  .hl h3 {
-    font-size: 1.6rem;
-  }
-  .sheet {
-    padding: 32px;
-    position: sticky;
-    top: calc(var(--header-h) + 24px);
-  }
+  .layout { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 80px; align-items: start; }
+  .hl { grid-template-columns: 120px 1fr; padding: 34px 0; }
+  .num { font-size: 6rem; }
+  .hl h3 { font-size: 2.6rem; }
+  .sheet { position: sticky; top: calc(var(--header-h) + 24px); }
 }
 </style>

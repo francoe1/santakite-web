@@ -6,6 +6,7 @@ import { useSpotForecast } from '@/composables/useSpotForecast'
 import { useReveal } from '@/composables/useReveal'
 import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
+import Ticker from '@/components/layout/Ticker.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import TodayPicker from '@/components/sections/TodayPicker.vue'
 import SpotGuide from '@/components/sections/SpotGuide.vue'
@@ -38,6 +39,7 @@ useReveal()
 
 <template>
   <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="site.setCurrentSpotId" />
+  <Ticker :spots="site.spots" />
   <main v-if="spot">
     <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" />
     <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="site.setCurrentSpotId" />

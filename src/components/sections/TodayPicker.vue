@@ -35,8 +35,8 @@ const ranked = computed(() => {
   <section id="hoy-spots" class="section picker">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Hoy en cada spot</p>
-        <h2 class="section-title">¿Dónde se navega hoy?</h2>
+        <p class="eyebrow">[02] Hoy en cada spot</p>
+        <h2 class="section-title">¿Dónde se<br />navega hoy?</h2>
         <p class="section-lead">
           Comparamos el viento de los tres spots con el criterio propio de cada uno: dirección ideal, mínimo de nudos, lluvia y luz solar.
         </p>
@@ -51,7 +51,7 @@ const ranked = computed(() => {
             :aria-pressed="r.spot.id === currentId"
             @click="$emit('select', r.spot.id); scrollToId('hoy')"
           >
-            <span v-if="r.spot.id === ranked" class="ribbon">Mejor opción hoy</span>
+            <span v-if="r.spot.id === ranked" class="ribbon hand">¡la mejor!</span>
             <span class="loc">{{ r.spot.location }}</span>
             <strong class="name">{{ r.spot.name }}</strong>
 
@@ -82,130 +82,29 @@ const ranked = computed(() => {
 </template>
 
 <style scoped>
-.picker {
-  background: var(--sand-50);
-  padding-top: 24px;
-}
-.cards {
-  display: grid;
-  gap: 14px;
-}
+.picker { background: var(--paper); }
+.cards { display: grid; gap: 22px; }
 .card {
-  position: relative;
-  width: 100%;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-  padding: 22px;
-  border-radius: var(--r-lg);
-  background: #fff;
-  border: 1.5px solid var(--sand-line);
-  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  position: relative; width: 100%; min-height: 200px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; text-align: left; padding: 20px;
+  background: var(--paper); border: var(--bw) solid var(--ink); box-shadow: var(--shadow);
+  transition: transform 0.12s, box-shadow 0.12s;
 }
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-1);
-  border-color: var(--ink-700);
-}
-.card.on {
-  border-color: var(--ink-900);
-}
-.card.best {
-  background: var(--ink-900);
-  color: var(--text-inv);
-  border-color: var(--ink-900);
-}
-.ribbon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 99px;
-  background: var(--sun-500);
-  color: #fff;
-}
-.loc {
-  font-size: 13px;
-  color: var(--text-soft);
-}
-.card.best .loc { color: var(--text-inv-soft); }
-.name {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  line-height: 1;
-}
-.now {
-  font-family: var(--font-display);
-  font-size: 2.6rem;
-  font-weight: 800;
-  line-height: 1;
-  margin-top: 6px;
-}
-.now small {
-  font-size: 0.35em;
-  margin-left: 4px;
-  font-weight: 500;
-  opacity: 0.7;
-}
-.now em {
-  font-style: normal;
-  font-family: var(--font-mono);
-  font-size: 0.4em;
-  margin-left: 10px;
-  padding: 3px 9px;
-  border-radius: 99px;
-  background: rgba(7, 32, 45, 0.08);
-  vertical-align: middle;
-}
-.card.best .now em { background: rgba(255, 255, 255, 0.14); }
-.win {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  font-size: 14px;
-  font-family: var(--font-mono);
-}
-.foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: auto;
-  padding-top: 6px;
-}
-.go {
-  transition: transform 0.2s;
-}
+.card:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--ink); }
+.card.on { background: var(--paper-2); }
+.card.best { background: var(--volt); }
+.ribbon { position: absolute; top: -18px; right: 14px; padding: 4px 14px; font-size: 1.2rem; background: var(--ink); color: var(--volt); transform: rotate(4deg); }
+.loc { font-family: var(--font-mono); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.name { font-family: var(--font-display); font-weight: 400; font-size: 2.6rem; line-height: 0.9; text-transform: uppercase; }
+.now { font-family: var(--font-display); font-size: 4.4rem; line-height: 0.9; margin-top: 6px; }
+.now small { font-family: var(--font-mono); font-size: 0.24em; margin-left: 6px; font-weight: 700; }
+.now em { font-style: normal; font-family: var(--font-mono); font-size: 0.26em; font-weight: 700; margin-left: 12px; padding: 2px 8px; border: var(--bw) solid var(--ink); vertical-align: middle; }
+.win { display: inline-flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+.foot { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding-top: 10px; }
+.go { transition: transform 0.15s; }
 .card:hover .go { transform: translateX(6px); }
-/* Pills sobre fondo claro: variantes más oscuras */
-.card:not(.best) :deep(.pill--ok) { color: #0b6e47; background: #e4f7ee; }
-.card:not(.best) :deep(.pill--warn) { color: #8a5c00; background: #fff4d6; }
-.card:not(.best) :deep(.pill--muted) { color: var(--text-soft); background: var(--sand-100); border-color: var(--sand-line); }
-.sk {
-  width: 70%;
-  height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(90deg, var(--sand-100), var(--sand-200), var(--sand-100));
-  background-size: 200% 100%;
-  animation: sh 1.4s infinite;
-}
-.sk.short { width: 45%; height: 18px; }
-@keyframes sh { to { background-position: -200% 0; } }
-
-@media (min-width: 768px) {
-  .cards { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-}
-@media (min-width: 1024px) {
-  .picker { padding-top: 72px; }
-  .card { min-height: 260px; padding: 30px; }
-  .name { font-size: 2.1rem; }
-}
+.sk { width: 70%; height: 40px; background: var(--paper-3); animation: pulse 1s steps(2) infinite; }
+.sk.short { width: 45%; height: 20px; }
+@keyframes pulse { 50% { opacity: 0.4; } }
+@media (min-width: 768px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+@media (min-width: 1024px) { .card { min-height: 300px; padding: 28px; } .name { font-size: 3.4rem; } .now { font-size: 6rem; } }
 </style>
