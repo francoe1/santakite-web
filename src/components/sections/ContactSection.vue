@@ -1,170 +1,61 @@
+<script setup>
+import Icon from '../ui/Icon.vue'
+
+defineProps({ contacts: { type: Array, default: () => [] }, spot: { type: Object, default: null } })
+
+const iconFor = { whatsapp: 'chat', instagram: 'external', location: 'pin' }
+</script>
+
 <template>
-  <section id="contacto" class="contact">
-    <div class="contact-card">
-      <div>
+  <section id="contacto" class="section section--dark contact">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="container inner">
+      <div class="copy reveal">
         <p class="eyebrow">Contacto</p>
+        <h2 class="section-title">Vení a navegar con nosotros</h2>
+        <p class="section-lead">¿Dudas sobre el viento, el acceso o las zonas de {{ spot?.name }}? Escribinos antes de salir.</p>
       </div>
-      <div class="contact-grid">
-        <component
-          :is="contact.href ? 'a' : 'div'"
-          v-for="contact in contacts"
-          :key="contact.label"
-          class="contact-item"
-          :href="contact.href"
-          :target="contact.href ? '_blank' : null"
-          :rel="contact.href ? 'noreferrer' : null"
-        >
-          <span class="icon" v-html="icons[contact.icon] || ''"></span>
-          <div>
-            <p class="label">{{ contact.label }}</p>
-            <p class="value">{{ contact.value }}</p>
-            <p v-if="contact.detail" class="detail">{{ contact.detail }}</p>
-          </div>
-        </component>
-      </div>
+      <ul class="items reveal">
+        <li v-for="c in contacts" :key="c.label">
+          <component
+            :is="c.href ? 'a' : 'div'"
+            class="item"
+            :href="c.href"
+            :target="c.href ? '_blank' : null"
+            :rel="c.href ? 'noreferrer' : null"
+          >
+            <span class="ic"><Icon :name="iconFor[c.icon] || 'chat'" :size="24" /></span>
+            <span class="txt">
+              <small>{{ c.label }}</small>
+              <strong>{{ c.value }}</strong>
+              <em v-if="c.detail">{{ c.detail }}</em>
+            </span>
+            <Icon v-if="c.href" name="arrow" :size="20" class="go" />
+          </component>
+        </li>
+      </ul>
     </div>
   </section>
 </template>
 
-<script setup>
-const props = defineProps({
-  contacts: {
-    type: Array,
-    default: () => [],
-  },
-})
-
-const icons = {
-  whatsapp:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.099-.472-.148-.67.15-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.149-.669-1.611-.916-2.206-.242-.58-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.793.372-.273.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.693.626.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#22c55e"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.486 2 2 6.262 2 11.5c0 1.854.553 3.584 1.5 5.053L2 22l5.676-1.47C8.718 21.164 10.314 21.5 12 21.5c5.514 0 10-4.262 10-9.5S17.514 2 12 2zm-8 9.5C4 7.91 7.582 4.5 12 4.5s8 3.41 8 7.5-3.582 7.5-8 7.5c-1.514 0-2.919-.383-4.107-1.047l-.293-.158L4.24 19.76l.89-2.942-.18-.298A6.464 6.464 0 0 1 4 11.5z" fill="#22c55e"/></svg>',
-  instagram:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" stroke="#f472b6" stroke-width="1.8"/><circle cx="12" cy="12" r="3.5" stroke="#f472b6" stroke-width="1.8"/><circle cx="17" cy="7" r="0.9" fill="#f472b6"/></svg>',
-  location:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c3.866 0 7 2.98 7 6.654 0 4.92-5.83 11.068-6.484 11.73a.75.75 0 0 1-1.032 0C10.83 19.722 5 13.574 5 8.654 5 4.98 8.134 2 12 2zm0 3.5a3.154 3.154 0 1 0 0 6.308 3.154 3.154 0 0 0 0-6.308z" fill="#38bdf8"/></svg>',
-}
-</script>
-
 <style scoped>
-.contact {
-  margin-top: 3rem;
+.contact { overflow: hidden; background: linear-gradient(180deg, var(--ink-900), var(--ink-950)); }
+.glow { position: absolute; left: -10%; bottom: -40%; width: 70vw; max-width: 900px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 61, 0.22), transparent 65%); }
+.inner { position: relative; display: grid; gap: 36px; }
+.items { display: grid; gap: 12px; align-content: start; }
+.item {
+  display: flex; align-items: center; gap: 16px; padding: 18px 20px; min-height: 84px;
+  border-radius: var(--r-md); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--ink-line);
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
 }
-
-.contact-card {
-  padding: 1.4rem;
-
-  background: linear-gradient(145deg, rgba(4, 23, 41, 0.78), rgba(5, 30, 53, 0.92)),
-    radial-gradient(circle at 90% 10%, rgba(94, 234, 212, 0.12), transparent 40%);
-  border: 1px solid rgba(125, 242, 221, 0.2);
-
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  color: #e6f6ff;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: #94a3b8;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  margin-bottom: 0.35rem;
-  color: #f1f5f9;
-}
-
-.muted {
-  color: #cbd5e1;
-}
-
-.contact-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.contact-item {
-  flex: 1 1 280px;
-  padding: 0.9rem 1rem;
-
-  background: linear-gradient(160deg, rgba(4, 30, 52, 0.8), rgba(4, 21, 38, 0.88));
-  border: 1px solid rgba(125, 242, 221, 0.2);
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  color: inherit;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.contact-item:hover {
-  border-color: rgba(125, 242, 221, 0.5);
-  transform: translateY(-3px);
-}
-
-.icon {
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-
-  background: radial-gradient(circle at 30% 30%, rgba(94, 234, 212, 0.22), rgba(14, 165, 233, 0.08));
-  align-items: center;
-  justify-content: center;
-}
-
-.label {
-  color: #94a3b8;
-  font-size: 0.9rem;
-}
-
-.value {
-  color: #e2e8f0;
-  font-weight: 700;
-}
-
-.detail {
-  color: #94a3b8;
-  font-size: 0.85rem;
-}
-
-.primary,
-.ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  padding: 0.75rem 1.4rem;
-  font-weight: 700;
-  border: 1px solid rgba(125, 242, 221, 0.35);
-  cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.primary {
-  background: linear-gradient(120deg, #22d3ee, #0ea5e9, #2563eb);
-  color: #f8fafc;
-
-}
-
-.primary:hover {
-  transform: translateY(-2px);
-
-}
-
-.ghost {
-  background: rgba(148, 163, 184, 0.12);
-  color: #e2e8f0;
-}
-
-.ghost:hover {
-  border-color: rgba(148, 163, 184, 0.6);
-  transform: translateY(-2px);
-}
-
-.cta-row {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+a.item:hover { background: rgba(255, 255, 255, 0.12); transform: translateX(6px); border-color: var(--sun-500); }
+.ic { flex: none; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 106, 61, 0.18); color: var(--sun-500); }
+.txt { flex: 1; min-width: 0; display: grid; }
+.txt small { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-inv-soft); }
+.txt strong { font-size: 1.1rem; overflow-wrap: anywhere; }
+.txt em { font-style: normal; font-size: 13px; color: var(--text-inv-soft); }
+.go { color: var(--text-inv-soft); }
+@media (min-width: 1024px) {
+  .inner { grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
 }
 </style>

@@ -1,6 +1,6 @@
 const COMPASS_POINTS = [
   { abbr: 'N', aliases: ['N'] },
-  { abbr: 'NNE', aliases: ['NNE', 'NNO'] },
+  { abbr: 'NNE', aliases: ['NNE'] },
   { abbr: 'NE', aliases: ['NE'] },
   { abbr: 'ENE', aliases: ['ENE'] },
   { abbr: 'E', aliases: ['E', 'ESTE'] },
@@ -10,9 +10,9 @@ const COMPASS_POINTS = [
   { abbr: 'S', aliases: ['S', 'SUR'] },
   { abbr: 'SSO', aliases: ['SSO', 'SSW'] },
   { abbr: 'SO', aliases: ['SO', 'SW'] },
-  { abbr: 'OSO', aliases: ['OSO', 'WSW'] },
+  { abbr: 'OSO', aliases: ['OSO', 'WSW', 'OS'] },
   { abbr: 'O', aliases: ['O', 'W', 'OESTE'] },
-  { abbr: 'ONO', aliases: ['ONO', 'WNW'] },
+  { abbr: 'ONO', aliases: ['ONO', 'WNW', 'ON'] },
   { abbr: 'NO', aliases: ['NO', 'NW'] },
   { abbr: 'NNO', aliases: ['NNO', 'NNW'] },
 ]
