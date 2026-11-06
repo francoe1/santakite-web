@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <svg class="p" viewBox="0 0 170 157" aria-hidden="true">
+  <svg class="p" viewBox="0 0 170 157" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
     <g class="all">
       <g class="legB"><path class="o" fill="none" d="M96 112 92 154M84 154h18" /></g>
       <g class="legA"><path class="o" fill="none" d="M104 112 110 154M98 154h18" /></g>

@@ -4,9 +4,9 @@ import Kite from './Kite.vue'
 </script>
 
 <template>
-  <svg class="w" viewBox="0 0 170 155" aria-hidden="true">
+  <svg class="w" viewBox="0 0 170 155" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
     <g class="flip">
-      <g class="kite"><g transform="translate(88 143) scale(.3 .2)"><Kite :tube-w="24" /></g></g>
+      <g class="kite"><g transform="translate(88 125) scale(.3 .2)"><Kite :tube-w="24" /></g></g>
       <path class="o" fill="none" d="M74 116 70 150" />
       <path class="o foot" fill="none" d="M86 116 92 150" />
       <path class="o" d="M62 152h14M86 152h14" fill="none" />

@@ -154,7 +154,7 @@ watch(tab, async (t) => {
 .tabs button + button { border-left: var(--bw) solid var(--ink); }
 .tabs button.on { background: var(--ink); color: var(--volt); }
 .board { display: grid; gap: 24px; }
-.stage { position: relative; overflow: hidden; border: var(--bw) solid var(--ink); box-shadow: var(--shadow); background: var(--paper-2); height: 440px; }
+.stage { position: relative; z-index: 0; isolation: isolate; overflow: hidden; border: var(--bw) solid var(--ink); box-shadow: var(--shadow); background: var(--paper-2); height: 440px; }
 .map, .windy, .windy iframe { width: 100%; height: 100%; }
 .windy iframe { border: 0; display: block; }
 .locked, .locked iframe { pointer-events: none; }
