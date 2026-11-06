@@ -70,17 +70,19 @@ onBeforeUnmount(clear)
 
 <template>
   <div class="mood" aria-hidden="true" inert>
-    <WindStreaks />
-    <!-- Palmeras: siempre presentes, se mueven con el viento real y el scroll -->
-    <div class="palmwrap pl"><Palm /></div>
-    <div class="palmwrap pr"><Palm flip /></div>
+    <!-- Capa ambiental: tenue (viento, palmeras, lluvia, luna) -->
+    <div class="ambient" data-wind-scroll>
+      <WindStreaks />
+      <div class="palmwrap pl"><Palm /></div>
+      <div class="palmwrap pr"><Palm flip /></div>
+      <div v-if="scene === 'rain'" class="rain"></div>
+      <template v-if="scene === 'night'">
+        <div class="moon"><svg viewBox="0 0 60 60"><path d="M40 6a24 24 0 1 0 14 38A20 20 0 0 1 40 6z" fill="#c9ff2f" stroke="#0b0b0b" stroke-width="3" stroke-linejoin="round" /></svg></div>
+        <span class="star st1">+</span><span class="star st2">+</span><span class="star st3">+</span>
+      </template>
+    </div>
 
-    <div v-if="scene === 'rain'" class="rain"></div>
-    <template v-if="scene === 'night'">
-      <div class="moon"><svg viewBox="0 0 60 60"><path d="M40 6a24 24 0 1 0 14 38A20 20 0 0 1 40 6z" fill="#c9ff2f" stroke="#0b0b0b" stroke-width="3" stroke-linejoin="round" /></svg></div>
-      <span class="star st1">+</span><span class="star st2">+</span><span class="star st3">+</span>
-    </template>
-
+    <!-- Personaje: siempre sobre la misma línea inferior, a pleno contraste, detrás del menú -->
     <Transition name="fx" type="transition">
       <div v-if="cur" :key="cur.key" class="actor" :class="cur.kind" :style="cur.style" @animationend.self="onEnd">
         <component :is="cur.c" v-bind="cur.p" />
@@ -91,12 +93,14 @@ onBeforeUnmount(clear)
 
 <style scoped>
 /* Capa decorativa: bastante más tenue que la UI y totalmente inerte */
-.mood { position: fixed; inset: 0; z-index: 44; pointer-events: none; user-select: none; -webkit-user-select: none; overflow: hidden; opacity: 0.36; filter: saturate(0.7); }
+.mood { position: fixed; inset: 0; z-index: 44; transform: translateZ(0); pointer-events: none; user-select: none; -webkit-user-select: none; overflow: hidden; }
+.ambient { position: absolute; inset: 0; opacity: 0.36; filter: saturate(0.7); }
 .mood :deep(*) { pointer-events: none; -webkit-user-drag: none; }
 .palmwrap { position: absolute; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) - 6px); height: 240px; }
 .pl { left: -30px; }
 .pr { right: -34px; height: 190px; }
-.actor { position: absolute; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px)); height: var(--h); will-change: transform; }
+/* Línea de apoyo común: 6px por debajo del borde superior del menú (queda tapada por él) */
+.actor { position: absolute; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) - 6px); height: var(--h); will-change: transform; }
 .actor :deep(svg) { filter: drop-shadow(3px 3px 0 rgba(11, 11, 11, 0.18)); }
 .cross { left: 0; transform: translateX(-260px); animation: cross var(--dur) linear forwards; }
 @keyframes cross { from { transform: translateX(-260px); } to { transform: translateX(calc(100vw + 40px)); } }

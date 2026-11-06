@@ -1,5 +1,5 @@
 <template>
-  <svg class="dog" viewBox="0 0 150 96" aria-hidden="true">
+  <svg class="dog" viewBox="0 0 150 89" aria-hidden="true">
     <g class="all">
       <path class="o tail" fill="none" d="M20 44Q6 30 12 16" />
       <g class="leg l1"><path class="o" fill="none" d="M34 60 30 86" /></g>

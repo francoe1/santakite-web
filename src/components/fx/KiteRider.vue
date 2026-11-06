@@ -5,7 +5,7 @@ defineProps({ variant: { type: String, default: 'ride' } })
 </script>
 
 <template>
-  <svg class="rider" :class="variant" viewBox="0 0 220 175" aria-hidden="true">
+  <svg class="rider" :class="variant" viewBox="0 0 220 174" aria-hidden="true">
     <g class="all">
       <g class="kite">
         <g transform="translate(17 0) scale(.62)"><Kite /></g>

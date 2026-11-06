@@ -1,5 +1,5 @@
 <template>
-  <svg class="p" viewBox="0 0 170 175" aria-hidden="true">
+  <svg class="p" viewBox="0 0 170 159" aria-hidden="true">
     <g class="all">
       <g class="legB"><path class="o" fill="none" d="M82 118 78 156M68 156h18" /></g>
       <g class="legA"><path class="o" fill="none" d="M92 118 98 156M88 156h18" /></g>
