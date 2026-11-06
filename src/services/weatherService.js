@@ -22,6 +22,7 @@ const buildUrl = ({ latitude, longitude }) => {
     latitude,
     longitude,
     timezone: 'auto',
+    forecast_days: '8', // hoy + 7 días por delante
     windspeed_unit: 'kn',
     current: 'winddirection_10m,windspeed_10m,windgusts_10m,temperature_2m,precipitation',
     hourly: 'winddirection_10m,windspeed_10m,windgusts_10m,precipitation,temperature_2m',

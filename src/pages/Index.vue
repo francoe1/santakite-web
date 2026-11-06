@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useSiteStore } from '@/stores/site'
 import { useForecastStore } from '@/stores/forecast'
 import { useSpotForecast } from '@/composables/useSpotForecast'
@@ -11,6 +11,7 @@ import HeroSection from '@/components/sections/HeroSection.vue'
 import TodayPicker from '@/components/sections/TodayPicker.vue'
 import SpotGuide from '@/components/sections/SpotGuide.vue'
 import MapSection from '@/components/sections/MapSection.vue'
+import ForecastDetail from '@/components/forecast/ForecastDetail.vue'
 import ForecastSection from '@/components/sections/ForecastSection.vue'
 import SecuritySection from '@/components/sections/SecuritySection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
@@ -18,6 +19,7 @@ import ContactSection from '@/components/sections/ContactSection.vue'
 const site = useSiteStore()
 const forecastStore = useForecastStore()
 const spot = computed(() => site.currentSpot)
+const selectedDate = ref(null)
 const { forecast, status, error, entry, reload } = useSpotForecast(() => site.currentSpot)
 
 // El spot elegido queda en la URL (?spot=...) para poder compartirlo.
@@ -34,6 +36,7 @@ onMounted(() => {
   forecastStore.loadAll(site.spots) // alimenta el comparador "¿Dónde se navega hoy?"
 })
 
+const selectedDay = computed(() => forecast.value.days.find((d) => d.date === selectedDate.value) ?? null)
 useReveal()
 </script>
 
@@ -41,13 +44,14 @@ useReveal()
   <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="site.setCurrentSpotId" />
   <Ticker :spots="site.spots" />
   <main v-if="spot">
-    <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" />
+    <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select-day="selectedDate = $event.date" />
     <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="site.setCurrentSpotId" />
     <SpotGuide :spot="spot" />
     <MapSection :spot="spot" />
-    <ForecastSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" />
+    <ForecastSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select="selectedDate = $event.date" />
     <SecuritySection :security="spot.security" />
     <ContactSection :contacts="spot.contacts" :spot="spot" />
   </main>
+  <ForecastDetail v-if="spot" :day="selectedDay" :cfg="forecast.cfg" :detail-text="spot.forecast?.detailText" @close="selectedDate = null" />
   <SiteFooter :nav-items="site.navItems.filter((n) => n.id !== 'hoy')" :spots="site.spots" @select-spot="site.setCurrentSpotId" />
 </template>

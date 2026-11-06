@@ -1,8 +1,7 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import Icon from '../ui/Icon.vue'
 import ForecastDayRow from '../forecast/ForecastDayRow.vue'
-import ForecastDetail from '../forecast/ForecastDetail.vue'
 import { formatDay, levelLabel } from '@/utils/forecast'
 
 const props = defineProps({
@@ -12,9 +11,8 @@ const props = defineProps({
   error: { type: String, default: '' },
   fetchedAt: { type: Number, default: 0 },
 })
-defineEmits(['reload'])
-
-const selected = ref(null)
+const emit = defineEmits(['reload', 'select'])
+const select = (d) => emit('select', d)
 
 const days = computed(() => props.forecast.days)
 const loading = computed(() => (props.status === 'loading' || props.status === 'idle') && !days.value.length)
@@ -33,7 +31,7 @@ const criteria = computed(() => props.spot.forecast?.criteriaText)
     <div class="container">
       <div class="head">
         <div class="section-head">
-          <p class="eyebrow">[05] Pronóstico 7 días · GFS</p>
+          <p class="eyebrow">[05] Hoy + 7 días · GFS</p>
           <h2 class="section-title">¿Cuándo<br />se navega?</h2>
           <p class="section-lead">{{ criteria }}</p>
         </div>
@@ -49,7 +47,7 @@ const criteria = computed(() => props.spot.forecast?.criteriaText)
           <span class="mono">{{ best.window.label }} · {{ best.window.hours }} h · {{ levelLabel(best.best?.assess.level ?? 0) }}</span>
         </div>
         <div class="s-stat"><b class="mono">{{ goodDays }}</b><span>de {{ days.length }} días con buena ventana</span></div>
-        <button type="button" class="btn btn--primary btn--sm" @click="selected = best">Ver detalle <Icon name="arrow" :size="16" /></button>
+        <button type="button" class="btn btn--primary btn--sm" @click="select(best)">Ver detalle <Icon name="arrow" :size="16" /></button>
       </div>
       <div v-else-if="days.length" class="summary calm">
         <div class="s-main">
@@ -70,7 +68,7 @@ const criteria = computed(() => props.spot.forecast?.criteriaText)
 
       <ul v-if="days.length" class="list">
         <li v-for="(d, i) in days" :key="d.date">
-          <ForecastDayRow :day="d" :is-today="i === 0" :now-hour="nowHour" :is-best="best?.date === d.date" @select="selected = $event" />
+          <ForecastDayRow :day="d" :is-today="i === 0" :now-hour="nowHour" :is-best="best?.date === d.date" @select="select" />
         </li>
       </ul>
       <ul v-else-if="loading" class="list" aria-busy="true">
@@ -85,7 +83,6 @@ const criteria = computed(() => props.spot.forecast?.criteriaText)
       <p class="foot">Pronóstico del modelo GFS (Open-Meteo). Es una estimación: antes de armar, confirmá el viento real en la orilla.</p>
     </div>
 
-    <ForecastDetail :day="selected" :cfg="forecast.cfg" :detail-text="spot.forecast?.detailText" @close="selected = null" />
   </section>
 </template>
 

@@ -133,20 +133,29 @@ export const summarizeDay = (day, cfg) => {
 
 export const assessCurrent = (current, cfg) => {
   if (!current || !Number.isFinite(current.speedKts)) {
-    return { tone: 'muted', label: 'Midiendo viento…', detail: '', playable: false }
+    return { key: 'loading', tone: 'muted', verdict: '…', label: 'Midiendo viento…', detail: '', playable: false }
   }
   const dirOk = isDirectionPreferred(current.dirDeg, cfg.preferredSet, cfg.directionReference)
   const speed = current.speedKts
-  if (dirOk && speed >= cfg.minPlayableKts) {
-    return { tone: 'ok', label: 'Navegable ahora', detail: 'Dirección y fuerza dentro del rango del spot.', playable: true }
+  const speedOk = speed >= cfg.minPlayableKts
+
+  if (!hasSunLight({ time: current.time }, cfg)) {
+    return { key: 'night', tone: 'muted', verdict: 'NO', label: 'Fuera de horario', detail: 'Es de noche o fuera del horario de uso del spot.', playable: false }
+  }
+  if ((current.precipMm ?? 0) > cfg.maxPrecipMm) {
+    return { key: 'rain', tone: 'bad', verdict: 'NO', label: 'Llueve fuerte', detail: 'La lluvia cierra la ventana en este spot.', playable: false }
+  }
+  if (dirOk && speedOk) {
+    const strong = speed >= 28
+    return { key: strong ? 'strong' : 'ok', tone: 'ok', verdict: 'SÍ', label: strong ? 'Sopla fuerte' : 'Navegable ahora', detail: strong ? 'Mucho viento: elegí cometa chica y extremá la precaución.' : 'Dirección y fuerza dentro del rango del spot.', playable: true }
   }
   if (dirOk && speed >= cfg.minPlayableKts - 3) {
-    return { tone: 'warn', label: 'Casi navegable', detail: `Faltan ~${Math.max(1, Math.ceil(cfg.minPlayableKts - speed))} kts para el mínimo del spot.`, playable: false }
+    return { key: 'almost', tone: 'warn', verdict: 'CASI', label: 'Casi navegable', detail: `Faltan ~${Math.max(1, Math.ceil(cfg.minPlayableKts - speed))} kts para el mínimo del spot.`, playable: false }
   }
-  if (speed >= cfg.minPlayableKts) {
-    return { tone: 'warn', label: 'Viento cruzado', detail: 'Hay fuerza pero la dirección no es la ideal para este spot.', playable: false }
+  if (speedOk) {
+    return { key: 'crossed', tone: 'warn', verdict: 'NO', label: 'Viento cruzado', detail: 'Hay fuerza pero la dirección no es la ideal para este spot.', playable: false }
   }
-  return { tone: 'muted', label: 'Sin viento útil', detail: 'Viento flojo o fuera de la dirección del spot.', playable: false }
+  return { key: 'calm', tone: 'muted', verdict: 'NO', label: 'No sopla', detail: 'Viento flojo o fuera de la dirección del spot.', playable: false }
 }
 
 /** Procesa lo que devuelve la API para un spot. */
@@ -173,3 +182,15 @@ export const weekdayShort = (dateStr) =>
 export const dayNumber = (dateStr) => parseLocalDate(dateStr).getDate()
 export const monthShort = (dateStr) =>
   parseLocalDate(dateStr).toLocaleDateString('es-AR', { month: 'short' }).replace('.', '')
+
+export const weekdayIndex = (dateStr) => parseLocalDate(dateStr).getDay() // 0 dom … 6 sáb
+export const isWeekend = (dateStr) => [0, 6].includes(weekdayIndex(dateStr))
+
+/** Palabra corta de veredicto por día: SÍ / POCO / NO */
+export const dayVerdict = (day) => (day.rating === 'good' || day.rating === 'ok' ? 'SÍ' : day.rating === 'marginal' ? 'POCO' : 'NO')
+
+/** Sábado y domingo dentro de los días disponibles (siempre caben ambos en 8 días). */
+export const getWeekend = (days) => ({
+  sat: days.find((d) => weekdayIndex(d.date) === 6) ?? null,
+  sun: days.find((d) => weekdayIndex(d.date) === 0) ?? null,
+})

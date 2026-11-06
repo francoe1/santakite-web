@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import Icon from '../ui/Icon.vue'
 import HeatStrip from './HeatStrip.vue'
-import { dayNumber, monthShort, weekdayShort, formatKts } from '@/utils/forecast'
+import { dayNumber, isWeekend, monthShort, weekdayShort, formatKts } from '@/utils/forecast'
 
 const props = defineProps({
   day: { type: Object, required: true },
@@ -18,11 +18,12 @@ const label = computed(() =>
 </script>
 
 <template>
-  <button type="button" class="row" :class="[`r-${day.rating}`, { today: isToday }]" @click="$emit('select', day)"
+  <button type="button" class="row" :class="[`r-${day.rating}`, { today: isToday, weekend: isWeekend(day.date) }]" @click="$emit('select', day)"
     :aria-label="`${label} ${dayNumber(day.date)} de ${monthShort(day.date)}: ${day.ratingInfo.label}. Ver detalle por hora.`">
     <span class="date">
       <b class="wd">{{ label }}</b>
       <span class="dn mono">{{ dayNumber(day.date) }} {{ monthShort(day.date) }}</span>
+      <span v-if="isWeekend(day.date)" class="finde">★ Finde</span>
       <span v-if="isBest" class="best hand">¡mejor día!</span>
     </span>
 
@@ -53,6 +54,8 @@ const label = computed(() =>
 }
 .row:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--volt); }
 .today { border-color: var(--volt); }
+.weekend { border-color: var(--yellow); border-width: 3px; }
+.finde { font-family: var(--font-mono); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; background: var(--yellow); color: var(--ink); }
 .date { grid-area: date; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; position: relative; }
 .wd { font-family: var(--font-display); font-weight: 400; font-size: 2.2rem; text-transform: uppercase; line-height: 1; }
 .dn { font-size: 12px; font-weight: 700; color: var(--paper-3); text-transform: uppercase; }
