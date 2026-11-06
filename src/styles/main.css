@@ -170,3 +170,5 @@ ul, ol { list-style: none; padding: 0; }
 
 .skip { position: absolute; left: 8px; top: -60px; z-index: 2000; padding: 12px 18px; background: var(--volt); color: var(--ink); border: var(--bw) solid var(--ink); font-family: var(--font-display); text-transform: uppercase; }
 .skip:focus { top: 8px; }
+
+.has-leaves { position: relative; }
