@@ -14,6 +14,8 @@ import SpotGuide from '@/components/sections/SpotGuide.vue'
 import LazyMount from '@/components/ui/LazyMount.vue'
 import ShareToast from '@/components/ui/ShareToast.vue'
 import { useShare } from '@/composables/useShare'
+import LeafField from '@/components/fx/LeafField.vue'
+import { useWindVars } from '@/composables/useWindVars'
 import MoodScene from '@/components/fx/MoodScene.vue'
 import FaqSection from '@/components/sections/FaqSection.vue'
 import { useSeo } from '@/composables/useSeo'
@@ -46,6 +48,7 @@ watch(
   { immediate: true }
 )
 const selectSpot = (id) => router.push({ name: 'spot', params: { id } })
+useWindVars(() => forecast.value.current)
 useSeo(() => (route.name === 'spot' ? site.currentSpot : null))
 
 onMounted(() => {
@@ -59,7 +62,8 @@ useReveal()
 <template>
   <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="selectSpot" />
   <Ticker :spots="site.spots" />
-  <main v-if="spot" id="contenido" tabindex="-1">
+  <main v-if="spot" id="contenido" tabindex="-1" class="has-leaves">
+    <LeafField />
     <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select-day="selectedDate = $event.date" @share="shareHero" :sharing="sharing" />
     <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="selectSpot" />
     <SpotGuide :spot="spot" />

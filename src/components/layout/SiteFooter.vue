@@ -1,8 +1,5 @@
 <script setup>
 import { scrollToId } from '@/composables/useScrollSpy'
-import { useFx } from '@/composables/useFx'
-
-const { enabled, toggle } = useFx()
 
 defineProps({ navItems: { type: Array, default: () => [] }, spots: { type: Array, default: () => [] } })
 defineEmits(['select-spot'])
@@ -25,10 +22,6 @@ defineEmits(['select-spot'])
           </li>
         </ul>
       </div>
-      <div class="fxbox">
-        <h4>Animaciones</h4>
-        <button type="button" class="fxbtn" :aria-pressed="enabled" @click="toggle">{{ enabled ? 'Encendidas' : 'Apagadas' }}</button>
-      </div>
       <p class="legal">
         Datos de viento: modelo GFS vía Open-Meteo. Son pronósticos: confirmá siempre las condiciones reales en la orilla.
         <br />© {{ new Date().getFullYear() }} SantaKite — hecho en Entre Ríos.
@@ -44,8 +37,6 @@ defineEmits(['select-spot'])
 h4 { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--volt); margin-bottom: 14px; font-weight: 700; }
 li a, li button { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; line-height: 1.4; }
 li a:hover, li button:hover { color: var(--volt); }
-.fxbtn { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; padding: 0 12px; border: var(--bw) solid var(--paper); min-height: 40px; }
-.fxbtn[aria-pressed='true'] { background: var(--volt); color: var(--ink); border-color: var(--volt); }
 .legal { grid-column: 1 / -1; font-size: 13px; color: var(--paper-3); max-width: 46ch; }
 .mega {
   font-family: var(--font-display); text-transform: uppercase; line-height: 0.8; text-align: center;
@@ -53,7 +44,7 @@ li a:hover, li button:hover { color: var(--volt); }
   user-select: none;
 }
 @media (min-width: 1024px) {
-  .cols { grid-template-columns: 1fr 1fr 1fr 2fr; }
+  .cols { grid-template-columns: 1fr 1fr 2fr; }
   .legal { grid-column: auto; justify-self: end; text-align: right; }
 }
 </style>
