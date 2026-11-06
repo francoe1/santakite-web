@@ -1,6 +1,7 @@
 import { dayNumber, dayVerdict, formatDay, formatKts, getWeekend, isWeekend, levelLabel, monthShort, weekdayShort } from './forecast'
 import { degToCompass } from './wind'
 import { pickJoke } from './jokes'
+import { kiteGeometry } from './kiteShape'
 
 const C = { paper: '#ece7da', paper2: '#e0d9c6', paper3: '#cdc5ab', ink: '#0b0b0b', volt: '#c9ff2f', yellow: '#ffd60a', red: '#ff3d1f', blue: '#2536ff', weekend: '#fff2a0' }
 const F = {
@@ -114,18 +115,53 @@ export const buildShareText = ({ spot, forecast, day = null }) => {
   return lines.join('\n')
 }
 
+/** Isotipo: kite LEI real dibujado con la misma geometría del sitio. */
+const drawKiteMark = (ctx, x, y, size) => {
+  ctx.fillStyle = C.ink
+  ctx.fillRect(x, y, size, size)
+  const g = kiteGeometry({ struts: [0.34, 0.66] })
+  ctx.save()
+  ctx.translate(x + size / 2, y + size * 0.56)
+  ctx.rotate((-10 * Math.PI) / 180)
+  const sc = (0.1 * size) / 40
+  ctx.scale(sc, sc)
+  ctx.translate(-150, -54)
+  ctx.lineJoin = 'round'
+  ctx.lineCap = 'round'
+  g.panels.forEach((d) => {
+    const p = new Path2D(d)
+    ctx.fillStyle = C.volt
+    ctx.fill(p)
+    ctx.strokeStyle = C.ink
+    ctx.lineWidth = 3
+    ctx.stroke(p)
+  })
+  g.struts.forEach((st) => {
+    ctx.beginPath()
+    ctx.moveTo(st.x1, st.y1)
+    ctx.lineTo(st.x2, st.y2)
+    ctx.strokeStyle = C.ink
+    ctx.lineWidth = 22 * 0.72
+    ctx.stroke()
+    ctx.strokeStyle = C.yellow
+    ctx.lineWidth = 22 * 0.36
+    ctx.stroke()
+  })
+  const lead = new Path2D(g.lead)
+  ctx.strokeStyle = C.ink
+  ctx.lineWidth = 22
+  ctx.stroke(lead)
+  ctx.strokeStyle = C.yellow
+  ctx.lineWidth = 22 * 0.55
+  ctx.stroke(lead)
+  ctx.restore()
+}
+
 const headerBlock = (ctx, spot, CW) => {
   return {
     h: 150,
     draw: (y) => {
-      box(ctx, M, y, 70, 70, { fill: C.ink, lw: 0 })
-      ctx.fillStyle = C.volt
-      ctx.beginPath()
-      ctx.moveTo(M + 12, y + 44)
-      ctx.bezierCurveTo(M + 16, y + 20, M + 48, y + 10, M + 64, y + 22)
-      ctx.bezierCurveTo(M + 52, y + 26, M + 42, y + 40, M + 38, y + 62)
-      ctx.bezierCurveTo(M + 30, y + 52, M + 22, y + 46, M + 12, y + 44)
-      ctx.fill()
+      drawKiteMark(ctx, M, y, 70)
       font(ctx, 76, F.display)
       txt(ctx, 'SANTA', M + 90, y + 62, C.ink)
       const sw = ctx.measureText('SANTA').width

@@ -1,27 +1,69 @@
-import { onBeforeUnmount, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted, watchEffect } from 'vue'
 
 const clamp = (n, a, b) => Math.min(b, Math.max(a, n))
 
 /**
- * Publica el viento real como variables CSS globales para que palmeras, hojas,
- * sombrillas y kites se muevan acorde (más viento = más balanceo y más rápido).
- *  --w-sway   amplitud del balanceo (deg)
- *  --w-period duración de cada vaivén
- *  --w-lean   inclinación hacia donde sopla (deg, + = hacia la derecha)
- *  --w-flap   amplitud del aleteo de telas
+ * Publica el viento real como variables CSS globales para que palmeras, hojas, sombrilla,
+ * kites y rayas de viento se muevan acorde (más viento = más balanceo y más rápido).
+ * Además el scroll "empuja" el viento: al desplazar, todo se agita y se inclina un instante.
+ *  --w-sway   amplitud del balanceo (deg)        --w-period  duración de cada vaivén
+ *  --w-lean   inclinación hacia donde sopla (deg) --w-flap    aleteo de telas
+ *  --w-dir    1 / -1 sentido del viento           --w-streak  intensidad de las rayas
  */
 export const useWindVars = (getCurrent) => {
+  let base = { sway: 5, lean: 0 }
+  let boost = 0 // 0..1, sube al hacer scroll y decae solo
+  let dir = 1
+  let raf = 0
+  let lastY = 0
+  let lastT = 0
+
+  const root = () => document.documentElement.style
+  const apply = () => {
+    root().setProperty('--w-sway', `${(base.sway * (1 + boost * 1.6)).toFixed(1)}deg`)
+    root().setProperty('--w-lean', `${(base.lean + dir * boost * 12).toFixed(1)}deg`)
+  }
+
   const stop = watchEffect(() => {
     if (typeof document === 'undefined') return
     const c = getCurrent()
     const kts = Number.isFinite(c?.speedKts) ? c.speedKts : 5
     const to = (((c?.dirDeg ?? 0) + 180) * Math.PI) / 180 // hacia dónde va el viento
     const east = Math.sin(to)
-    const r = document.documentElement.style
-    r.setProperty('--w-sway', `${clamp(2.5 + kts * 0.75, 2.5, 22).toFixed(1)}deg`)
+    base = { sway: clamp(2.5 + kts * 0.75, 2.5, 22), lean: clamp(east * kts * 0.55, -16, 16) }
+    const r = root()
     r.setProperty('--w-period', `${clamp(6.5 - kts * 0.16, 1.5, 6.5).toFixed(2)}s`)
-    r.setProperty('--w-lean', `${clamp(east * kts * 0.55, -16, 16).toFixed(1)}deg`)
     r.setProperty('--w-flap', `${clamp(0.06 + kts * 0.012, 0.06, 0.34).toFixed(2)}`)
+    r.setProperty('--w-dir', east >= 0 ? '1' : '-1')
+    r.setProperty('--w-streak', `${clamp(0.08 + kts * 0.02, 0.08, 0.55).toFixed(2)}`)
+    apply()
   })
-  onBeforeUnmount(stop)
+
+  const tick = () => {
+    boost *= 0.92
+    if (boost < 0.01) boost = 0
+    apply()
+    raf = boost > 0 ? requestAnimationFrame(tick) : 0
+  }
+  const onScroll = () => {
+    const now = performance.now()
+    const dy = window.scrollY - lastY
+    const dt = Math.max(1, now - lastT)
+    lastY = window.scrollY
+    lastT = now
+    const v = Math.abs(dy) / dt // px/ms
+    boost = clamp(Math.max(boost, v / 3), 0, 1)
+    dir = dy >= 0 ? 1 : -1
+    if (!raf) raf = requestAnimationFrame(tick)
+  }
+  onMounted(() => {
+    lastY = window.scrollY
+    lastT = performance.now()
+    window.addEventListener('scroll', onScroll, { passive: true })
+  })
+  onBeforeUnmount(() => {
+    stop()
+    window.removeEventListener('scroll', onScroll)
+    cancelAnimationFrame(raf)
+  })
 }

@@ -17,7 +17,7 @@ const leaves = [
 </script>
 
 <template>
-  <div class="field" aria-hidden="true">
+  <div class="field" aria-hidden="true" inert>
     <div v-for="(l, i) in leaves" :key="i" class="slot" :class="l.side" :style="{ top: `${l.top}%`, '--k': l.s, '--r': `${l.r}deg`, '--ld': `${l.d}s` }">
       <Leaf :dark="l.dark" />
     </div>
@@ -25,7 +25,7 @@ const leaves = [
 </template>
 
 <style scoped>
-.field { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.field { position: absolute; inset: 0; z-index: 3; pointer-events: none; user-select: none; -webkit-user-select: none; overflow: hidden; opacity: 0.34; filter: saturate(0.7); }
 .slot { --base: 120px; position: absolute; width: calc(var(--base) * var(--k) * 0.8); height: calc(var(--base) * var(--k)); transform: rotate(var(--r)); transform-origin: 50% 100%; }
 .slot.l { left: calc(var(--base) * var(--k) * -0.5); }
 .slot.r { right: calc(var(--base) * var(--k) * -0.5); }

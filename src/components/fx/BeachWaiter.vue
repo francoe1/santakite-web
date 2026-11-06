@@ -1,11 +1,12 @@
 <script setup>
+import Kite from './Kite.vue'
 // Kitesurfer impaciente esperando que levante el viento (camina de un lado a otro).
 </script>
 
 <template>
   <svg class="w" viewBox="0 0 170 175" aria-hidden="true">
     <g class="flip">
-      <g class="kite"><path class="o" fill="#0b0b0b" d="M96 160C104 132 148 128 164 154 142 148 128 152 126 166 116 158 106 156 96 160Z" /><path fill="#c9ff2f" d="M108 156C114 142 138 140 150 152 138 150 130 152 127 160 120 156 114 155 108 156Z" /></g>
+      <g class="kite"><g transform="translate(88 143) scale(.3 .2)"><Kite :tube-w="24" /></g></g>
       <path class="o" fill="none" d="M74 116 70 150" />
       <path class="o foot" fill="none" d="M86 116 92 150" />
       <path class="o" d="M62 152h14M86 152h14" fill="none" />

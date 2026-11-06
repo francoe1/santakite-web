@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import Icon from '../ui/Icon.vue'
 import StatusPill from '../ui/StatusPill.vue'
 import WindCompass from '../ui/WindCompass.vue'
+import Kite from '../fx/Kite.vue'
 import WeekStrip from '../forecast/WeekStrip.vue'
 import { degToCompass } from '@/utils/wind'
 import { formatDay, formatKts } from '@/utils/forecast'
@@ -81,10 +82,10 @@ const sub = computed(() => {
 
         <!-- 3 · DATOS EN VIVO -->
         <aside class="live" aria-label="Condiciones actuales">
-          <svg class="kite" viewBox="0 0 300 240" fill="none" aria-hidden="true">
-            <path d="M14 140C30 40 190 -20 288 60 214 62 168 100 150 190 104 160 58 144 14 140Z" fill="#0b0b0b" />
-            <path d="M60 138C80 70 150 30 214 36 170 56 138 96 128 160 106 150 84 142 60 138Z" fill="#c9ff2f" />
-            <path d="M150 190V236M150 190 96 232M150 190 206 232" stroke="#0b0b0b" stroke-width="3" />
+          <svg class="kite" viewBox="0 0 300 250" fill="none" aria-hidden="true">
+            <path d="M21 103 130 232M277.8 103 170 232M149.5 121 143 232M149.5 121 157 232" stroke="#0b0b0b" stroke-width="2" />
+            <g transform="translate(10 6) scale(.93)"><Kite /></g>
+            <path d="M128 232h44" stroke="#0b0b0b" stroke-width="6" stroke-linecap="round" />
           </svg>
           <header class="live-head">
             <p>● En vivo — {{ spot.name }}</p>
