@@ -15,6 +15,7 @@ const props = defineProps({
   status: { type: String, default: 'idle' },
   error: { type: String, default: '' },
   fetchedAt: { type: Number, default: 0 },
+  sharing: { type: Boolean, default: false },
 })
 defineEmits(['reload', 'select-day', 'share'])
 
@@ -67,8 +68,8 @@ const sub = computed(() => {
             <span class="again mono">↻ otro</span>
           </button>
           <p v-if="sub" class="sub mono">{{ sub }}</p>
-          <button type="button" class="btn btn--sm share-btn" :disabled="loading || failed" @click="$emit('share', joke)">
-            <Icon name="share" :size="18" />Compartir
+          <button type="button" class="btn btn--sm share-btn" :disabled="loading || failed || sharing" @click="$emit('share', joke)">
+            <Icon name="share" :size="18" />{{ sharing ? 'Generando…' : 'Compartir' }}
           </button>
           <p v-if="forecast.assessment.detail && !loading" class="sr-only">{{ forecast.assessment.detail }}</p>
         </div>

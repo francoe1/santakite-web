@@ -1,30 +1,40 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 import Sheet from '../ui/Sheet.vue'
+import Icon from '../ui/Icon.vue'
 import { formatDay, formatKts, levelLabel } from '@/utils/forecast'
+import { degToCompass, getDirectionOffset } from '@/utils/wind'
 
 const props = defineProps({
   day: { type: Object, default: null },
+  sharing: { type: Boolean, default: false },
   cfg: { type: Object, required: true },
-  detailText: { type: String, default: '' },
 })
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'share'])
 
 const open = computed({
   get: () => !!props.day,
   set: (v) => !v && emit('close'),
 })
 
-const onlySun = ref(true)
-const onlyPlayable = ref(false)
-watch(() => props.day?.date, () => (onlyPlayable.value = false))
+// Solo se muestran las horas con luz solar (el resto no se navega).
+const hours = computed(() => (props.day?.hours ?? []).filter((x) => x.assess.sun))
 
-const hours = computed(() => {
-  let h = props.day?.hours ?? []
-  if (onlySun.value) h = h.filter((x) => x.assess.sun)
-  if (onlyPlayable.value) h = h.filter((x) => x.assess.playable)
-  return h
+// Dirección ideal del spot (promedio circular de las direcciones preferidas) -> flecha fantasma
+const idealVisual = computed(() => {
+  const list = props.cfg.preferredDirections ?? []
+  if (!list.length) return null
+  let sx = 0
+  let sy = 0
+  list.forEach((d) => {
+    const a = (getDirectionOffset(d) * Math.PI) / 180
+    sx += Math.sin(a)
+    sy += Math.cos(a)
+  })
+  const from = ((Math.atan2(sx, sy) * 180) / Math.PI + 360) % 360
+  return (from + 180) % 360
 })
+const idealLabel = computed(() => (props.cfg.preferredDirections ?? []).join(' · '))
 
 const scale = computed(() => {
   const max = Math.max(0, ...(props.day?.hours ?? []).map((h) => h.gustKts ?? 0))
@@ -56,9 +66,8 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
         <div class="hide-m"><small>Lluvia</small><b class="mono">{{ formatKts(day.totalRain, 1) }} mm</b></div>
       </div>
 
-      <div class="filters">
-        <button type="button" class="f" :class="{ on: onlySun }" :aria-pressed="onlySun" @click="onlySun = !onlySun">Solo con luz solar</button>
-        <button type="button" class="f" :class="{ on: onlyPlayable }" :aria-pressed="onlyPlayable" @click="onlyPlayable = !onlyPlayable">Solo navegables</button>
+      <div class="actions-row">
+        <button type="button" class="btn btn--sm" :disabled="sharing" @click="$emit('share', day)"><Icon name="share" :size="18" />{{ sharing ? 'Generando imagen…' : 'Compartir este día' }}</button>
       </div>
 
       <p v-if="!hours.length" class="empty">Ninguna hora cumple los filtros elegidos.</p>
@@ -72,6 +81,7 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
               <span class="gust" :style="{ height: pct(h.gustKts ?? 0) }"></span>
               <span class="spd" :style="{ height: pct(h.speedKts ?? 0) }"></span>
               <b class="mono val" :style="{ bottom: `calc(${pct(h.speedKts ?? 0)} + 4px)` }">{{ formatKts(h.speedKts) }}</b>
+              <span v-if="(h.speedKts ?? 0) / scale > 0.16" class="binit mono" :class="{ good: h.assess.dirOk }" :style="{ height: pct(h.speedKts ?? 0) }">{{ degToCompass(h.dirDeg) }}</span>
             </div>
           </div>
 
@@ -79,7 +89,11 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
             <div class="rl">{{ r.label }}</div>
             <div v-for="h in hours" :key="`${r.key}-${h.time}`" class="c mono" :class="{ ok: h.assess.playable }">
               <template v-if="r.key === 'hour'">{{ String(h.hourNum).padStart(2, '0') }}h</template>
-              <span v-else-if="r.key === 'dir'" class="arr" :class="{ good: h.assess.dirOk }" :style="{ transform: `rotate(${h.dirDegVisual}deg)` }" :title="`${Math.round(h.dirDeg)}°`">↑</span>
+              <span v-else-if="r.key === 'dir'" class="dirc" :title="`${degToCompass(h.dirDeg)} · ${Math.round(h.dirDeg)}°`">
+                <span v-if="idealVisual !== null" class="arr ghost" :style="{ transform: `rotate(${idealVisual}deg)` }">↑</span>
+                <span class="arr" :class="{ good: h.assess.dirOk }" :style="{ transform: `rotate(${h.dirDegVisual}deg)` }">↑</span>
+                <small :class="{ good: h.assess.dirOk }">{{ degToCompass(h.dirDeg) }}</small>
+              </span>
               <template v-else-if="r.key === 'gust'">{{ formatKts(h.gustKts) }}</template>
               <template v-else-if="r.key === 'temp'">{{ formatKts(h.tempC) }}°</template>
               <template v-else>{{ h.precipMm > 0 ? formatKts(h.precipMm, 1) : '·' }}</template>
@@ -92,9 +106,9 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
       <ul class="legend">
         <li v-for="l in [1, 2, 3, 4]" :key="l"><i :class="`lv${l}`"></i>{{ levelLabel(l) }}</li>
         <li><i class="lv0"></i>No navegable</li>
-        <li><span class="arr good">↑</span>Dirección ideal</li>
+        <li><span class="arr good">↑</span>Dirección real (verde = ideal)</li>
+        <li><span class="arr ghost sample">↑</span>Fantasma: dirección ideal del spot ({{ idealLabel }})</li>
       </ul>
-      <p v-if="detailText" class="note">{{ detailText }}</p>
     </div>
   </Sheet>
 </template>
@@ -107,13 +121,11 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
 .kpis small { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
 .kpis b { font-size: 1.05rem; }
 .hide-m { display: none !important; }
-.filters { display: flex; gap: 10px; flex-wrap: wrap; }
-.f { min-height: 42px; padding: 0 16px; border: var(--bw) solid var(--ink); background: var(--paper); font-family: var(--font-mono); font-size: 12px; font-weight: 700; text-transform: uppercase; }
-.f.on { background: var(--ink); color: var(--volt); }
+.actions-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .empty { padding: 28px; text-align: center; }
 
 .scroller { overflow-x: auto; border: var(--bw) solid var(--ink); background: var(--paper); scrollbar-width: thin; }
-.grid { --lw: 76px; display: grid; grid-template-columns: var(--lw) repeat(var(--n), minmax(46px, 1fr)); grid-auto-rows: 38px; grid-template-rows: 190px; min-width: max-content; width: 100%; position: relative; }
+.grid { --lw: 76px; display: grid; grid-template-columns: var(--lw) repeat(var(--n), minmax(46px, 1fr)); grid-auto-rows: 38px; grid-template-rows: 190px 38px 54px; min-width: max-content; width: 100%; position: relative; }
 .rl { position: sticky; left: 0; z-index: 3; display: flex; align-items: center; padding: 0 10px; background: var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase; border-top: 1px solid var(--ink-3); }
 .bars-label { flex-direction: column; align-items: flex-start; justify-content: flex-end; padding-bottom: 8px; border-top: 0; }
 .bars-label small { font-weight: 400; }
@@ -134,7 +146,15 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
 .legend li { display: inline-flex; align-items: center; gap: 8px; }
 .legend i { width: 14px; height: 14px; background: #9b9684; border: 1.5px solid var(--ink); }
 .legend .lv1 { background: #e3f58f; } .legend .lv2 { background: #d6f55e; } .legend .lv3 { background: var(--volt); } .legend .lv4 { background: var(--volt-2); }
-.note { font-size: 13px; padding: 14px; background: var(--yellow); border: var(--bw) solid var(--ink); font-weight: 500; }
+
+.binit { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 10px; font-weight: 700; color: #333; pointer-events: none; display: flex; align-items: flex-end; justify-content: center; }
+.binit.good { color: var(--ink); }
+.dirc { display: grid; justify-items: center; line-height: 1; position: relative; width: 100%; height: 100%; place-content: center; }
+.dirc .arr { grid-area: 1 / 1; font-size: 20px; }
+.dirc small { grid-area: 2 / 1; margin-top: 2px; font-size: 9px; font-weight: 700; color: #555; }
+.dirc small.good { color: var(--ink); }
+.arr.ghost { color: transparent; -webkit-text-stroke: 1.6px #6b6857; opacity: 0.85; font-size: 27px; }
+.arr.ghost.sample { display: inline-block; font-size: 18px; }
 @media (min-width: 1024px) {
   .kpis { grid-template-columns: repeat(6, 1fr); }
   .kpis > div { border-bottom: 0; border-right: var(--bw) solid var(--ink) !important; }

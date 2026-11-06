@@ -18,7 +18,7 @@ const label = computed(() =>
 </script>
 
 <template>
-  <button type="button" class="row" :class="[`r-${day.rating}`, { today: isToday, weekend: isWeekend(day.date) }]" @click="$emit('select', day)"
+  <button type="button" class="row" :class="[`r-${day.rating}`, { today: isToday, weekend: isWeekend(day.date), compact: day.rating === 'bad' }]" @click="$emit('select', day)"
     :aria-label="`${label} ${dayNumber(day.date)} de ${monthShort(day.date)}: ${day.ratingInfo.label}. Ver detalle por hora.`">
     <span class="date">
       <b class="wd">{{ label }}</b>
@@ -27,20 +27,22 @@ const label = computed(() =>
       <span v-if="isBest" class="best hand">¡mejor día!</span>
     </span>
 
-    <span class="heat">
+    <span v-if="day.rating !== 'bad'" class="heat">
       <HeatStrip :day="day" :now-hour="isToday ? nowHour : null" />
       <span class="axis mono" aria-hidden="true"><i>6h</i><i>12h</i><i>18h</i><i>21h</i></span>
     </span>
 
-    <span class="metrics">
+    <span v-if="day.rating !== 'bad'" class="metrics">
       <span class="m"><small>Viento</small><b class="mono">{{ formatKts(day.avgKts) }}<em>kts</em></b></span>
       <span class="m"><small>Ráfaga</small><b class="mono">{{ formatKts(day.maxGustKts) }}<em>kts</em></b></span>
       <span class="m"><small>Dir.</small><b class="mono">{{ day.mainDir ?? '–' }}</b></span>
       <span class="m win"><small>Ventana</small><b class="mono">{{ day.window ? day.window.label : 'Sin ventana' }}</b></span>
     </span>
 
+    <span v-if="day.rating === 'bad'" class="mini mono">Sin ventana · {{ formatKts(day.avgKts) }} kts de media · ráfaga {{ formatKts(day.maxGustKts) }}</span>
+
     <span class="badge">
-      <span class="rate">{{ day.ratingInfo.short }}</span>
+      <span class="rate">{{ day.rating === 'bad' ? 'No sopla' : day.ratingInfo.short }}</span>
       <Icon name="arrow" :size="18" class="go" />
     </span>
   </button>
@@ -77,6 +79,18 @@ const label = computed(() =>
 .r-bad .rate { color: var(--paper-3); border-color: var(--ink-3); }
 .go { transition: transform 0.15s; }
 .row:hover .go { transform: translateX(4px); color: var(--volt); }
+/* Días sin viento: fila fina, poco protagonismo */
+.compact { grid-template-columns: auto 1fr auto; grid-template-areas: 'date mini badge'; align-items: center; gap: 4px 12px; padding: 8px 14px; background: transparent; border-style: dashed; border-color: var(--ink-3); border-left: 4px solid var(--ink-3); opacity: 0.78; }
+.compact:hover { opacity: 1; box-shadow: 4px 4px 0 var(--ink-3); }
+.compact .wd { font-size: 1.15rem; }
+.compact .dn { font-size: 11px; }
+.compact .mini { grid-area: mini; font-size: 11px; color: var(--paper-3); text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.compact .rate { font-size: 10px; padding: 2px 8px; color: var(--paper-3); border-color: var(--ink-3); }
+.compact.weekend { border-left-color: var(--yellow); border-color: var(--yellow); opacity: 0.9; }
+@media (max-width: 520px) {
+  .compact { grid-template-areas: 'date badge' 'mini mini'; grid-template-columns: 1fr auto; }
+  .compact .mini { white-space: normal; }
+}
 @media (min-width: 1024px) {
   .row { grid-template-columns: 150px minmax(280px, 1fr) minmax(0, 1.15fr) 150px; grid-template-areas: 'date heat metrics badge'; align-items: center; gap: 32px; padding: 16px 24px; }
   .date { flex-direction: column; gap: 2px; align-items: flex-start; }
@@ -84,5 +98,11 @@ const label = computed(() =>
   .metrics { grid-template-columns: 0.7fr 0.7fr 0.55fr 1.6fr; gap: 16px; }
   .m.win { grid-column: auto; padding: 0; border: 0; grid-template-columns: 1fr; gap: 2px; }
   .badge { justify-content: space-between; width: 100%; }
+}
+@media (min-width: 1024px) {
+  .compact { grid-template-columns: 150px 1fr 150px; grid-template-areas: 'date mini badge'; gap: 32px; padding: 7px 24px 7px 24px; }
+  .compact:hover { transform: none; }
+  .compact .date { flex-direction: row; align-items: baseline; gap: 10px; }
+  .compact .best { position: static; }
 }
 </style>
