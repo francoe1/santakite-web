@@ -121,7 +121,7 @@ onBeforeUnmount(clear)
 .anchor.fixed .palmwrap { height: 240px; }
 .anchor.fixed .pr { height: 190px; }
 .actor { height: calc(var(--h) * var(--k)); }
-.actor :deep(svg) { filter: drop-shadow(3px 3px 0 rgba(11, 11, 11, 0.18)); }
+.actor :deep(svg) { display: block; max-width: none; height: 100%; width: auto; filter: drop-shadow(3px 3px 0 rgba(11, 11, 11, 0.18)); }
 .cross { left: 0; transform: translateX(-260px); animation: cross var(--dur) linear forwards; }
 @keyframes cross { from { transform: translateX(-260px); } to { transform: translateX(calc(100vw + 40px)); } }
 .moon { right: 22vw; bottom: 120px; width: 54px; animation: drift 9s ease-in-out infinite alternate; }

@@ -5,7 +5,7 @@ defineProps({ wild: { type: Boolean, default: false } })
 </script>
 
 <template>
-  <svg class="kf" :class="{ wild }" viewBox="0 0 170 327" aria-hidden="true">
+  <svg class="kf" :class="{ wild }" viewBox="0 0 170 327" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
     <g class="fly">
       <path class="lines" d="M13.2 62.1 62 238M156.8 62.1 108 238M85 72.5 80 238M85 72.5 90 238" />
       <g transform="translate(7 8) scale(.52)"><Kite /></g>
