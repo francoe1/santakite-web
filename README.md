@@ -1,38 +1,28 @@
-# .
+# SantaKite
 
-This template should help get you started developing with Vue 3 in Vite.
+Web de kitesurf en Entre Ríos: ¿sopla hoy? Viento en vivo, pronóstico a 8 días con el finde destacado, mapa de zonas, seguridad y una imagen para compartir.
 
-## Recommended IDE Setup
+Vue 3 + Vite + Pinia + Vue Router. Datos de viento: GFS vía [Open-Meteo](https://open-meteo.com).
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Desarrollo
 
 ```sh
 npm install
+npm run dev      # desarrollo
+npm run build    # producción (genera además páginas estáticas por spot, sitemap.xml y robots.txt)
 ```
 
-### Compile and Hot-Reload for Development
+## Spots
 
-```sh
-npm run dev
-```
+Los spots viven en `src/data/spots.json` (viento ideal, mínimo de nudos, horarios, mapa, seguridad y contactos). Cada spot tiene su propia URL: `/spot/<id>`.
 
-### Compile and Minify for Production
+## SEO
 
-```sh
-npm run build
-```
+- Metadatos, Open Graph, Twitter Cards y datos estructurados (JSON-LD) por spot: `src/seo/content.js`.
+- En el build, `scripts/seoPlugin.js` genera `dist/spot/<id>/index.html` con el `<head>` y el contenido propios de cada spot, `sitemap.xml`, `robots.txt` y `404.html`.
+- **URL del sitio:** se toma de `VITE_SITE_URL` o, en Vercel, de `VERCEL_PROJECT_PRODUCTION_URL`. Si usás dominio propio, definí `VITE_SITE_URL=https://tudominio.com` en las variables de entorno.
+- Íconos e imagen OG: `node scripts/brand-assets.mjs` (requiere Playwright).
+
+## Animaciones
+
+Los personajes vectoriales (`src/components/fx`) cambian con el estado del viento. Se pueden apagar desde el pie de página o con la ✕ del costado; respetan `prefers-reduced-motion`.

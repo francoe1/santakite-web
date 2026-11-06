@@ -9,6 +9,7 @@ export const useSiteStore = defineStore('site', {
       { id: 'mapa', label: 'Mapa', icon: 'map', tab: true },
       { id: 'pronostico', label: 'Pronóstico', icon: 'calendar', tab: true },
       { id: 'seguridad', label: 'Seguridad', icon: 'shield', tab: true },
+      { id: 'faq', label: 'Preguntas', icon: 'chat', tab: false },
       { id: 'contacto', label: 'Contacto', icon: 'chat', tab: true },
     ],
     spots,

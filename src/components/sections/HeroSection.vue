@@ -57,11 +57,11 @@ const sub = computed(() => {
       <div class="layout">
         <!-- 1 · LA RESPUESTA -->
         <div class="verdict-area" aria-live="polite">
-          <h1 class="q">
-            <span class="sr-only">¿Sopla en {{ spot.name }}?</span>
-            <span aria-hidden="true">¿Sopla?</span>
-            <span class="answer" :class="`tone-${verdict.tone}`" aria-hidden="true">{{ verdict.word }}</span>
-          </h1>
+          <h1 class="sr-only">¿Sopla en {{ spot.name }}? Viento en vivo y pronóstico de kitesurf</h1>
+          <p class="q">
+            <span>¿Sopla?</span>
+            <span class="answer" :class="`tone-${verdict.tone}`">{{ verdict.word }}</span>
+          </p>
           <button type="button" class="note" :title="'Tocá para otro chiste'" @click="bump++">
             <span class="hand">{{ joke }}</span>
             <span class="again mono">↻ otro</span>
@@ -153,7 +153,7 @@ const sub = computed(() => {
 .tagline { grid-area: tagline; }
 
 /* ---- Respuesta ---- */
-.q { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: clamp(4.6rem, 2rem + 17vw, 15rem); line-height: 0.85; }
+.q { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: clamp(4.6rem, 2rem + 17vw, 15rem); line-height: 0.85; }
 .answer { display: inline-block; padding: 0.06em 0.16em 0; border: var(--bw) solid var(--ink); box-shadow: 8px 8px 0 var(--ink); transform: rotate(-2.5deg); background: var(--paper-2); }
 .tone-ok { background: var(--volt); }
 .tone-warn { background: var(--yellow); }

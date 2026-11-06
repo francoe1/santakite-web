@@ -167,3 +167,6 @@ ul, ol { list-style: none; padding: 0; }
 .leaflet-tile-pane { filter: grayscale(1) contrast(1.05); mix-blend-mode: multiply; }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip { border-radius: 0; background: var(--paper); border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm); }
 .leaflet-bar a { border-radius: 0 !important; color: var(--ink); font-weight: 800; }
+
+.skip { position: absolute; left: 8px; top: -60px; z-index: 2000; padding: 12px 18px; background: var(--volt); color: var(--ink); border: var(--bw) solid var(--ink); font-family: var(--font-display); text-transform: uppercase; }
+.skip:focus { top: 8px; }

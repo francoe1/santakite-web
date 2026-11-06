@@ -1,5 +1,6 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useSiteStore } from '@/stores/site'
 import { useForecastStore } from '@/stores/forecast'
 import { useSpotForecast } from '@/composables/useSpotForecast'
@@ -10,36 +11,44 @@ import Ticker from '@/components/layout/Ticker.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import TodayPicker from '@/components/sections/TodayPicker.vue'
 import SpotGuide from '@/components/sections/SpotGuide.vue'
-import MapSection from '@/components/sections/MapSection.vue'
-import ShareSheet from '@/components/sections/ShareSheet.vue'
+import LazyMount from '@/components/ui/LazyMount.vue'
+import MoodScene from '@/components/fx/MoodScene.vue'
+import FaqSection from '@/components/sections/FaqSection.vue'
+import { useSeo } from '@/composables/useSeo'
 import ForecastDetail from '@/components/forecast/ForecastDetail.vue'
 import ForecastSection from '@/components/sections/ForecastSection.vue'
 import SecuritySection from '@/components/sections/SecuritySection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
 
+const MapSection = defineAsyncComponent(() => import('@/components/sections/MapSection.vue'))
+const ShareSheet = defineAsyncComponent(() => import('@/components/sections/ShareSheet.vue'))
+
+const route = useRoute()
+const router = useRouter()
 const site = useSiteStore()
 const forecastStore = useForecastStore()
 const spot = computed(() => site.currentSpot)
 const selectedDate = ref(null)
 const shareOpen = ref(false)
+const shareLoaded = ref(false)
 const shareJoke = ref('')
 const openShare = (joke) => {
   shareJoke.value = joke
+  shareLoaded.value = true
   shareOpen.value = true
 }
 const { forecast, status, error, entry, reload } = useSpotForecast(() => site.currentSpot)
 
-// El spot elegido queda en la URL (?spot=...) para poder compartirlo.
-const syncUrl = (id) => {
-  const url = new URL(window.location.href)
-  id ? url.searchParams.set('spot', id) : url.searchParams.delete('spot')
-  window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
-}
+// La URL manda: /spot/:id (o / para el spot por defecto).
+watch(
+  () => route.params.id,
+  (id) => site.setCurrentSpotId(id ?? site.spots[0].id),
+  { immediate: true }
+)
+const selectSpot = (id) => router.push({ name: 'spot', params: { id } })
+useSeo(() => (route.name === 'spot' ? site.currentSpot : null))
 
 onMounted(() => {
-  const fromUrl = new URLSearchParams(window.location.search).get('spot')
-  if (fromUrl) site.setCurrentSpotId(fromUrl)
-  watch(() => site.currentSpotId, syncUrl, { immediate: true })
   forecastStore.loadAll(site.spots) // alimenta el comparador "¿Dónde se navega hoy?"
 })
 
@@ -48,18 +57,20 @@ useReveal()
 </script>
 
 <template>
-  <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="site.setCurrentSpotId" />
+  <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="selectSpot" />
   <Ticker :spots="site.spots" />
-  <main v-if="spot">
+  <main v-if="spot" id="contenido" tabindex="-1">
     <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select-day="selectedDate = $event.date" @share="openShare" />
-    <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="site.setCurrentSpotId" />
+    <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="selectSpot" />
     <SpotGuide :spot="spot" />
-    <MapSection :spot="spot" />
+    <LazyMount id="mapa" min-height="900px"><MapSection :spot="spot" /></LazyMount>
     <ForecastSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select="selectedDate = $event.date" />
     <SecuritySection :security="spot.security" />
+    <FaqSection :spot="spot" />
     <ContactSection :contacts="spot.contacts" :spot="spot" />
   </main>
   <ForecastDetail v-if="spot" :day="selectedDay" :cfg="forecast.cfg" :detail-text="spot.forecast?.detailText" @close="selectedDate = null" />
-  <ShareSheet v-if="spot" v-model="shareOpen" :spot="spot" :forecast="forecast" :joke="shareJoke" />
-  <SiteFooter :nav-items="site.navItems.filter((n) => n.id !== 'hoy')" :spots="site.spots" @select-spot="site.setCurrentSpotId" />
+  <MoodScene :mood="forecast.assessment.key" />
+  <ShareSheet v-if="spot && shareLoaded" v-model="shareOpen" :spot="spot" :forecast="forecast" :joke="shareJoke" />
+  <SiteFooter :nav-items="site.navItems.filter((n) => n.id !== 'hoy')" :spots="site.spots" @select-spot="selectSpot" />
 </template>
