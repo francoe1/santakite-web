@@ -40,6 +40,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
           :aria-current="active === item.id ? 'true' : undefined"
           @click.prevent="scrollToId(item.id)"
         >{{ item.label }}</a>
+        <router-link to="/mapa" class="nav-link maplink">Mapa de spots</router-link>
       </nav>
 
       <div class="right">
@@ -85,6 +86,8 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   }
   .nav-link:hover { border-color: var(--ink); }
   .nav-link.on { background: var(--ink); color: var(--volt); }
+  .maplink { background: var(--volt); border-color: var(--ink); margin-left: 6px; }
+  .maplink:hover { background: var(--ink); color: var(--volt); }
   .cta { display: inline-flex; }
 }
 

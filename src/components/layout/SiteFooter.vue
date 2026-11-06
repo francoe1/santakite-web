@@ -15,11 +15,12 @@ defineEmits(['select-spot'])
         </ul>
       </div>
       <div>
-        <h4>Spots</h4>
+        <h4>Spots cercanos</h4>
         <ul>
           <li v-for="s in spots" :key="s.id">
             <button type="button" @click="$emit('select-spot', s.id); scrollToId('hoy')">{{ s.name }}</button>
           </li>
+          <li><router-link to="/mapa" class="all">Todos en el mapa →</router-link></li>
         </ul>
       </div>
       <p class="legal">
@@ -37,6 +38,7 @@ defineEmits(['select-spot'])
 h4 { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--volt); margin-bottom: 14px; font-weight: 700; }
 li a, li button { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; line-height: 1.4; }
 li a:hover, li button:hover { color: var(--volt); }
+.all { color: var(--volt); }
 .legal { grid-column: 1 / -1; font-size: 13px; color: var(--paper-3); max-width: 46ch; }
 .mega {
   font-family: var(--font-display); text-transform: uppercase; line-height: 0.8; text-align: center;

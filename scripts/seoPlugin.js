@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import spots from '../src/data/spots.json'
-import { BRAND, buildFaq, buildHeadHtml, homeMeta, spotMeta, spotPath } from '../src/seo/content.js'
+import { BRAND, buildFaq, buildHeadHtml, homeMeta, mapMeta, spotMeta, spotPath } from '../src/seo/content.js'
 
 const START = '<!--seo:start-->'
 const END = '<!--seo:end-->'
@@ -20,9 +20,9 @@ export const resolveSiteUrl = () => {
 }
 
 /** HTML de contenido real para quien no ejecuta JavaScript (se reemplaza al montar Vue). */
-const prerenderHtml = ({ siteUrl, spot }) => {
-  const m = spot ? spotMeta(spot) : homeMeta(spots)
-  const nav = spots.map((s) => `<li><a href="${siteUrl}${spotPath(s)}">Kitesurf en ${esc(s.name)} (${esc(s.location)})</a></li>`).join('')
+const prerenderHtml = ({ siteUrl, spot, page = null }) => {
+  const m = spot ? spotMeta(spot) : page === 'map' ? mapMeta(spots) : homeMeta(spots)
+  const nav = spots.map((s) => `<li><a href="${siteUrl}${spotPath(s)}">Kitesurf en ${esc(s.name)} (${esc(s.region)}, ${esc(s.countryName)})</a></li>`).join('')
   const body = spot
     ? `
       <h1>¿Sopla en ${esc(spot.name)}? Viento en vivo y pronóstico de kitesurf</h1>
@@ -40,8 +40,12 @@ const prerenderHtml = ({ siteUrl, spot }) => {
       ${buildFaq(spot).map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('')}
       <h2>Contacto</h2>
       <ul>${(spot.contacts || []).map((c) => `<li>${esc(c.label)}: ${c.href ? `<a href="${esc(c.href)}">${esc(c.value)}</a>` : esc(c.value)}</li>`).join('')}</ul>`
-    : `
-      <h1>SantaKite: ¿sopla hoy? Kitesurf en Entre Ríos</h1>
+    : page === 'map'
+      ? `
+      <h1>Mapa de spots de kitesurf en Argentina, Brasil y Uruguay</h1>
+      <p>${esc(m.description)}</p>`
+      : `
+      <h1>SantaKite: ¿sopla hoy? Kitesurf en Argentina, Brasil y Uruguay</h1>
       <p>${esc(m.description)}</p>`
   return `${PRE_START}<div class="prerender" data-prerender><header><a href="${siteUrl}/">${BRAND.name}</a></header><main>${body}<h2>Spots de kitesurf</h2><ul>${nav}</ul></main><noscript><p>Activá JavaScript para ver el viento en vivo y el pronóstico en tiempo real.</p></noscript></div>${PRE_END}`
 }
@@ -88,12 +92,20 @@ export default function seoPlugin() {
         writeFileSync(resolve(dir, 'index.html'), html)
       })
 
+      // Mapa de spots
+      {
+        let html = swap(built, START, END, `\n    ${buildHeadHtml({ siteUrl, spots, page: 'map' })}\n    `)
+        html = swap(html, PRE_START, PRE_END, prerenderHtml({ siteUrl, spot: null, page: 'map' }).replace(PRE_START, '').replace(PRE_END, ''))
+        mkdirSync(resolve(dist, 'mapa'), { recursive: true })
+        writeFileSync(resolve(dist, 'mapa', 'index.html'), html)
+      }
+
       // 404 con noindex para rutas desconocidas
       const notFound = swap(built, START, END, `\n    <title>Página no encontrada | ${BRAND.name}</title>\n    <meta name="robots" content="noindex" />\n    `)
       writeFileSync(resolve(dist, '404.html'), notFound)
 
       const today = new Date().toISOString().slice(0, 10)
-      const urls = [{ loc: `${siteUrl}/`, priority: '1.0' }, ...spots.map((s) => ({ loc: `${siteUrl}${spotPath(s)}`, priority: '0.9' }))]
+      const urls = [{ loc: `${siteUrl}/`, priority: '1.0' }, { loc: `${siteUrl}/mapa`, priority: '0.9' }, ...spots.map((s) => ({ loc: `${siteUrl}${spotPath(s)}`, priority: '0.9' }))]
       writeFileSync(
         resolve(dist, 'sitemap.xml'),
         `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls

@@ -18,6 +18,8 @@ const cfg = computed(() => ({
   ...props.spot.map,
 }))
 
+const hasZones = computed(() => !!(cfg.value.launchZone?.length || cfg.value.swimZone?.length))
+
 const windyUrl = computed(
   () =>
     cfg.value.windyEmbedUrl ||
@@ -103,7 +105,7 @@ watch(tab, async (t) => {
       <div class="section-head">
         <p class="eyebrow">[04] Mapa y zonas</p>
         <h2 class="section-title">Dónde armar,<br />dónde navegar</h2>
-        <p class="section-lead">Respetá los polígonos: la zona verde es de kites y la roja es de bañistas.</p>
+        <p class="section-lead">{{ hasZones ? 'Respetá los polígonos: la zona verde es de kites y la roja es de bañistas.' : 'Ubicación aproximada del spot. Verificá las zonas habilitadas en el lugar.' }}</p>
       </div>
 
       <div class="tabs" role="tablist" aria-label="Tipo de mapa">
@@ -129,10 +131,11 @@ watch(tab, async (t) => {
 
         <aside class="side">
           <h3>Referencias</h3>
-          <ul class="legend">
+          <ul v-if="hasZones" class="legend">
             <li><i class="sw sw-ok"></i><span><b>Zona de kites</b> Armado, despegue y navegación cercana.</span></li>
             <li><i class="sw sw-bad"></i><span><b>Zona de bañistas</b> Prohibido kites mientras haya bañistas.</span></li>
           </ul>
+          <p v-if="!hasZones" class="noz">Este spot todavía no tiene zonas de armado y bañistas marcadas. El punto es una referencia aproximada: consultá las zonas habilitadas en el lugar.</p>
           <h3 v-if="cfg.markers?.length">Puntos de interés</h3>
           <ul class="pois">
             <li v-for="mk in cfg.markers" :key="mk.label">
@@ -162,6 +165,7 @@ watch(tab, async (t) => {
 .err { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; }
 .side { background: var(--paper); border: var(--bw) solid var(--ink); display: grid; align-content: start; }
 .side h3 { padding: 10px 18px; background: var(--ink); color: var(--volt); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; }
+.noz { padding: 16px 18px; font-size: 14px; border-bottom: var(--bw) solid var(--ink); }
 .legend { display: grid; }
 .legend li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 16px 18px; font-size: 14px; border-bottom: var(--bw) solid var(--ink); }
 .legend b { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; text-transform: uppercase; }

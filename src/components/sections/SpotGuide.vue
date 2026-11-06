@@ -41,6 +41,8 @@ const mapsUrl = computed(
         <p class="section-lead hand place">{{ spot.location }}</p>
       </div>
 
+      <p v-if="!spot.verified" class="review"><b>Spot en revisión.</b> La ubicación es aproximada y los datos del lugar (zonas, dirección ideal del viento) todavía no están confirmados. Consultá con escuelas y riders locales antes de ir.</p>
+
       <div class="layout">
         <div class="highlights reveal">
           <article v-for="(h, i) in spot.highlights" :key="h.title" class="hl">
@@ -54,11 +56,12 @@ const mapsUrl = computed(
 
         <aside class="sheet reveal">
           <div class="wind-box">
-            <WindCompass :deg="null" :preferred="cfg.preferredDirections" :size="200" :dark="false" label="Direcciones ideales del spot" />
+            <WindCompass v-if="!cfg.anyDirection" :deg="null" :preferred="cfg.preferredDirections" :size="200" :dark="false" label="Direcciones ideales del spot" />
             <div>
               <p class="mini">Viento ideal</p>
-              <p class="dirs mono">{{ cfg.preferredDirections.join(' · ') }}</p>
-              <p class="note">Sectores verdes en la brújula.</p>
+              <p v-if="!cfg.anyDirection" class="dirs mono">{{ cfg.preferredDirections.join(' · ') }}</p>
+              <p v-else class="dirs mono">Sin confirmar</p>
+              <p class="note">{{ cfg.anyDirection ? `Por ahora evaluamos solo la fuerza: desde ${cfg.minPlayableKts} nudos.` : 'Sectores verdes en la brújula.' }}</p>
             </div>
           </div>
           <dl class="facts">
@@ -101,6 +104,7 @@ const mapsUrl = computed(
 .sheet > * { padding: 18px; border-bottom: var(--bw) solid var(--ink); }
 .sheet > :last-child { border-bottom: 0; }
 .wind-box { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; background: var(--volt); }
+.wind-box:has(> div:only-child) { grid-template-columns: 1fr; }
 .mini { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 .dirs { font-family: var(--font-display); font-size: 2.2rem; line-height: 1; margin-top: 4px; }
 .note { font-size: 13px; margin-top: 6px; }

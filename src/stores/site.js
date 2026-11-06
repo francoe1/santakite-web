@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import spots from '../data/spots.json'
+import { sortByDistance } from '../utils/geo'
 
 export const useSiteStore = defineStore('site', {
   state: () => ({
@@ -16,6 +17,11 @@ export const useSiteStore = defineStore('site', {
     currentSpotId: spots[0]?.id ?? null,
   }),
   getters: {
+    /** El spot actual + los N más cercanos (para el comparador "¿Dónde se navega hoy?" y el ticker). */
+    nearby: (state) => (count = 3) => {
+      const cur = state.spots.find((x) => x.id === state.currentSpotId) ?? state.spots[0]
+      return sortByDistance(state.spots, cur.coordinates).slice(0, count).map((x) => x.spot)
+    },
     currentSpot: (state) => state.spots.find((s) => s.id === state.currentSpotId) ?? state.spots[0] ?? null,
   },
   actions: {
