@@ -14,7 +14,11 @@ npm run build    # producción (genera además páginas estáticas por spot, sit
 
 ## Spots
 
-Los spots viven en `src/data/spots.json` (viento ideal, mínimo de nudos, horarios, mapa, seguridad y contactos). Cada spot tiene su propia URL: `/spot/<id>`.
+Los spots viven en `src/data/spots.json` (25 spots de Argentina, Brasil y Uruguay). Cada spot tiene su propia URL `/spot/<id>` y todos se ven en el mapa `/mapa`.
+
+- `verified: false` marca spots "en revisión": ubicación aproximada y sin zonas dibujadas.
+- `forecast.anyDirection: true` significa que la dirección ideal del viento no está confirmada: solo se evalúa la fuerza (mínimo de nudos). Para confirmarla, reemplazalo por `preferredDirections`.
+- Para sumar un spot copiá cualquiera de los existentes y completá `country`, `region`, `coordinates`, `forecast` y `map`.
 
 ## SEO
 

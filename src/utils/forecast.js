@@ -12,7 +12,10 @@ export const DEFAULT_SPOT_CONFIG = {
 /** Mezcla la config por defecto con la del spot (spots.json -> forecast). */
 export const getSpotConfig = (spot) => {
   const cfg = { ...DEFAULT_SPOT_CONFIG, ...(spot?.forecast || {}) }
-  if (!cfg.preferredDirections?.length) cfg.preferredDirections = DEFAULT_SPOT_CONFIG.preferredDirections
+  // anyDirection: la dirección ideal del spot no está confirmada -> solo se evalúa la fuerza del viento
+  cfg.anyDirection = !!spot?.forecast?.anyDirection
+  if (cfg.anyDirection) cfg.preferredDirections = []
+  else if (!cfg.preferredDirections?.length) cfg.preferredDirections = DEFAULT_SPOT_CONFIG.preferredDirections
   cfg.summerWindow = { ...DEFAULT_SPOT_CONFIG.summerWindow, ...(spot?.forecast?.summerWindow || {}) }
   cfg.winterWindow = { ...DEFAULT_SPOT_CONFIG.winterWindow, ...(spot?.forecast?.winterWindow || {}) }
   cfg.preferredSet = buildPreferredDirectionSet(cfg.preferredDirections)
@@ -38,7 +41,7 @@ export const hasSunLight = (hour, cfg) => {
 export const assessHour = (hour, cfg) => {
   const speed = hour.speedKts
   const gust = hour.gustKts ?? speed
-  const dirOk = isDirectionPreferred(hour.dirDeg, cfg.preferredSet, cfg.directionReference)
+  const dirOk = cfg.anyDirection || isDirectionPreferred(hour.dirDeg, cfg.preferredSet, cfg.directionReference)
   const sun = hasSunLight(hour, cfg)
   const rainOk = (hour.precipMm ?? 0) <= cfg.maxPrecipMm
   const speedOk = Number.isFinite(speed) && speed >= cfg.minPlayableKts
@@ -135,7 +138,7 @@ export const assessCurrent = (current, cfg) => {
   if (!current || !Number.isFinite(current.speedKts)) {
     return { key: 'loading', tone: 'muted', verdict: '…', label: 'Midiendo viento…', detail: '', playable: false }
   }
-  const dirOk = isDirectionPreferred(current.dirDeg, cfg.preferredSet, cfg.directionReference)
+  const dirOk = cfg.anyDirection || isDirectionPreferred(current.dirDeg, cfg.preferredSet, cfg.directionReference)
   const speed = current.speedKts
   const speedOk = speed >= cfg.minPlayableKts
 

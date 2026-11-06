@@ -1,5 +1,5 @@
 import { onBeforeUnmount, watchEffect } from 'vue'
-import { BRAND, buildJsonLd, homeMeta, spotMeta } from '@/seo/content'
+import { BRAND, buildJsonLd, homeMeta, mapMeta, spotMeta } from '@/seo/content'
 import spots from '@/data/spots.json'
 
 const SITE_URL = (typeof __SITE_URL__ !== 'undefined' && __SITE_URL__) || (typeof window !== 'undefined' ? window.location.origin : '')
@@ -32,11 +32,11 @@ const link = (rel, href, extra = {}) => {
 }
 
 /** Mantiene <head> (título, descripción, canonical, OG, JSON-LD) alineado con el spot visible. */
-export const useSeo = (getSpot, { noindex = false, title: forcedTitle } = {}) => {
+export const useSeo = (getSpot, { noindex = false, title: forcedTitle, page = null } = {}) => {
   const stop = watchEffect(() => {
     if (typeof document === 'undefined') return
     const spot = typeof getSpot === 'function' ? getSpot() : null
-    const m = forcedTitle ? { title: forcedTitle, description: BRAND.name, keywords: '', path: window.location.pathname } : spot ? spotMeta(spot) : homeMeta(spots)
+    const m = forcedTitle ? { title: forcedTitle, description: BRAND.name, keywords: '', path: window.location.pathname } : spot ? spotMeta(spot) : page === 'map' ? mapMeta(spots) : homeMeta(spots)
     const url = `${SITE_URL}${m.path === '/' ? '' : m.path}` || SITE_URL
 
     document.title = m.title

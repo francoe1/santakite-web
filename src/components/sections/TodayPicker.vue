@@ -5,6 +5,7 @@ import StatusPill from '../ui/StatusPill.vue'
 import { buildForecast } from '@/utils/forecast'
 import { degToCompass } from '@/utils/wind'
 import { useForecastStore } from '@/stores/forecast'
+import spotsData from '@/data/spots.json'
 import { scrollToId } from '@/composables/useScrollSpy'
 
 const props = defineProps({
@@ -14,6 +15,7 @@ const props = defineProps({
 defineEmits(['select'])
 
 const store = useForecastStore()
+const total = spotsData.length
 
 const rows = computed(() =>
   props.spots
@@ -38,10 +40,11 @@ const ranked = computed(() => {
         <p class="eyebrow">[02] Hoy en cada spot</p>
         <h2 class="section-title">¿Dónde se<br />navega hoy?</h2>
         <p class="section-lead">
-          Comparamos el viento de los tres spots con el criterio propio de cada uno: dirección ideal, mínimo de nudos, lluvia y luz solar.
+          Comparamos el viento de los spots más cercanos con el criterio propio de cada uno: dirección ideal (cuando está confirmada), mínimo de nudos, lluvia y luz solar.
         </p>
       </div>
 
+      <router-link to="/mapa" class="btn btn--dark allmap">Ver los {{ total }} spots en el mapa</router-link>
       <ul class="cards">
         <li v-for="r in rows" :key="r.spot.id">
           <button
@@ -52,7 +55,7 @@ const ranked = computed(() => {
             @click="$emit('select', r.spot.id); scrollToId('hoy')"
           >
             <span v-if="r.spot.id === ranked" class="ribbon hand">¡la mejor!</span>
-            <span class="loc">{{ r.spot.location }}</span>
+            <span class="loc">{{ r.spot.location }} · {{ r.spot.countryName }}</span>
             <strong class="name">{{ r.spot.name }}</strong>
 
             <template v-if="r.loading && !r.f.today">
@@ -83,6 +86,7 @@ const ranked = computed(() => {
 
 <style scoped>
 .picker { background: var(--paper); }
+.allmap { margin: -24px 0 28px; }
 .cards { display: grid; gap: 22px; }
 .card {
   position: relative; width: 100%; min-height: 200px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; text-align: left; padding: 20px;

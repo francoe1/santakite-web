@@ -107,7 +107,7 @@ const title = computed(() => (props.day ? formatDay(props.day.date, { weekday: '
         <li v-for="l in [1, 2, 3, 4]" :key="l"><i :class="`lv${l}`"></i>{{ levelLabel(l) }}</li>
         <li><i class="lv0"></i>No navegable</li>
         <li><span class="arr good">↑</span>Dirección real (verde = ideal)</li>
-        <li><span class="arr ghost sample">↑</span>Fantasma: dirección ideal del spot ({{ idealLabel }})</li>
+        <li v-if="idealVisual !== null"><span class="arr ghost sample">↑</span>Fantasma: dirección ideal del spot ({{ idealLabel }})</li>
       </ul>
     </div>
   </Sheet>

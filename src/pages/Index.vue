@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSiteStore } from '@/stores/site'
 import { useForecastStore } from '@/stores/forecast'
@@ -48,12 +48,12 @@ watch(
   { immediate: true }
 )
 const selectSpot = (id) => router.push({ name: 'spot', params: { id } })
+const nearbySpots = computed(() => site.nearby(3)) // comparador "¿Dónde se navega hoy?"
+const tickerSpots = computed(() => site.nearby(5))
+watch(tickerSpots, (list) => forecastStore.loadAll(list), { immediate: true })
+
 useWindVars(() => forecast.value.current)
 useSeo(() => (route.name === 'spot' ? site.currentSpot : null))
-
-onMounted(() => {
-  forecastStore.loadAll(site.spots) // alimenta el comparador "¿Dónde se navega hoy?"
-})
 
 const selectedDay = computed(() => forecast.value.days.find((d) => d.date === selectedDate.value) ?? null)
 useReveal()
@@ -61,11 +61,11 @@ useReveal()
 
 <template>
   <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="selectSpot" />
-  <Ticker :spots="site.spots" />
+  <Ticker :spots="tickerSpots" />
   <main v-if="spot" id="contenido" tabindex="-1" class="has-leaves">
     <LeafField />
     <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select-day="selectedDate = $event.date" @share="shareHero" :sharing="sharing" />
-    <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="selectSpot" />
+    <TodayPicker :spots="nearbySpots" :current-id="site.currentSpotId" @select="selectSpot" />
     <SpotGuide :spot="spot" />
     <LazyMount id="mapa" min-height="900px"><MapSection :spot="spot" /></LazyMount>
     <ForecastSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select="selectedDate = $event.date" />
@@ -76,5 +76,5 @@ useReveal()
   <ForecastDetail v-if="spot" :day="selectedDay" :cfg="forecast.cfg" :sharing="sharing" @share="shareDay" @close="selectedDate = null" />
   <MoodScene :mood="forecast.assessment.key" />
   <ShareToast />
-  <SiteFooter :nav-items="site.navItems.filter((n) => n.id !== 'hoy')" :spots="site.spots" @select-spot="selectSpot" />
+  <SiteFooter :nav-items="site.navItems.filter((n) => n.id !== 'hoy')" :spots="site.nearby(6)" @select-spot="selectSpot" />
 </template>

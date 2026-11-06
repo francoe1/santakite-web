@@ -174,7 +174,12 @@
         "detail": "Coordenadas: -30.9085, -57.9150",
         "icon": "location"
       }
-    ]
+    ],
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Entre Ríos",
+    "locality": "Santa Ana",
+    "verified": true
   },
   {
     "id": "federacion",
@@ -339,7 +344,12 @@
         "detail": "Coordenadas: -30.983513, -57.914698",
         "icon": "location"
       }
-    ]
+    ],
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Entre Ríos",
+    "locality": "Federación",
+    "verified": true
   },
   {
     "id": "santa-ana-oeste",
@@ -445,7 +455,7 @@
         "O",
         "ON",
         "OS"
-      ],  
+      ],
       "minPlayableKts": 12,
       "maxPrecipMm": 2,
       "summerWindow": {
@@ -495,6 +505,2507 @@
         "detail": "Coordenadas: -30.913645, -57.930449",
         "icon": "location"
       }
-    ]
+    ],
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Entre Ríos",
+    "locality": "Santa Ana",
+    "verified": true
+  },
+  {
+    "id": "cumbuco",
+    "name": "Cumbuco",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Ceará",
+    "locality": "Cumbuco",
+    "location": "Cumbuco, Ceará",
+    "coordinates": {
+      "lat": -3.6224,
+      "lon": -38.726
+    },
+    "references": {
+      "coordinatesLabel": "-3.6224, -38.7260",
+      "description": "Cumbuco, Caucaia (Ceará), a unos 30 km de Fortaleza."
+    },
+    "hero": {
+      "badge": "Cumbuco · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Cumbuco",
+      "lead": "Alisios del Este y Nordeste, viento constante en temporada.",
+      "tags": [
+        "Vientos NE · E",
+        "Temporada jul–ene"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Cerca de Fortaleza",
+        "description": "Está a unos 30 km de Fortaleza y es uno de los centros de kitesurf más concurridos de Brasil."
+      },
+      {
+        "title": "Viento constante",
+        "description": "Alisios del Este y Nordeste; la temporada fuerte va de julio a enero."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -3.6224,
+      "longitude": -38.726
+    },
+    "map": {
+      "view": {
+        "lat": -3.6224,
+        "lon": -38.726,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -3.6224,
+          "lon": -38.726,
+          "label": "Cumbuco · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos con viento del Nordeste, Este-Nordeste, Este, Este-Sudeste. La lluvia limita la navegación.",
+      "detailText": "Viento sostenido > 14 nudos desde NE · ENE · E · ESE abre la ventana navegable. Temporada principal: julio a enero. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      }
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Cumbuco – Cumbuco",
+        "detail": "Coordenadas aproximadas: -3.6224, -38.7260",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "jericoacoara",
+    "name": "Jericoacoara",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Ceará",
+    "locality": "Jericoacoara",
+    "location": "Jericoacoara, Ceará",
+    "coordinates": {
+      "lat": -2.7975,
+      "lon": -40.5135
+    },
+    "references": {
+      "coordinatesLabel": "-2.7975, -40.5135",
+      "description": "Jericoacoara, Jijoca de Jericoacoara (Ceará)."
+    },
+    "hero": {
+      "badge": "Jericoacoara · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Jericoacoara",
+      "lead": "Uno de los destinos de kitesurf más famosos de Brasil.",
+      "tags": [
+        "Vientos NE · E",
+        "Temporada jul–ene"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Destino clásico",
+        "description": "Es uno de los destinos de kitesurf más famosos del litoral de Ceará."
+      },
+      {
+        "title": "Viento fuerte",
+        "description": "La temporada de viento va de julio a enero, con potencial de viento durante todo el año."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -2.7975,
+      "longitude": -40.5135
+    },
+    "map": {
+      "view": {
+        "lat": -2.7975,
+        "lon": -40.5135,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -2.7975,
+          "lon": -40.5135,
+          "label": "Jericoacoara · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos con viento del Nordeste, Este-Nordeste, Este, Este-Sudeste. La lluvia limita la navegación.",
+      "detailText": "Viento sostenido > 14 nudos desde NE · ENE · E · ESE abre la ventana navegable. Temporada principal: julio a enero. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      }
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Jericoacoara – Jericoacoara",
+        "detail": "Coordenadas aproximadas: -2.7975, -40.5135",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "prea",
+    "name": "Preá",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Ceará",
+    "locality": "Preá",
+    "location": "Preá, Ceará",
+    "coordinates": {
+      "lat": -2.845,
+      "lon": -40.43
+    },
+    "references": {
+      "coordinatesLabel": "-2.8450, -40.4300",
+      "description": "Praia do Preá, Cruz (Ceará), a unos 12 km de Jericoacoara."
+    },
+    "hero": {
+      "badge": "Preá · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Preá",
+      "lead": "Viento del Este y Nordeste, a pasos de Jericoacoara.",
+      "tags": [
+        "Vientos NE · ENE · E",
+        "Temporada jul–ene"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Al lado de Jericoacoara",
+        "description": "Está a unos 12 km de Jericoacoara y tiene una gran cantidad de días de viento al año."
+      },
+      {
+        "title": "Viento del Este y Nordeste",
+        "description": "Lo usual es viento del E y del NE; la temporada fuerte va de julio a febrero."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -2.845,
+      "longitude": -40.43
+    },
+    "map": {
+      "view": {
+        "lat": -2.845,
+        "lon": -40.43,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -2.845,
+          "lon": -40.43,
+          "label": "Preá · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos con viento del Nordeste, Este-Nordeste, Este, Este-Sudeste. La lluvia limita la navegación.",
+      "detailText": "Viento sostenido > 14 nudos desde NE · ENE · E · ESE abre la ventana navegable. Temporada principal: julio a febrero. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      }
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Preá – Preá",
+        "detail": "Coordenadas aproximadas: -2.8450, -40.4300",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "barra-grande",
+    "name": "Barra Grande",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Piauí",
+    "locality": "Barra Grande",
+    "location": "Barra Grande, Piauí",
+    "coordinates": {
+      "lat": -2.92,
+      "lon": -41.4
+    },
+    "references": {
+      "coordinatesLabel": "-2.9200, -41.4000",
+      "description": "Barra Grande, Cajueiro da Praia (Piauí)."
+    },
+    "hero": {
+      "badge": "Barra Grande · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Barra Grande",
+      "lead": "Destino de kitesurf del litoral de Piauí.",
+      "tags": [
+        "Vientos NE · E",
+        "Alisios"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Litoral de Piauí",
+        "description": "Barra Grande pertenece al municipio de Cajueiro da Praia y es un destino de kitesurf del nordeste brasileño."
+      },
+      {
+        "title": "Alisios",
+        "description": "La costa nordeste de Brasil recibe los alisios del Este y Nordeste, más fuertes en el segundo semestre."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -2.92,
+      "longitude": -41.4
+    },
+    "map": {
+      "view": {
+        "lat": -2.92,
+        "lon": -41.4,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -2.92,
+          "lon": -41.4,
+          "label": "Barra Grande · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos con viento del Nordeste, Este-Nordeste, Este, Este-Sudeste. La lluvia limita la navegación.",
+      "detailText": "Viento sostenido > 14 nudos desde NE · ENE · E · ESE abre la ventana navegable. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      }
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Barra Grande – Barra Grande",
+        "detail": "Coordenadas aproximadas: -2.9200, -41.4000",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "sao-miguel-do-gostoso",
+    "name": "São Miguel do Gostoso",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Rio Grande do Norte",
+    "locality": "São Miguel do Gostoso",
+    "location": "São Miguel do Gostoso, Rio Grande do Norte",
+    "coordinates": {
+      "lat": -5.1217,
+      "lon": -35.6336
+    },
+    "references": {
+      "coordinatesLabel": "-5.1217, -35.6336",
+      "description": "São Miguel do Gostoso, litoral norte de Rio Grande do Norte."
+    },
+    "hero": {
+      "badge": "São Miguel do Gostoso · Brasil",
+      "title": "Kitesurf",
+      "accent": "en São Miguel do Gostoso",
+      "lead": "Pueblo del litoral norte potiguar, conocido entre kiters.",
+      "tags": [
+        "Vientos E · ESE",
+        "Alisios"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Litoral norte potiguar",
+        "description": "Pueblo de pescadores en el litoral norte de Rio Grande do Norte, conocido entre kiters."
+      },
+      {
+        "title": "Alisios",
+        "description": "La costa nordeste de Brasil recibe los alisios, más fuertes en el segundo semestre."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -5.1217,
+      "longitude": -35.6336
+    },
+    "map": {
+      "view": {
+        "lat": -5.1217,
+        "lon": -35.6336,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -5.1217,
+          "lon": -35.6336,
+          "label": "São Miguel do Gostoso · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos con viento del Nordeste, Este-Nordeste, Este, Este-Sudeste. La lluvia limita la navegación.",
+      "detailText": "Viento sostenido > 14 nudos desde NE · ENE · E · ESE abre la ventana navegable. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      }
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "São Miguel do Gostoso – São Miguel do Gostoso",
+        "detail": "Coordenadas aproximadas: -5.1217, -35.6336",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "atins",
+    "name": "Atins",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Maranhão",
+    "locality": "Atins",
+    "location": "Atins, Maranhão",
+    "coordinates": {
+      "lat": -2.5833,
+      "lon": -42.7167
+    },
+    "references": {
+      "coordinatesLabel": "-2.5833, -42.7167",
+      "description": "Atins, en el Parque Nacional de los Lençóis Maranhenses (Maranhão)."
+    },
+    "hero": {
+      "badge": "Atins · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Atins",
+      "lead": "Kitesurf entre dunas y lagunas del Maranhão.",
+      "tags": [
+        "Vientos NE · E",
+        "Alisios"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Lençóis Maranhenses",
+        "description": "Atins está dentro del Parque Nacional de los Lençóis Maranhenses, en la zona de Barreirinhas."
+      },
+      {
+        "title": "Alisios",
+        "description": "La costa nordeste de Brasil recibe los alisios del Este y Nordeste."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -2.5833,
+      "longitude": -42.7167
+    },
+    "map": {
+      "view": {
+        "lat": -2.5833,
+        "lon": -42.7167,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -2.5833,
+          "lon": -42.7167,
+          "label": "Atins · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos con viento del Nordeste, Este-Nordeste, Este, Este-Sudeste. La lluvia limita la navegación.",
+      "detailText": "Viento sostenido > 14 nudos desde NE · ENE · E · ESE abre la ventana navegable. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      }
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Atins – Atins",
+        "detail": "Coordenadas aproximadas: -2.5833, -42.7167",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "cabo-frio",
+    "name": "Cabo Frio",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Rio de Janeiro",
+    "locality": "Cabo Frio",
+    "location": "Cabo Frio, Rio de Janeiro",
+    "coordinates": {
+      "lat": -22.8794,
+      "lon": -42.0189
+    },
+    "references": {
+      "coordinatesLabel": "-22.8794, -42.0189",
+      "description": "Cabo Frio, Costa del Sol (Rio de Janeiro)."
+    },
+    "hero": {
+      "badge": "Cabo Frio · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Cabo Frio",
+      "lead": "Kitesurf en la Costa del Sol fluminense.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Costa del Sol",
+        "description": "Cabo Frio está en la región de los Lagos, en el estado de Rio de Janeiro."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -22.8794,
+      "longitude": -42.0189
+    },
+    "map": {
+      "view": {
+        "lat": -22.8794,
+        "lon": -42.0189,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -22.8794,
+          "lon": -42.0189,
+          "label": "Cabo Frio · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 14 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "winterWindow": {
+        "startHour": 6,
+        "endHour": 17
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Cabo Frio – Cabo Frio",
+        "detail": "Coordenadas aproximadas: -22.8794, -42.0189",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "florianopolis",
+    "name": "Florianópolis",
+    "country": "BR",
+    "countryName": "Brasil",
+    "region": "Santa Catarina",
+    "locality": "Lagoa da Conceição",
+    "location": "Lagoa da Conceição, Santa Catarina",
+    "coordinates": {
+      "lat": -27.6011,
+      "lon": -48.4619
+    },
+    "references": {
+      "coordinatesLabel": "-27.6011, -48.4619",
+      "description": "Lagoa da Conceição, isla de Santa Catarina (Florianópolis)."
+    },
+    "hero": {
+      "badge": "Lagoa da Conceição · Brasil",
+      "title": "Kitesurf",
+      "accent": "en Florianópolis",
+      "lead": "Lagunas y playas para kitesurf en Santa Catarina.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Isla de Santa Catarina",
+        "description": "Florianópolis tiene varias lagunas y playas utilizadas para kitesurf."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -27.6011,
+      "longitude": -48.4619
+    },
+    "map": {
+      "view": {
+        "lat": -27.6011,
+        "lon": -48.4619,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -27.6011,
+          "lon": -48.4619,
+          "label": "Florianópolis · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 13 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 13 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 13,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 6,
+        "endHour": 19
+      },
+      "winterWindow": {
+        "startHour": 7,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Florianópolis – Lagoa da Conceição",
+        "detail": "Coordenadas aproximadas: -27.6011, -48.4619",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "punta-del-este",
+    "name": "Punta del Este",
+    "country": "UY",
+    "countryName": "Uruguay",
+    "region": "Maldonado",
+    "locality": "Punta del Este",
+    "location": "Punta del Este, Maldonado",
+    "coordinates": {
+      "lat": -34.944,
+      "lon": -54.925
+    },
+    "references": {
+      "coordinatesLabel": "-34.9440, -54.9250",
+      "description": "Playa Brava y Playa Mansa, Punta del Este (Maldonado)."
+    },
+    "hero": {
+      "badge": "Punta del Este · Uruguay",
+      "title": "Kitesurf",
+      "accent": "en Punta del Este",
+      "lead": "Playa Brava y Playa Mansa, las playas más usadas para kitesurf.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Playa Brava y Mansa",
+        "description": "Playa Brava y Playa Mansa son las playas más usadas para kitesurf en Punta del Este."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -34.944,
+      "longitude": -54.925
+    },
+    "map": {
+      "view": {
+        "lat": -34.944,
+        "lon": -54.925,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -34.944,
+          "lon": -54.925,
+          "label": "Punta del Este · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Punta del Este – Punta del Este",
+        "detail": "Coordenadas aproximadas: -34.9440, -54.9250",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "la-paloma",
+    "name": "La Paloma",
+    "country": "UY",
+    "countryName": "Uruguay",
+    "region": "Rocha",
+    "locality": "La Paloma",
+    "location": "La Paloma, Rocha",
+    "coordinates": {
+      "lat": -34.66,
+      "lon": -54.16
+    },
+    "references": {
+      "coordinatesLabel": "-34.6600, -54.1600",
+      "description": "La Paloma (Rocha), costa atlántica de Uruguay."
+    },
+    "hero": {
+      "badge": "La Paloma · Uruguay",
+      "title": "Kitesurf",
+      "accent": "en La Paloma",
+      "lead": "Costa atlántica de Rocha, zona kite de Playa La Aguada.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Costa de Rocha",
+        "description": "La Paloma es una zona kite muy conocida, con Playa La Aguada para riders de distintos niveles."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -34.66,
+      "longitude": -54.16
+    },
+    "map": {
+      "view": {
+        "lat": -34.66,
+        "lon": -54.16,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -34.66,
+          "lon": -54.16,
+          "label": "La Paloma · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "La Paloma – La Paloma",
+        "detail": "Coordenadas aproximadas: -34.6600, -54.1600",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "jose-ignacio",
+    "name": "José Ignacio",
+    "country": "UY",
+    "countryName": "Uruguay",
+    "region": "Maldonado",
+    "locality": "José Ignacio",
+    "location": "José Ignacio, Maldonado",
+    "coordinates": {
+      "lat": -34.842,
+      "lon": -54.632
+    },
+    "references": {
+      "coordinatesLabel": "-34.8420, -54.6320",
+      "description": "José Ignacio y Laguna Garzón (Maldonado/Rocha)."
+    },
+    "hero": {
+      "badge": "José Ignacio · Uruguay",
+      "title": "Kitesurf",
+      "accent": "en José Ignacio",
+      "lead": "Laguna de agua plana ideal para aprender y practicar freestyle.",
+      "tags": [
+        "Dirección sin confirmar",
+        "Agua plana"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Laguna de agua plana",
+        "description": "Laguna Garzón y la laguna de José Ignacio son de poca profundidad y agua plana, buenas para aprender y para freestyle."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -34.842,
+      "longitude": -54.632
+    },
+    "map": {
+      "view": {
+        "lat": -34.842,
+        "lon": -54.632,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -34.842,
+          "lon": -54.632,
+          "label": "José Ignacio · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "José Ignacio – José Ignacio",
+        "detail": "Coordenadas aproximadas: -34.8420, -54.6320",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "colonia",
+    "name": "Colonia del Sacramento",
+    "country": "UY",
+    "countryName": "Uruguay",
+    "region": "Colonia",
+    "locality": "Colonia del Sacramento",
+    "location": "Colonia del Sacramento, Colonia",
+    "coordinates": {
+      "lat": -34.4714,
+      "lon": -57.8447
+    },
+    "references": {
+      "coordinatesLabel": "-34.4714, -57.8447",
+      "description": "Colonia del Sacramento, sobre el Río de la Plata."
+    },
+    "hero": {
+      "badge": "Colonia del Sacramento · Uruguay",
+      "title": "Kitesurf",
+      "accent": "en Colonia del Sacramento",
+      "lead": "Kitesurf sobre el Río de la Plata, frente a Buenos Aires.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Río de la Plata",
+        "description": "Colonia del Sacramento está sobre el Río de la Plata, frente a Buenos Aires."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -34.4714,
+      "longitude": -57.8447
+    },
+    "map": {
+      "view": {
+        "lat": -34.4714,
+        "lon": -57.8447,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -34.4714,
+          "lon": -57.8447,
+          "label": "Colonia del Sacramento · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Colonia del Sacramento – Colonia del Sacramento",
+        "detail": "Coordenadas aproximadas: -34.4714, -57.8447",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "montevideo",
+    "name": "Montevideo",
+    "country": "UY",
+    "countryName": "Uruguay",
+    "region": "Montevideo",
+    "locality": "Pocitos",
+    "location": "Pocitos, Montevideo",
+    "coordinates": {
+      "lat": -34.91,
+      "lon": -56.15
+    },
+    "references": {
+      "coordinatesLabel": "-34.9100, -56.1500",
+      "description": "Costa de Montevideo (Pocitos), sobre el Río de la Plata."
+    },
+    "hero": {
+      "badge": "Pocitos · Uruguay",
+      "title": "Kitesurf",
+      "accent": "en Montevideo",
+      "lead": "Kitesurf urbano sobre la costa de Montevideo.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Costa de Montevideo",
+        "description": "La rambla de Montevideo recorre la costa sobre el Río de la Plata; las zonas habilitadas dependen de la normativa local."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -34.91,
+      "longitude": -56.15
+    },
+    "map": {
+      "view": {
+        "lat": -34.91,
+        "lon": -56.15,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -34.91,
+          "lon": -56.15,
+          "label": "Montevideo · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Montevideo – Pocitos",
+        "detail": "Coordenadas aproximadas: -34.9100, -56.1500",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "piriapolis",
+    "name": "Piriápolis",
+    "country": "UY",
+    "countryName": "Uruguay",
+    "region": "Maldonado",
+    "locality": "Piriápolis",
+    "location": "Piriápolis, Maldonado",
+    "coordinates": {
+      "lat": -34.864,
+      "lon": -55.276
+    },
+    "references": {
+      "coordinatesLabel": "-34.8640, -55.2760",
+      "description": "Piriápolis (Maldonado), sobre el Río de la Plata."
+    },
+    "hero": {
+      "badge": "Piriápolis · Uruguay",
+      "title": "Kitesurf",
+      "accent": "en Piriápolis",
+      "lead": "Balneario del departamento de Maldonado.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Maldonado",
+        "description": "Piriápolis es un balneario del departamento de Maldonado, sobre el Río de la Plata."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -34.864,
+      "longitude": -55.276
+    },
+    "map": {
+      "view": {
+        "lat": -34.864,
+        "lon": -55.276,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -34.864,
+          "lon": -55.276,
+          "label": "Piriápolis · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Piriápolis – Piriápolis",
+        "detail": "Coordenadas aproximadas: -34.8640, -55.2760",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "cuesta-del-viento",
+    "name": "Dique Cuesta del Viento",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "San Juan",
+    "locality": "Rodeo",
+    "location": "Rodeo, San Juan",
+    "coordinates": {
+      "lat": -30.27,
+      "lon": -69.08
+    },
+    "references": {
+      "coordinatesLabel": "-30.2700, -69.0800",
+      "description": "Dique Cuesta del Viento, Rodeo (San Juan)."
+    },
+    "hero": {
+      "badge": "Rodeo · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Dique Cuesta del Viento",
+      "lead": "Lago de montaña con viento fuerte la mayor parte del año.",
+      "tags": [
+        "Dirección sin confirmar",
+        "Viento fuerte"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Más de 300 días de viento",
+        "description": "Según Argentina.travel, el viento supera los 20 nudos más de 300 días al año."
+      },
+      {
+        "title": "Mejor época",
+        "description": "El mejor viento suele darse de mediados de octubre a principios de mayo; suele llegar por la tarde y en ráfagas."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -30.27,
+      "longitude": -69.08
+    },
+    "map": {
+      "view": {
+        "lat": -30.27,
+        "lon": -69.08,
+        "zoom": 12
+      },
+      "markers": [
+        {
+          "lat": -30.27,
+          "lon": -69.08,
+          "label": "Dique Cuesta del Viento · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 14 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 14 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 14,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Dique Cuesta del Viento – Rodeo",
+        "detail": "Coordenadas aproximadas: -30.2700, -69.0800",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "ullum",
+    "name": "Dique Ullum",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "San Juan",
+    "locality": "Ullum",
+    "location": "Ullum, San Juan",
+    "coordinates": {
+      "lat": -31.47,
+      "lon": -68.7
+    },
+    "references": {
+      "coordinatesLabel": "-31.4700, -68.7000",
+      "description": "Dique Ullum, cerca de la ciudad de San Juan."
+    },
+    "hero": {
+      "badge": "Ullum · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Dique Ullum",
+      "lead": "Embalse cercano a la capital sanjuanina.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Cerca de San Juan",
+        "description": "El dique Ullum está cerca de la capital de la provincia de San Juan."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -31.47,
+      "longitude": -68.7
+    },
+    "map": {
+      "view": {
+        "lat": -31.47,
+        "lon": -68.7,
+        "zoom": 12
+      },
+      "markers": [
+        {
+          "lat": -31.47,
+          "lon": -68.7,
+          "label": "Dique Ullum · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Dique Ullum – Ullum",
+        "detail": "Coordenadas aproximadas: -31.4700, -68.7000",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "san-roque",
+    "name": "Lago San Roque",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Córdoba",
+    "locality": "Villa Carlos Paz",
+    "location": "Villa Carlos Paz, Córdoba",
+    "coordinates": {
+      "lat": -31.38,
+      "lon": -64.47
+    },
+    "references": {
+      "coordinatesLabel": "-31.3800, -64.4700",
+      "description": "Lago San Roque, Villa Carlos Paz (Córdoba)."
+    },
+    "hero": {
+      "badge": "Villa Carlos Paz · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Lago San Roque",
+      "lead": "Lago serrano junto a Villa Carlos Paz.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Sierras de Córdoba",
+        "description": "El lago San Roque está junto a Villa Carlos Paz, en las sierras de Córdoba."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -31.38,
+      "longitude": -64.47
+    },
+    "map": {
+      "view": {
+        "lat": -31.38,
+        "lon": -64.47,
+        "zoom": 12
+      },
+      "markers": [
+        {
+          "lat": -31.38,
+          "lon": -64.47,
+          "label": "Lago San Roque · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Lago San Roque – Villa Carlos Paz",
+        "detail": "Coordenadas aproximadas: -31.3800, -64.4700",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "monte-hermoso",
+    "name": "Monte Hermoso",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Buenos Aires",
+    "locality": "Monte Hermoso",
+    "location": "Monte Hermoso, Buenos Aires",
+    "coordinates": {
+      "lat": -38.9833,
+      "lon": -61.2833
+    },
+    "references": {
+      "coordinatesLabel": "-38.9833, -61.2833",
+      "description": "Monte Hermoso, costa atlántica del sudoeste bonaerense."
+    },
+    "hero": {
+      "badge": "Monte Hermoso · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Monte Hermoso",
+      "lead": "Balneario atlántico del sudoeste bonaerense.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Costa atlántica",
+        "description": "Monte Hermoso es un balneario del sudoeste de la provincia de Buenos Aires, sobre el Atlántico."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -38.9833,
+      "longitude": -61.2833
+    },
+    "map": {
+      "view": {
+        "lat": -38.9833,
+        "lon": -61.2833,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -38.9833,
+          "lon": -61.2833,
+          "label": "Monte Hermoso · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Monte Hermoso – Monte Hermoso",
+        "detail": "Coordenadas aproximadas: -38.9833, -61.2833",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "las-grutas",
+    "name": "Las Grutas",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Río Negro",
+    "locality": "Las Grutas",
+    "location": "Las Grutas, Río Negro",
+    "coordinates": {
+      "lat": -40.81,
+      "lon": -65.09
+    },
+    "references": {
+      "coordinatesLabel": "-40.8100, -65.0900",
+      "description": "Las Grutas, golfo San Matías (Río Negro)."
+    },
+    "hero": {
+      "badge": "Las Grutas · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Las Grutas",
+      "lead": "Balneario patagónico del golfo San Matías.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Golfo San Matías",
+        "description": "Las Grutas es un balneario de la costa atlántica de Río Negro."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -40.81,
+      "longitude": -65.09
+    },
+    "map": {
+      "view": {
+        "lat": -40.81,
+        "lon": -65.09,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -40.81,
+          "lon": -65.09,
+          "label": "Las Grutas · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Las Grutas – Las Grutas",
+        "detail": "Coordenadas aproximadas: -40.8100, -65.0900",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "puerto-madryn",
+    "name": "Puerto Madryn",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Chubut",
+    "locality": "Puerto Madryn",
+    "location": "Puerto Madryn, Chubut",
+    "coordinates": {
+      "lat": -42.7692,
+      "lon": -65.0385
+    },
+    "references": {
+      "coordinatesLabel": "-42.7692, -65.0385",
+      "description": "Puerto Madryn, golfo Nuevo (Chubut)."
+    },
+    "hero": {
+      "badge": "Puerto Madryn · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Puerto Madryn",
+      "lead": "Costa del golfo Nuevo, en la Patagonia.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Golfo Nuevo",
+        "description": "Puerto Madryn está sobre el golfo Nuevo, en la costa de Chubut."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -42.7692,
+      "longitude": -65.0385
+    },
+    "map": {
+      "view": {
+        "lat": -42.7692,
+        "lon": -65.0385,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -42.7692,
+          "lon": -65.0385,
+          "label": "Puerto Madryn · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Puerto Madryn – Puerto Madryn",
+        "detail": "Coordenadas aproximadas: -42.7692, -65.0385",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "mar-del-plata",
+    "name": "Mar del Plata",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Buenos Aires",
+    "locality": "Mar del Plata",
+    "location": "Mar del Plata, Buenos Aires",
+    "coordinates": {
+      "lat": -38.07,
+      "lon": -57.53
+    },
+    "references": {
+      "coordinatesLabel": "-38.0700, -57.5300",
+      "description": "Punta Mogotes, Mar del Plata (Buenos Aires)."
+    },
+    "hero": {
+      "badge": "Mar del Plata · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Mar del Plata",
+      "lead": "Costa atlántica de la ciudad balnearia más grande del país.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Costa atlántica",
+        "description": "Mar del Plata es una ciudad balnearia sobre el Atlántico, en la provincia de Buenos Aires."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -38.07,
+      "longitude": -57.53
+    },
+    "map": {
+      "view": {
+        "lat": -38.07,
+        "lon": -57.53,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -38.07,
+          "lon": -57.53,
+          "label": "Mar del Plata · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Mar del Plata – Mar del Plata",
+        "detail": "Coordenadas aproximadas: -38.0700, -57.5300",
+        "icon": "location"
+      }
+    ],
+    "verified": false
+  },
+  {
+    "id": "villa-gesell",
+    "name": "Villa Gesell",
+    "country": "AR",
+    "countryName": "Argentina",
+    "region": "Buenos Aires",
+    "locality": "Villa Gesell",
+    "location": "Villa Gesell, Buenos Aires",
+    "coordinates": {
+      "lat": -37.264,
+      "lon": -56.973
+    },
+    "references": {
+      "coordinatesLabel": "-37.2640, -56.9730",
+      "description": "Villa Gesell, costa atlántica bonaerense."
+    },
+    "hero": {
+      "badge": "Villa Gesell · Argentina",
+      "title": "Kitesurf",
+      "accent": "en Villa Gesell",
+      "lead": "Balneario sobre el Atlántico bonaerense.",
+      "tags": [
+        "Dirección sin confirmar"
+      ]
+    },
+    "highlights": [
+      {
+        "title": "Costa atlántica",
+        "description": "Villa Gesell es un balneario sobre el Atlántico, en la provincia de Buenos Aires."
+      },
+      {
+        "title": "Viento",
+        "description": "La dirección ideal de este spot todavía no está confirmada: por ahora solo evaluamos la fuerza del viento."
+      },
+      {
+        "title": "Recomendación",
+        "description": "Para la primera vez, navegá con una escuela local y confirmá las condiciones en la orilla."
+      }
+    ],
+    "wind": {
+      "latitude": -37.264,
+      "longitude": -56.973
+    },
+    "map": {
+      "view": {
+        "lat": -37.264,
+        "lon": -56.973,
+        "zoom": 13
+      },
+      "markers": [
+        {
+          "lat": -37.264,
+          "lon": -56.973,
+          "label": "Villa Gesell · referencia del spot"
+        }
+      ]
+    },
+    "forecast": {
+      "criteriaText": "Criterio: más de 12 nudos. La dirección ideal de este spot todavía no está confirmada, por ahora solo se evalúa la fuerza del viento.",
+      "detailText": "Viento sostenido > 12 nudos dentro de la ventana de luz solar. Dirección ideal sin confirmar para este spot. La lluvia y la falta de luz reducen la seguridad y la visibilidad.",
+      "preferredDirections": [],
+      "minPlayableKts": 12,
+      "maxPrecipMm": 3,
+      "summerWindow": {
+        "startHour": 7,
+        "endHour": 20
+      },
+      "winterWindow": {
+        "startHour": 9,
+        "endHour": 18
+      },
+      "anyDirection": true
+    },
+    "security": {
+      "intro": "Reglas generales de kitesurf. Cada spot tiene sus propias normas y zonas habilitadas: consultá a escuelas y autoridades locales antes de navegar.",
+      "steps": [
+        {
+          "title": "Antes de armar",
+          "items": [
+            "Confirmá el viento real en la orilla y que la dirección sea la esperada.",
+            "Revisá líneas, barra, leash y el sistema de seguridad del kite.",
+            "Elegí una zona de despegue libre de gente, obstáculos y cables."
+          ]
+        },
+        {
+          "title": "Durante la sesión",
+          "items": [
+            "Mantené distancia de bañistas, embarcaciones y de la costa.",
+            "Respetá las reglas de prioridad entre riders.",
+            "Si el viento cambia o se acerca una tormenta, volvé a tierra de inmediato."
+          ]
+        },
+        {
+          "title": "Al cerrar",
+          "items": [
+            "Bajá el kite en una zona despejada y enrollá las líneas.",
+            "Avisá a otros riders y a la escuela o club local si cambian las condiciones.",
+            "Respetá las normas y las zonas habilitadas del lugar."
+          ]
+        }
+      ]
+    },
+    "contacts": [
+      {
+        "label": "Ubicación",
+        "value": "Villa Gesell – Villa Gesell",
+        "detail": "Coordenadas aproximadas: -37.2640, -56.9730",
+        "icon": "location"
+      }
+    ],
+    "verified": false
   }
 ]
