@@ -19,7 +19,7 @@ const streaks = [
 </template>
 
 <style scoped>
-.wind { position: absolute; inset: 0; transform: scaleX(var(--w-dir, 1)); opacity: var(--w-streak, 0.15); }
+.wind { position: fixed; inset: 0; z-index: 44; transform: scaleX(var(--w-dir, 1)); opacity: var(--w-streak, 0.15); }
 .st { position: absolute; left: 0; height: auto; stroke: #0b0b0b; stroke-width: 2.4; stroke-linecap: round; transform: translateX(-30vw); animation: streak calc((var(--w-period, 5s) * 3.2 + 4s) / var(--k)) linear var(--d) infinite; }
 @keyframes streak { 0% { transform: translateX(-30vw); opacity: 0; } 10%, 85% { opacity: 1; } 100% { transform: translateX(115vw); opacity: 0; } }
 </style>

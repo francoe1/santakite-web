@@ -61,6 +61,8 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       <Icon :name="item.icon" :size="22" />
       <span>{{ item.label }}</span>
     </a>
+    <!-- Punto de anclaje de los personajes en el celular: va pegado al borde superior del menú -->
+    <div id="mood-slot" class="mood-slot" aria-hidden="true"></div>
   </nav>
 </template>
 
@@ -101,4 +103,5 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 .tab:last-child { border-right: 0; }
 .tab.on { background: var(--volt); color: var(--ink); }
 @media (min-width: 1024px) { .tabbar { display: none; } }
+.mood-slot { position: absolute; left: 0; right: 0; top: calc(var(--bw) * -1); height: 0; pointer-events: none; }
 </style>
