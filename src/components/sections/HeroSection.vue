@@ -16,7 +16,7 @@ const props = defineProps({
   error: { type: String, default: '' },
   fetchedAt: { type: Number, default: 0 },
 })
-defineEmits(['reload', 'select-day'])
+defineEmits(['reload', 'select-day', 'share'])
 
 const current = computed(() => props.forecast.current)
 const loading = computed(() => (props.status === 'loading' || props.status === 'idle') && !current.value)
@@ -67,6 +67,9 @@ const sub = computed(() => {
             <span class="again mono">↻ otro</span>
           </button>
           <p v-if="sub" class="sub mono">{{ sub }}</p>
+          <button type="button" class="btn btn--sm share-btn" :disabled="loading || failed" @click="$emit('share', joke)">
+            <Icon name="share" :size="18" />Compartir
+          </button>
           <p v-if="forecast.assessment.detail && !loading" class="sr-only">{{ forecast.assessment.detail }}</p>
         </div>
 
@@ -160,6 +163,7 @@ const sub = computed(() => {
 .note .hand { font-size: clamp(1.25rem, 1rem + 1.4vw, 2rem); line-height: 1.1; }
 .again { font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.7; align-self: center; }
 .note:hover .again { opacity: 1; }
+.share-btn { margin-top: 16px; }
 .sub { margin-top: 14px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
 
 /* ---- Datos en vivo ---- */
