@@ -11,6 +11,7 @@ import HeroSection from '@/components/sections/HeroSection.vue'
 import TodayPicker from '@/components/sections/TodayPicker.vue'
 import SpotGuide from '@/components/sections/SpotGuide.vue'
 import MapSection from '@/components/sections/MapSection.vue'
+import ShareSheet from '@/components/sections/ShareSheet.vue'
 import ForecastDetail from '@/components/forecast/ForecastDetail.vue'
 import ForecastSection from '@/components/sections/ForecastSection.vue'
 import SecuritySection from '@/components/sections/SecuritySection.vue'
@@ -20,6 +21,12 @@ const site = useSiteStore()
 const forecastStore = useForecastStore()
 const spot = computed(() => site.currentSpot)
 const selectedDate = ref(null)
+const shareOpen = ref(false)
+const shareJoke = ref('')
+const openShare = (joke) => {
+  shareJoke.value = joke
+  shareOpen.value = true
+}
 const { forecast, status, error, entry, reload } = useSpotForecast(() => site.currentSpot)
 
 // El spot elegido queda en la URL (?spot=...) para poder compartirlo.
@@ -44,7 +51,7 @@ useReveal()
   <SiteHeader :nav-items="site.navItems" :spots="site.spots" :current-spot-id="site.currentSpotId" @select-spot="site.setCurrentSpotId" />
   <Ticker :spots="site.spots" />
   <main v-if="spot">
-    <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select-day="selectedDate = $event.date" />
+    <HeroSection :spot="spot" :forecast="forecast" :status="status" :error="error" :fetched-at="entry.fetchedAt" @reload="reload" @select-day="selectedDate = $event.date" @share="openShare" />
     <TodayPicker :spots="site.spots" :current-id="site.currentSpotId" @select="site.setCurrentSpotId" />
     <SpotGuide :spot="spot" />
     <MapSection :spot="spot" />
@@ -53,5 +60,6 @@ useReveal()
     <ContactSection :contacts="spot.contacts" :spot="spot" />
   </main>
   <ForecastDetail v-if="spot" :day="selectedDay" :cfg="forecast.cfg" :detail-text="spot.forecast?.detailText" @close="selectedDate = null" />
+  <ShareSheet v-if="spot" v-model="shareOpen" :spot="spot" :forecast="forecast" :joke="shareJoke" />
   <SiteFooter :nav-items="site.navItems.filter((n) => n.id !== 'hoy')" :spots="site.spots" @select-spot="site.setCurrentSpotId" />
 </template>
